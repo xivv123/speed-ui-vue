@@ -1,0 +1,294 @@
+@use '../settings';
+@use '../tools';
+
+/*!
+ * ress.css • v2.0.4
+ * MIT License
+ * github.com/filipelinhares/ress
+ */
+
+@if (settings.$reset) {
+  @include tools.layer('reset') {
+    /* # =================================================================
+       # 全局选择器
+       # ================================================================= */
+
+    html {
+      box-sizing: border-box;
+      overflow-y: scroll; /* 所有不使用覆盖滚动条的浏览器 */
+      -webkit-text-size-adjust: 100%; /* 防止iOS设备方向改变后字体大小调整 */
+      word-break: normal;
+      -moz-tab-size: 4;
+      tab-size: 4;
+    }
+
+    *,
+    ::before,
+    ::after {
+      background-repeat: no-repeat; /* 为所有元素和伪元素设置 `background-repeat: no-repeat` */
+      box-sizing: inherit;
+    }
+
+    ::before,
+    ::after {
+      text-decoration: inherit; /* 继承 text-decoration 和 vertical-align 到 ::before 和 ::after 伪元素 */
+      vertical-align: inherit;
+    }
+
+    * {
+      padding: 0; /* 重置所有元素的 `padding` 和 `margin` */
+      margin: 0;
+    }
+
+    /* # =================================================================
+       # 通用元素
+       # ================================================================= */
+
+    hr {
+      overflow: visible; /* 在 Edge 和 IE 中显示溢出内容 */
+      height: 0; /* 在 Firefox 中添加正确的盒模型 */
+    }
+
+    details,
+    main {
+      display: block; /* 在 IE 中一致地渲染 `main` 元素 */
+    }
+
+    summary {
+      display: list-item; /* 在所有浏览器中添加正确的显示方式 */
+    }
+
+    small {
+      font-size: 80%; /* 在 `small` 元素中设置字体大小为 80% */
+    }
+
+    [hidden] {
+      display: none; /* 在 IE 中添加正确的显示方式 */
+    }
+
+    abbr[title] {
+      border-bottom: none; /* 移除 Chrome 57 中的底部边框 */
+      /* 在 Chrome、Edge、IE、Opera 和 Safari 中添加正确的文本装饰 */
+      text-decoration: underline;
+      text-decoration: underline dotted;
+    }
+
+    a {
+      background-color: transparent; /* 移除 IE 10 中活动链接的灰色背景 */
+    }
+
+    a:active,
+    a:hover {
+      outline-width: 0; /* 移除所有浏览器中悬停时的轮廓 */
+    }
+
+    code,
+    kbd,
+    pre,
+    samp {
+      font-family: monospace, monospace; /* 指定代码元素的字体族 */
+    }
+
+    pre {
+      font-size: 1em; /* 修正所有浏览器中奇怪的 `em` 字体大小 */
+    }
+
+    b,
+    strong {
+      font-weight: bolder; /* 在 Chrome、Edge 和 Safari 中添加正确的字体粗细 */
+    }
+
+    /* https://gist.github.com/unruthless/413930 */
+    sub,
+    sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    sub {
+      bottom: -0.25em;
+    }
+
+    sup {
+      top: -0.5em;
+    }
+
+    /* # =================================================================
+       # 表单
+       # ================================================================= */
+
+    input {
+      border-radius: 0;
+    }
+
+    /* 替换禁用元素中的指针光标 */
+    [disabled] {
+      cursor: default;
+    }
+
+    [type='number']::-webkit-inner-spin-button,
+    [type='number']::-webkit-outer-spin-button {
+      height: auto; /* 修正 Chrome 中增减按钮的光标样式 */
+    }
+
+    [type='search'] {
+      -webkit-appearance: textfield; /* 修正 Chrome 和 Safari 中的奇怪外观 */
+      outline-offset: -2px; /* 修正 Safari 中的轮廓样式 */
+    }
+
+    [type='search']::-webkit-search-cancel-button,
+    [type='search']::-webkit-search-decoration {
+      -webkit-appearance: none; /* 移除 macOS 上 Chrome 和 Safari 中的内边距 */
+    }
+
+    textarea {
+      overflow: auto; /* Internet Explorer 11+ */
+      resize: vertical; /* 指定 textarea 的可调整大小方向 */
+    }
+
+    button,
+    input,
+    optgroup,
+    select,
+    textarea {
+      font: inherit; /* 指定表单元素的字体继承 */
+    }
+
+    optgroup {
+      font-weight: bold; /* 恢复被前一个规则取消设置的字体粗细 */
+    }
+
+    button {
+      overflow: visible; /* 解决 IE 8/9/10/11 中 `overflow` 设置为 `hidden` 的问题 */
+    }
+
+    button,
+    select {
+      text-transform: none; /* Firefox 40+, Internet Explorer 11- */
+    }
+
+    /* 为按钮元素应用指针光标 */
+    button,
+    [type='button'],
+    [type='reset'],
+    [type='submit'],
+    [role='button'] {
+      cursor: pointer;
+      color: inherit;
+    }
+
+    /* 移除 Firefox 4+ 中的内边距和边框 */
+    button::-moz-focus-inner,
+    [type='button']::-moz-focus-inner,
+    [type='reset']::-moz-focus-inner,
+    [type='submit']::-moz-focus-inner {
+      border-style: none;
+      padding: 0;
+    }
+
+    /* 替换上面边框重置中移除的焦点样式 */
+    button:-moz-focusring,
+    [type='button']::-moz-focus-inner,
+    [type='reset']::-moz-focus-inner,
+    [type='submit']::-moz-focus-inner {
+      outline: 1px dotted ButtonText;
+    }
+
+    button,
+    html [type="button"], /* 防止 WebKit 错误，该错误会破坏 Android 4 中原生的 `audio` 和 `video` 控件 */
+    [type="reset"],
+    [type="submit"] {
+      -webkit-appearance: button; /* 修正 iOS 中无法样式化可点击类型的问题 */
+    }
+
+    /* 移除所有浏览器中的默认按钮样式 */
+    button,
+    input,
+    select,
+    textarea {
+      background-color: transparent;
+      border-style: none;
+    }
+
+    /* 将 select 样式设置为标准输入框样式 */
+    select {
+      -moz-appearance: none; /* Firefox 36+ */
+      -webkit-appearance: none; /* Chrome 41+ */
+    }
+
+    select::-ms-expand {
+      display: none; /* Internet Explorer 11+ */
+    }
+
+    select::-ms-value {
+      color: currentColor; /* Internet Explorer 11+ */
+    }
+
+    legend {
+      border: 0; /* 修正 IE 8/9/10/11 中 `color` 不被继承的问题 */
+      color: inherit; /* 修正 IE 中从 `fieldset` 元素继承颜色的问题 */
+      display: table; /* 修正 Edge 和 IE 中的文本换行 */
+      max-width: 100%; /* 修正 Edge 和 IE 中的文本换行 */
+      white-space: normal; /* 修正 Edge 和 IE 中的文本换行 */
+      max-width: 100%; /* 修正 Edge 18- 和 IE 中的文本换行 */
+    }
+
+    ::-webkit-file-upload-button {
+      /* 修正 iOS 和 Safari 中无法样式化可点击类型的问题 */
+      -webkit-appearance: button;
+      color: inherit;
+      font: inherit; /* 在 Chrome 和 Safari 中将字体属性更改为 `inherit` */
+    }
+
+    // 移除 EdgeHTML 中的默认密码图标 (#537)
+    ::-ms-clear,
+    ::-ms-reveal {
+      display: none;
+    }
+
+    /* # =================================================================
+       # 指定媒体元素样式
+       # ================================================================= */
+
+    img {
+      border-style: none; /* 移除 IE 8/9/10 中在 `a` 元素内部时的边框 */
+    }
+
+    /* 在 Chrome、Firefox 和 Opera 中添加正确的垂直对齐 */
+    progress {
+      vertical-align: baseline;
+    }
+
+    /* # =================================================================
+       # 无障碍访问
+       # ================================================================= */
+
+    /* 对屏幕隐藏内容但不对屏幕阅读器隐藏 */
+    @media screen {
+      [hidden~='screen'] {
+        display: inherit;
+      }
+      [hidden~='screen']:not(:active):not(:focus):not(:target) {
+        position: absolute !important;
+        clip: rect(0 0 0 0) !important;
+      }
+    }
+
+    /* 指定更新元素的进度光标 */
+    [aria-busy='true'] {
+      cursor: progress;
+    }
+
+    /* 指定触发元素的指针光标 */
+    [aria-controls] {
+      cursor: pointer;
+    }
+
+    /* 指定禁用、不可编辑或其他不可操作元素的无样式光标 */
+    [aria-disabled='true'] {
+      cursor: default;
+    }
+  }
+}

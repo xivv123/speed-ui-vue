@@ -1,0 +1,72 @@
+@use 'sass:selector'
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *
+
+@include tools.layer('components')
+  .sp-input-num
+    $root: &
+    $control-root: #{selector.append($root, '__control')}
+
+    input[type="number"]
+      -moz-appearance: textfield
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button
+        -webkit-appearance: none
+
+    .sp-field
+      &:has(.sp-field__prepend-inner > .sp-input-num__control:first-child)
+        padding-inline-start: 0
+
+      &:has(.sp-field__append-inner > .sp-input-num__control:last-child)
+        padding-inline-end: 0
+
+    .sp-field__prepend-inner:has(.sp-input-num__control)
+      > .sp-icon
+        margin-inline-end: 4px
+
+      > hr + .sp-icon,
+      > .sp-input-num__control + .sp-icon
+        margin-inline: 8px 0
+
+    .sp-field__append-inner:has(.sp-input-num__control)
+      > .sp-icon
+        margin-inline-start: 4px
+
+      > .sp-icon:has(+ hr),
+      > .sp-icon:has(+ .sp-input-num__control)
+        margin-inline: 0 8px
+
+    .sp-field__clearable:has(+ .sp-field__append-inner > hr:first-child)
+      margin-inline-end: 8px
+
+    &--inset
+      .sp-divider
+        height: $input-num-inset-divider-size
+        width: $input-num-inset-divider-size
+        align-self: center
+
+    &--split
+      .sp-field__input
+        text-align: center
+
+    &--stacked
+      #{$control-root}
+        flex-direction: column-reverse
+        .sp-btn
+          flex: 1
+
+    &--hide-input
+      .sp-field
+        flex: none
+        &__input
+          width: 0
+          padding-inline: 0
+
+    &__control
+      display: flex
+      height: 100%
+
+      .sp-btn
+        background-color: transparent
+        border-radius: 0

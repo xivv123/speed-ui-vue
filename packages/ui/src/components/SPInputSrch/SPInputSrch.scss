@@ -1,0 +1,149 @@
+@use '@theme/src/common/var' as *;
+// 使用 @use 代替已弃用的 @import
+@use './variables' as *;
+
+.sp-input-srch {
+  position: relative;
+
+  &__control {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    white-space: nowrap;
+
+    .sp-btn {
+      background-color: transparent;
+      border-radius: 0;
+      min-width: auto;
+      padding: 0 12px;
+      white-space: nowrap;
+    }
+  }
+
+  &__search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: auto !important;
+    height: 100%;
+    padding: 0 12px !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    white-space: nowrap !important;
+
+    .sp-icon {
+      font-size: $sp-input-srch-search-btn-icon-size;
+    }
+  }
+
+  &__menu-content {
+    border-radius: $sp-input-srch-menu-border-radius;
+    box-shadow: $sp-input-srch-menu-box-shadow;
+    border: $sp-input-srch-menu-border;
+  }
+
+  &__suggestion-icon {
+    margin-inline-end: $sp-input-srch-suggestion-icon-margin;
+    font-size: $sp-input-srch-suggestion-icon-size;
+    opacity: $sp-input-srch-suggestion-icon-opacity;
+  }
+
+  &__suggestion-category {
+    margin-inline-start: $sp-input-srch-suggestion-category-margin;
+    font-size: $sp-input-srch-suggestion-category-font-size;
+    opacity: $sp-input-srch-suggestion-category-opacity;
+    font-weight: $sp-input-srch-suggestion-category-font-weight;
+  }
+
+  // 搜索按钮在前面时的样式
+  &--prepend {
+    .sp-field--prepended {
+      padding-inline-start: 0;
+    }
+
+    .sp-field__prepend-inner {
+      flex-shrink: 0;
+      max-width: none;
+      width: auto;
+    }
+
+    .sp-input-srch__control {
+      border-inline-end: none;
+    }
+  }
+
+  // 搜索按钮在后面时的样式
+  &--append {
+    .sp-field--appended {
+      padding-inline-end: 0;
+    }
+
+    .sp-field__append-inner {
+      flex-shrink: 0 !important;
+      max-width: none !important;
+      width: auto !important;
+      min-width: auto !important;
+      flex: none !important;
+    }
+
+    // 强制覆盖任何可能的宽度限制
+    .sp-field__append-inner .sp-btn,
+    .sp-field__append-inner .sp-input-srch__search-btn {
+      max-width: none !important;
+      width: auto !important;
+      min-width: auto !important;
+      white-space: nowrap !important;
+      overflow: visible !important;
+    }
+
+    .sp-input-srch__control {
+      border-inline-start: none;
+    }
+  }
+
+  // 紧凑模式
+  &--inset {
+    .sp-input-srch__control {
+      margin: $sp-input-srch-inset-control-margin;
+    }
+
+    .sp-input-srch__search-btn {
+      padding: $sp-input-srch-search-btn-inset-padding !important;
+    }
+  }
+
+  // 菜单激活状态
+  &--menu-active {
+    .sp-text-field__field {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+}
+
+// 建议列表项的特殊样式
+.sp-list-item {
+  .sp-input-srch__suggestion-icon + .sp-list-item__content {
+    margin-inline-start: 0;
+  }
+
+  .sp-input-srch__suggestion-category {
+    color: var(--sp-theme-primary);
+    background: var(--sp-theme-primary-lighten-5);
+    padding: $sp-input-srch-suggestion-category-padding;
+    border-radius: $sp-input-srch-suggestion-category-border-radius;
+  }
+}
+
+// 深色主题适配
+[data-theme='dark'] {
+  .sp-input-srch__menu-content {
+    background: $sp-input-srch-menu-dark-background;
+    border-color: $sp-input-srch-menu-dark-border;
+  }
+
+  .sp-input-srch__suggestion-category {
+    // background: var(--sp-theme-primary-darken-3);
+    color: var(--sp-theme-primary-lighten-2);
+  }
+}

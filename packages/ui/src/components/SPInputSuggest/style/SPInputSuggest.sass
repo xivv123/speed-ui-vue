@@ -1,0 +1,99 @@
+@use 'sass:selector'
+@use 'sass:math'
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_vars' as *
+@use '../../SPSelect/style/mixins' as *
+
+@include tools.layer('components')
+  .sp-input-suggest
+    @include select-compact-tag-label
+
+    .sp-field
+      .sp-text-field__prefix,
+      .sp-text-field__suffix,
+      .sp-field__input,
+      &.sp-field
+        cursor: text
+
+    .sp-field
+      .sp-field__input
+        > input
+          flex: 1 1
+
+    .sp-field
+      input
+        min-width: $input-suggest-focused-input
+
+      &:not(.sp-field--focused)
+        input
+          min-width: 0
+
+    .sp-field--dirty
+      .sp-input-suggest__selection
+        margin-inline-end: $input-suggest-selection-gap
+
+    .sp-input-suggest__selection-text
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+  .sp-input-suggest
+    &__content
+      overflow: hidden
+
+      @include tools.elevation($input-suggest-content-elevation)
+      @include tools.rounded($input-suggest-content-border-radius)
+
+    &__mask
+      background: rgb(var(--sp-theme-surface-light))
+
+    &__selection
+      display: inline-flex
+      align-items: center
+      height: calc($inputinner-font-size * $inputinner-line-height)
+      letter-spacing: inherit
+      line-height: inherit
+      max-width: calc(100% - $input-suggest-selection-gap - $input-suggest-input-buffer)
+
+    &__selection
+      &:first-child
+        margin-inline-start: 0
+
+    &--selecting-index
+      .sp-input-suggest__selection
+        opacity: var(--sp-medium-emphasis-opacity)
+
+        &--selected
+          opacity: 1
+
+      .sp-field__input > input
+        caret-color: transparent
+
+    &--single:not(.sp-input-suggest--selection-slot)
+      &.sp-text-field input
+        flex: 1 1
+        position: absolute
+        left: 0
+        right: 0
+        width: 100%
+        padding-inline: inherit
+
+      .sp-field--active
+        input
+          transition: none
+
+      .sp-field--dirty:not(.sp-field--focused)
+        input
+          opacity: 0
+
+      .sp-field--focused
+        .sp-input-suggest__selection
+          opacity: 0
+
+    &__menu-icon
+      margin-inline-start: 4px
+      transition: $input-suggest-transition
+
+      .sp-input-suggest--active-menu &
+        transform: rotate(180deg)

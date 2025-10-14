@@ -1,0 +1,84 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+// SPCollapse
+$collapse-background: rgb(var(--sp-theme-surface)) !default;
+$collapse-border-color: settings.$border-color-root !default;
+$collapse-border-radius: settings.$border-radius-root !default;
+$collapse-border-style: settings.$border-style-root !default;
+$collapse-border-width: thin !default;
+$collapse-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-high-emphasis-opacity)
+) !default;
+
+// SPCollapseItem
+$collapse-item-background: transparent !default;
+$collapse-item-border-color: rgba(var(--sp-theme-outline), 0.12) !default;
+$collapse-item-border-width: 0 0 thin 0 !default;
+$collapse-item-disabled-opacity: 0.6 !default;
+$collapse-item-transition-duration: 0.28s !default;
+$collapse-item-transition-property: background-color, border-color !default;
+$collapse-item-transition-timing-function: settings.$standard-easing !default;
+
+// SPCollapseItem Header
+$collapse-item-header-background: transparent !default;
+$collapse-item-header-background-hover: rgba(var(--sp-theme-on-surface), 0.04) !default;
+$collapse-item-header-background-active: rgba(var(--sp-theme-primary), 0.08) !default;
+$collapse-item-header-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-high-emphasis-opacity)
+) !default;
+$collapse-item-header-color-active: rgb(var(--sp-theme-primary)) !default;
+$collapse-item-header-font-size: tools.map-deep-get(
+  settings.$typography,
+  'subtitle-1',
+  'size'
+) !default;
+$collapse-item-header-font-weight: tools.map-deep-get(
+  settings.$typography,
+  'subtitle-1',
+  'weight'
+) !default;
+$collapse-item-header-line-height: tools.map-deep-get(
+  settings.$typography,
+  'subtitle-1',
+  'line-height'
+) !default;
+$collapse-item-header-min-height: 48px !default;
+$collapse-item-header-padding: 0 16px !default;
+
+// SPCollapseItem Icon
+$collapse-item-icon-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-medium-emphasis-opacity)
+) !default;
+$collapse-item-icon-color-active: rgb(var(--sp-theme-primary)) !default;
+$collapse-item-icon-size: 24px !default;
+$collapse-item-icon-margin: 0 8px !default;
+$collapse-item-expand-icon-transition-duration: 0.2s !default;
+$collapse-item-expand-icon-transition-property: transform !default;
+$collapse-item-expand-icon-transition-timing-function: settings.$standard-easing !default;
+
+// SPCollapseItem Content
+$collapse-item-content-background: transparent !default;
+$collapse-item-content-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-medium-emphasis-opacity)
+) !default;
+$collapse-item-content-padding: 16px !default;
+$collapse-item-content-font-size: tools.map-deep-get(
+  settings.$typography,
+  'body-2',
+  'size'
+) !default;
+$collapse-item-content-line-height: tools.map-deep-get(
+  settings.$typography,
+  'body-2',
+  'line-height'
+) !default;
+
+// SPCollapseItem Underline (uses SPDivider)
+// Make the underline a bit stronger than the default border for readability
+$collapse-item-underline-opacity: 0.24 !default;

@@ -1,0 +1,51 @@
+@use 'sass:math';
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+// Defaults
+$tag-background: rgb(var(--sp-theme-surface-variant)) !default;
+$tag-border-color: settings.$border-color-root !default;
+$tag-border-radius: map.get(settings.$rounded, 'pill') !default;
+$tag-border-style: settings.$border-style-root !default;
+$tag-border-thin-width: thin !default;
+$tag-border-width: 0 !default;
+$tag-close-size: 18px !default;
+$tag-color: rgb(var(--sp-theme-on-surface-variant)) !default;
+$tag-density: (
+  'default': 0,
+  'comfortable': -1,
+  'compact': -2,
+) !default;
+$tag-disabled-opacity: 0.3 !default;
+$tag-elevation: 1 !default;
+$tag-font-size: tools.map-deep-get(
+  settings.$typography,
+  'button',
+  'size'
+) !default;
+$tag-font-weight: 400 !default;
+$tag-height: 32px !default;
+$tag-icon-size-multiplier: calc(18 / 21) !default;
+$tag-label-border-radius: settings.$border-radius-root !default;
+$tag-max-width: 100% !default;
+$tag-overflow: hidden !default;
+$tag-padding-ratio: 2 + math.div(2, 3) !default;
+$tag-plain-opacity: 0.26 !default;
+$tag-filter-transition: 0.15s settings.$standard-easing !default;
+$tag-white-space: nowrap !default;
+
+$tag-sizes: (
+  'height': $tag-height,
+  'font-size': $tag-font-size,
+) !default;
+
+$tag-border: ($tag-border-color, $tag-border-style, $tag-border-width) !default;
+
+$tag-variants: (
+  $tag-background,
+  $tag-color,
+  $tag-elevation,
+  $tag-plain-opacity,
+  'sp-tag'
+) !default;

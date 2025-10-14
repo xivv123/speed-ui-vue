@@ -1,0 +1,10 @@
+@use '@theme/src/material/settings' as settings;
+
+// Defaults
+$select-content-border-radius: 4px !default;
+$select-content-elevation: 4 !default;
+$select-line-height: 1.75 !default;
+$select-transition: 0.2s settings.$standard-easing !default;
+$select-tag-control-min-height: null !default;
+$select-tag-margin-top: null !default;
+$select-tag-margin-bottom: null !default;

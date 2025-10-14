@@ -1,0 +1,159 @@
+@use 'sass:math';
+@use 'sass:selector';
+@use './_vars' as *;
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components') {
+  .sp-inputinner {
+    display: grid;
+    flex: $inputinner-flex;
+    font-size: $inputinner-font-size;
+    font-weight: $inputinner-font-weight;
+    line-height: $inputinner-line-height;
+
+    &--disabled {
+      pointer-events: none;
+    }
+
+    @at-root {
+      @include tools.density('sp-inputinner', $inputinner-density) using ($modifier) {
+        --sp-inputinner-control-height: #{$inputinner-control-height + $modifier};
+        --sp-inputinner-padding-top: #{16px + $modifier * 0.5};
+      }
+    }
+  }
+
+  .sp-inputinner--vertical {
+    grid-template-areas: 'append' 'control' 'prepend';
+    grid-template-rows: max-content auto max-content;
+    grid-template-columns: min-content;
+
+    .sp-inputinner__prepend {
+      margin-block-start: $inputinner-affix-margin-inside;
+    }
+
+    .sp-inputinner__append {
+      margin-block-end: $inputinner-affix-margin-inside;
+    }
+  }
+
+  .sp-inputinner--horizontal {
+    grid-template-areas: 'prepend control append' 'a messages b';
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+    grid-template-rows: 1fr auto;
+
+    .sp-inputinner__prepend {
+      margin-inline-end: $inputinner-affix-margin-inside;
+    }
+
+    .sp-inputinner__append {
+      margin-inline-start: $inputinner-affix-margin-inside;
+    }
+  }
+
+  .sp-inputinner__details {
+    align-items: flex-end;
+    display: flex;
+    font-size: $inputinner-details-font-size;
+    font-weight: $inputinner-details-font-weight;
+    grid-area: messages;
+    letter-spacing: $inputinner-details-letter-spacing;
+    line-height: $inputinner-details-line-height;
+    min-height: $inputinner-details-min-height;
+    padding-top: $inputinner-details-padding-above;
+    overflow: hidden;
+    justify-content: space-between;
+  }
+
+  .sp-inputinner__details,
+  .sp-inputinner__prepend,
+  .sp-inputinner__append {
+    > .sp-icon {
+      opacity: var(--sp-medium-emphasis-opacity);
+    }
+
+    .sp-inputinner--disabled &,
+    .sp-inputinner--error & {
+      > .sp-icon,
+      .sp-msgs {
+        opacity: 1;
+      }
+    }
+
+    .sp-inputinner--glow.sp-inputinner--focused & {
+      > .sp-icon {
+        opacity: 1;
+      }
+    }
+
+    .sp-inputinner--disabled & {
+      opacity: var(--sp-disabled-opacity);
+    }
+
+    .sp-inputinner--error:not(.sp-inputinner--disabled) & {
+      > .sp-icon,
+      .sp-msgs {
+        color: rgb(var(--sp-theme-error));
+      }
+    }
+  }
+
+  .sp-inputinner__prepend,
+  .sp-inputinner__append {
+    display: flex;
+    align-items: flex-start;
+    padding-top: var(--sp-inputinner-padding-top);
+
+    .sp-inputinner--center-affix & {
+      align-items: center;
+      padding-top: 0;
+    }
+  }
+
+  .sp-inputinner__prepend {
+    grid-area: prepend;
+  }
+
+  .sp-inputinner__append {
+    grid-area: append;
+  }
+
+  .sp-inputinner__control {
+    display: flex;
+    grid-area: control;
+  }
+
+  .sp-inputinner {
+    &--hide-spin-buttons {
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type='number'] {
+        -moz-appearance: textfield;
+      }
+    }
+
+    &--plain-underlined {
+      .sp-inputinner__prepend,
+      .sp-inputinner__append {
+        $this: &;
+        align-items: flex-start;
+
+        @at-root {
+          @include tools.density('sp-inputinner', $inputinner-density) using ($modifier) {
+            @at-root #{selector.append(&, $this)} {
+              padding-top: calc(
+                var(--sp-inputinner-padding-top) + #{math.max(
+                    0px,
+                    4px + $modifier * 0.25
+                  )}
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}

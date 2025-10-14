@@ -1,0 +1,51 @@
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+// SPMsgBar
+$msgbar-absolute-z-index: 1 !default;
+$msgbar-action-margin: 8px !default;
+$msgbar-border-radius: settings.$border-radius-root !default;
+$msgbar-plain-opacity: 0.62 !default;
+$msgbar-btn-padding: 0 8px !default;
+$msgbar-background: rgb(var(--sp-theme-surface-variant)) !default;
+$msgbar-color: rgb(var(--sp-theme-on-surface-variant)) !default;
+$msgbar-font-size: tools.map-deep-get(
+  settings.$typography,
+  'body-2',
+  'size'
+) !default;
+$msgbar-font-weight: tools.map-deep-get(
+  settings.$typography,
+  'body-2',
+  'weight'
+) !default;
+$msgbar-letter-spacing: tools.map-deep-get(
+  settings.$typography,
+  'body-2',
+  'letter-spacing'
+) !default;
+$msgbar-line-height: tools.map-deep-get(
+  settings.$typography,
+  'body-2',
+  'line-height'
+) !default;
+$msgbar-content-padding: 14px 16px !default;
+$msgbar-elevation: 6 !default;
+$msgbar-multi-line-wrapper-min-height: 68px !default;
+$msgbar-transition-scale: 0.8 !default;
+$msgbar-vertical-action-margin-bottom: 8px !default;
+$msgbar-wrapper-margin: 8px !default;
+$msgbar-wrapper-max-width: 672px !default;
+$msgbar-wrapper-min-height: 48px !default;
+$msgbar-wrapper-min-width: 344px !default;
+$msgbar-wrapper-padding: 0 !default;
+$msgbar-z-index: 10000 !default;
+
+// List
+$msgbar-variants: (
+  $msgbar-background,
+  $msgbar-color,
+  $msgbar-elevation,
+  $msgbar-plain-opacity,
+  'sp-msgbar'
+) !default;

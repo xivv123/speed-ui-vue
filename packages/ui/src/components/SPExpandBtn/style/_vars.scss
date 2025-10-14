@@ -1,0 +1,22 @@
+@use '@theme/src/material/settings' as settings;
+
+// SPExpandBtn 组件变量
+$expand-btn-height: 48px !default;
+$expand-btn-border-radius: 24px !default;
+$expand-btn-rectangle-border-radius: 8px !default;
+$expand-btn-collapsed-width: 48px !default;
+$expand-btn-expanded-width: 200px !default;
+$expand-btn-duration: 300ms !default;
+
+$expand-btn-background: rgb(var(--sp-theme-surface)) !default;
+$expand-btn-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !default;
+$expand-btn-box-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15) !default;
+
+$expand-btn-disabled-opacity: 0.6 !default;
+
+$expand-btn-transition-duration: 0.28s !default;
+$expand-btn-transition-timing: settings.$standard-easing !default;
+
+$expand-btn-fade-enter-duration: 0.18s !default;
+$expand-btn-fade-enter-delay: 0.12s !default;
+$expand-btn-fade-leave-duration: 0.08s !default;

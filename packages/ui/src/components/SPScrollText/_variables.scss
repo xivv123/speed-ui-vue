@@ -1,0 +1,22 @@
+@use '@theme/src/material/settings' as settings;
+
+// SPScrollText
+$scroll-text-font-size: 1rem !default;
+$scroll-text-line-height: 1.5 !default;
+$scroll-text-color: inherit !default;
+$scroll-text-background: transparent !default;
+$scroll-text-padding: 0 !default;
+$scroll-text-margin: 0 !default;
+
+// 动画相关
+$scroll-text-animation-timing-function: linear !default;
+$scroll-text-animation-fill-mode: forwards !default;
+
+// 容器样式
+$scroll-text-container-position: relative !default;
+$scroll-text-container-overflow: hidden !default;
+$scroll-text-container-white-space: nowrap !default;
+
+// 内容样式
+$scroll-text-content-display: inline-block !default;
+$scroll-text-content-will-change: transform !default;

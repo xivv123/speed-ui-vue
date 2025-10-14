@@ -1,0 +1,19 @@
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+@use './vars' as *
+
+@include tools.layer('components')
+  .sp-msgs
+    flex: 1 1 auto
+    font-size: $messages-font-size
+    min-height: $messages-min-height
+    min-width: 1px // Ensure takes up space with no messages and inside of flex
+    opacity: var(--sp-medium-emphasis-opacity)
+    position: relative
+
+      line-height: $messages-line-height
+      word-break: break-word
+      overflow-wrap: break-word
+      word-wrap: break-word
+      hyphens: auto
+      transition-duration: $messages-transition-duration

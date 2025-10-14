@@ -1,0 +1,18 @@
+@forward '../../SPField/style/_vars';
+@use '@theme/src/material/settings' as settings;
+
+// SPTextField
+$text-field-affix-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-medium-emphasis-opacity)
+) !default;
+$text-field-border-radius: settings.$border-radius-root !default;
+$text-field-details-padding-inline: 16px !default;
+$text-field-disabled-affix-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-disabled-opacity)
+) !default;
+$text-field-input-flex: 1 !default;
+$text-field-input-padding-end: 0 !default;
+$text-field-input-padding-start: 6px !default;
+$text-field-input-transition: 0.15s opacity settings.$standard-easing !default;

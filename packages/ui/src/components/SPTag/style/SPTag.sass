@@ -1,0 +1,89 @@
+@use '@theme/src/material/settings' as settings
+@use '@theme/src/material/tools' as tools
+@use './_vars' as *
+@use './_mixins' as *
+
+@include tools.layer('components')
+  .sp-tag
+    align-items: center
+    display: inline-flex
+    font-weight: $tag-font-weight
+    max-width: $tag-max-width
+    min-width: 0
+    overflow: hidden
+    position: relative
+    text-decoration: none
+    white-space: $tag-white-space
+    vertical-align: middle
+
+    .sp-icon
+      --sp-icon-size-multiplier: #{$tag-icon-size-multiplier}
+
+    @at-root
+      @include tag-sizes()
+      @include tag-density('height', $tag-density)
+
+    @include tools.border($tag-border...)
+    @include tools.states('.sp-tag__overlay')
+    @include tools.rounded($tag-border-radius)
+    @include tools.variant($tag-variants...)
+
+    &--border
+      border-width: $tag-border-thin-width
+
+    &--link
+      cursor: pointer
+
+    &--link,
+    &--filter
+      user-select: none
+
+    &--label
+      @include tools.rounded($tag-label-border-radius)
+
+  // Elements
+  .sp-tag__content
+    align-items: center
+    display: inline-flex
+
+    .sp-autocomplete__selection &,
+    .sp-combobox__selection &,
+    .sp-select__selection &
+      overflow: hidden
+
+  .sp-tag__filter,
+  .sp-tag__prepend,
+  .sp-tag__append,
+  .sp-tag__close
+    align-items: center
+    display: inline-flex
+
+  .sp-tag__close
+    cursor: pointer
+    flex: 0 1 auto
+    font-size: $tag-close-size
+    max-height: $tag-close-size
+    max-width: $tag-close-size
+    user-select: none
+
+    .sp-icon
+      font-size: inherit
+
+  .sp-tag__filter
+    transition: $tag-filter-transition
+
+  .sp-tag__overlay
+    background-color: currentColor
+    border-radius: inherit
+    pointer-events: none
+    opacity: 0
+    transition: opacity .2s ease-in-out
+    @include tools.absolute()
+
+  .sp-tag--disabled
+    opacity: $tag-disabled-opacity
+    pointer-events: none
+    user-select: none
+
+  .sp-tag--label
+    border-radius: $tag-label-border-radius

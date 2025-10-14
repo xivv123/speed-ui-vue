@@ -1,0 +1,156 @@
+@use 'sass:selector'
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *
+
+@include tools.layer('components')
+  .sp-notification
+    position: fixed
+    width: $notification-width
+    padding: $notification-padding
+    margin: $notification-margin
+    border-radius: $notification-border-radius
+    box-shadow: $notification-shadow
+    background: rgb(var(--sp-theme-surface))
+    border: 1px solid rgba(var(--sp-theme-outline), 0.12)
+    display: flex
+    align-items: flex-start
+    gap: 12px
+    cursor: pointer
+    transition: all $notification-animation-duration ease
+    z-index: $notification-z-index
+    overflow: hidden
+
+    // 定位样式
+    &--top
+      &--right
+        top: $notification-margin
+        right: $notification-margin
+        
+      &--left
+        top: $notification-margin
+        left: $notification-margin
+
+    &--bottom
+      &--right
+        bottom: $notification-margin
+        right: $notification-margin
+        
+      &--left
+        bottom: $notification-margin
+        left: $notification-margin
+
+    // 通知类型样式
+    &--success
+      border-left: 4px solid rgb(var(--sp-theme-success))
+      
+      .sp-notification__icon
+        color: rgb(var(--sp-theme-success))
+
+    &--warning  
+      border-left: 4px solid rgb(var(--sp-theme-warning))
+      
+      .sp-notification__icon
+        color: rgb(var(--sp-theme-warning))
+
+    &--info
+      border-left: 4px solid rgb(var(--sp-theme-info))
+      
+      .sp-notification__icon
+        color: rgb(var(--sp-theme-info))
+
+    &--error
+      border-left: 4px solid rgb(var(--sp-theme-error))
+      
+      .sp-notification__icon
+        color: rgb(var(--sp-theme-error))
+
+    // 悬停效果
+    &:hover
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18)
+      transform: translateY(-2px)
+
+    // 组件内部元素
+    &__icon
+      flex-shrink: 0
+      font-size: 20px
+      margin-top: 2px
+      transition: color $notification-animation-duration ease
+
+    &__content
+      flex: 1
+      min-width: 0
+
+    &__title
+      font-size: 16px
+      font-weight: 600
+      line-height: 1.4
+      color: rgb(var(--sp-theme-on-surface))
+      margin-bottom: 4px
+
+    &__message
+      font-size: 14px
+      line-height: 1.5
+      color: rgba(var(--sp-theme-on-surface), 0.7)
+      word-wrap: break-word
+
+    &__close
+      flex-shrink: 0
+      margin: -4px -4px 0 0
+
+      .sp-btn
+        color: rgba(var(--sp-theme-on-surface), 0.6)
+        
+        &:hover
+          color: rgb(var(--sp-theme-on-surface))
+
+    // 只有消息没有标题时的样式调整
+    &:not(:has(.sp-notification__title)) .sp-notification__message
+      color: rgb(var(--sp-theme-on-surface))
+      font-size: 15px
+
+// 过渡动画
+.sp-notification-enter-active,
+.sp-notification-leave-active
+  transition: all $notification-animation-duration ease
+
+.sp-notification-enter-from,
+.sp-notification-leave-to
+  opacity: 0
+  transform: translateX(100%)
+
+// 左侧进入动画
+.sp-notification--left
+  &.sp-notification-enter-from,
+  &.sp-notification-leave-to
+    transform: translateX(-100%)
+
+// 底部进入动画  
+.sp-notification--bottom
+  &.sp-notification-enter-from,
+  &.sp-notification-leave-to
+    transform: translateY(100%)
+
+// 深色主题适配
+.sp-theme--dark .sp-notification
+  background: rgb(var(--sp-theme-surface-container))
+  border-color: rgba(var(--sp-theme-outline), 0.2)
+
+// 响应式设计
+@media (max-width: 600px)
+  .sp-notification
+    width: calc(100vw - 32px)
+    margin: 8px
+    
+    &--top
+      &--right,
+      &--left
+        top: 8px
+        right: 16px
+        left: 16px
+
+    &--bottom
+      &--right,
+      &--left  
+        bottom: 8px
+        right: 16px
+        left: 16px

@@ -1,0 +1,39 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+// CONTROL
+$form-item-density: (
+  'default': 0,
+  'comfortable': -2,
+  'compact': -4,
+) !default;
+$form-item-control-height: 56px !default;
+$form-item-flex: 1 1 auto !default;
+$form-item-font-size: tools.map-deep-get(
+  settings.$typography,
+  'body-1',
+  'size'
+) !default;
+$form-item-font-weight: tools.map-deep-get(
+  settings.$typography,
+  'body-1',
+  'weight'
+) !default;
+$form-item-line-height: 1.5 !default;
+
+// CHIPS
+$form-item-chips-margin-top: null !default;
+$form-item-chips-margin-bottom: null !default;
+
+// DETAILS
+$form-item-details-font-size: 0.75rem !default;
+$form-item-details-font-weight: 400 !default;
+$form-item-details-letter-spacing: 0.0333333333em !default;
+$form-item-details-line-height: normal !default;
+$form-item-details-min-height: 24px !default;
+$form-item-details-padding-above: 6px !default;
+$form-item-details-transition: 150ms settings.$standard-easing !default;
+
+// AFFIXES
+$form-item-affix-margin-inside: 16px !default;

@@ -1,0 +1,1 @@
+export { SPInputPwd, makeSPInputPwdProps } from './SPInputPwd'

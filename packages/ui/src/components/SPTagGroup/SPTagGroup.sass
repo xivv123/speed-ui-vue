@@ -1,0 +1,25 @@
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *
+
+@include tools.layer('components')
+  // Block
+  .sp-tag-group
+    display: flex
+    max-width: 100%
+    min-width: 0
+    overflow-x: auto
+    padding: $tag-group-padding
+
+    .sp-tag
+      margin: $tag-group-margin
+
+      &.sp-tag--selected:not(.sp-tag--disabled)
+        .sp-tag__overlay
+          opacity: $tag-group-selected-opacity
+
+  // Modifiers
+  .sp-tag-group--column
+    .sp-slide-group__content
+      white-space: normal
+      flex-wrap: wrap
+      max-width: 100%

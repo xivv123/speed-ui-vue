@@ -1,0 +1,276 @@
+@use '@theme/src/material/tools' as tools;
+
+// Element Plus 风格（bordered 单选）
+@include tools.layer('components') {
+  .sp-radio {
+    // 默认（非 outlined）采用 Element Plus 单选样式
+    &.sp-selctrl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #606266;
+      cursor: pointer;
+
+      // 调整 wrapper，避免 40px 固定尺寸
+      .sp-selctrl__wrapper {
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+      }
+
+      // 标签颜色随着状态变化
+      .sp-label {
+        color: inherit;
+      }
+
+      // 圆形选择器
+      .sp-selctrl__input {
+        position: relative;
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        border: 1px solid #dcdfe6;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+
+        // 关闭基础控件里的 hover/focus overlay
+        &::before {
+          display: none;
+        }
+
+        // 移除图标显示，使用 CSS 圆点
+        > .sp-icon {
+          display: none !important;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          // 使用当前文本色以适配 props.color 或主题色
+          background-color: currentColor;
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 0.15s ease-in;
+        }
+      }
+
+      // hover 边框色：使用主题主色（未选中时仅圈变色，标签不变色）
+      &:hover:not(.sp-selctrl--disabled) .sp-selctrl__input {
+        border-color: var(--sp-color-primary);
+      }
+
+      // 选中：高亮圆圈与标签颜色
+      &.sp-selctrl--dirty {
+        // 选中文字颜色：优先继承 props.color；否则使用主题主色
+        color: var(--sp-color-primary);
+
+        .sp-selctrl__input {
+          // 选中时边框颜色跟随文字色
+          border-color: currentColor;
+
+          &::after {
+            transform: translate(-50%, -50%) scale(1);
+          }
+        }
+      }
+
+      // 聚焦：给圆圈一个柔和外环
+      &.sp-selctrl--focused .sp-selctrl__input {
+        border-color: var(--sp-color-primary);
+        // 使用主题主色的半透明外环（退化到蓝色也可接受）
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--sp-color-primary) 20%, transparent);
+      }
+
+      // 禁用
+      &.sp-selctrl--disabled {
+        color: #c0c4cc;
+
+        .sp-selctrl__input {
+          border-color: #e4e7ed;
+          background-color: #f5f7fa;
+
+          &::after {
+            background-color: #c0c4cc;
+          }
+        }
+      }
+
+      // 错误
+      &.sp-selctrl--error {
+        color: var(--sp-color-error);
+
+        .sp-selctrl__input {
+          border-color: var(--sp-color-error);
+
+          &::after {
+            background-color: currentColor;
+          }
+        }
+      }
+    }
+
+    // 仅在 outlined 变体时启用 Element Plus 风格容器
+    &--outlined.sp-selctrl {
+      border: 1px solid #dcdfe6;
+      border-radius: 4px;
+      padding: 10px 14px;
+      background-color: #fff;
+      transition: border-color 0.2s ease, background-color 0.2s ease,
+        box-shadow 0.2s ease, color 0.2s ease;
+      min-height: 34px;
+      margin: 4px;
+      cursor: pointer;
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px; // 控件与标签之间的间距
+      box-sizing: border-box;
+      position: relative;
+      font-size: 14px;
+      color: #606266;
+
+      // 悬停（未禁用）
+      &:hover:not(.sp-selctrl--disabled) {
+        border-color: #c0c4cc;
+        background-color: #f5f7fa;
+      }
+
+      // 选中
+      &.sp-selctrl--dirty {
+        border-color: var(--sp-color-primary);
+        background-color: var(--sp-color-primary-lightest);
+        color: var(--sp-color-primary);
+
+        &:hover {
+          border-color: var(--sp-color-primary-hover);
+          background-color: color-mix(in srgb, var(--sp-color-primary) 12%, #fff);
+        }
+      }
+
+      // 禁用
+      &.sp-selctrl--disabled {
+        border-color: #e4e7ed;
+        background-color: #f5f7fa;
+        color: #c0c4cc;
+        cursor: not-allowed;
+      }
+
+      // 错误（表单校验）
+      &.sp-selctrl--error {
+        border-color: var(--sp-color-error);
+        color: var(--sp-color-error);
+
+        &:hover {
+          border-color: var(--sp-color-error-hover, var(--sp-color-error));
+          background-color: color-mix(in srgb, var(--sp-color-error) 6%, #fff);
+        }
+
+        &.sp-selctrl--dirty {
+          background-color: color-mix(in srgb, var(--sp-color-error) 8%, #fff);
+
+          &:hover {
+            background-color: color-mix(in srgb, var(--sp-color-error) 12%, #fff);
+          }
+        }
+      }
+
+      // 聚焦可见
+      &.sp-selctrl--focused {
+        border-color: var(--sp-color-primary);
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--sp-color-primary) 20%, transparent);
+        outline: none;
+      }
+
+      // 包裹区：宽高自适应
+      .sp-selctrl__wrapper {
+        width: auto;
+        height: auto;
+        display: flex;
+        align-items: center;
+      }
+
+      // 标签（使用真实的 .sp-label）
+      .sp-label {
+        font-weight: 400;
+        white-space: nowrap;
+        color: inherit;
+        line-height: 1;
+      }
+
+      // 圆形选择器（纯 CSS 实现 Element Plus 样式）
+      .sp-selctrl__input {
+        position: relative;
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        border: 1px solid #dcdfe6;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+
+        // 移除图标，避免与 CSS 圆点叠加
+        > .sp-icon {
+          display: none !important;
+        }
+
+        // 内部圆点
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: currentColor;
+          transform: translate(-50%, -50%) scale(0);
+          transition: transform 0.15s ease-in;
+        }
+      }
+
+      // 选中时：边框高亮 + 圆点显现
+      &.sp-selctrl--dirty .sp-selctrl__input {
+        border-color: currentColor;
+
+        &::after {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      // 悬停微调（outlined 内部圆圈 hover 也使用主题主色）
+      &:hover:not(.sp-selctrl--disabled) .sp-selctrl__input {
+        border-color: var(--sp-color-primary);
+      }
+
+      &.sp-selctrl--dirty:hover .sp-selctrl__input {
+        border-color: currentColor;
+      }
+
+      // 禁用输入圆圈
+      &.sp-selctrl--disabled .sp-selctrl__input {
+        border-color: #e4e7ed;
+        background-color: #f5f7fa;
+
+        &::after {
+          background-color: #c0c4cc;
+        }
+      }
+
+      // 错误输入圆圈
+      &.sp-selctrl--error .sp-selctrl__input {
+        border-color: var(--sp-color-error);
+
+        &::after {
+          background-color: currentColor;
+        }
+      }
+    }
+  }
+}

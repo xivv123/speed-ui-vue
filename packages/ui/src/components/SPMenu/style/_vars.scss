@@ -1,0 +1,4 @@
+@use '@theme/src/material/settings' as settings;
+
+$menu-elevation: 8 !default;
+$menu-content-border-radius: settings.$border-radius-root !default;

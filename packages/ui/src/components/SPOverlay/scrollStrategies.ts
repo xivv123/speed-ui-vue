@@ -1,0 +1,220 @@
+// Utilities
+import { effectScope, onScopeDispose, watchEffect } from 'vue'
+import { requestNewFrame } from './requestNewFrame'
+import {
+  convertToUnit,
+  getScrollParents,
+  hasScrollbar,
+  IN_BROWSER,
+  propsFactory,
+} from '@/utils'
+
+// Types
+import type { EffectScope, PropType, Ref } from 'vue'
+
+export interface ScrollStrategyData {
+  root: Ref<HTMLElement | undefined>
+  contentEl: Ref<HTMLElement | undefined>
+  targetEl: Ref<HTMLElement | undefined>
+  target: Ref<HTMLElement | [x: number, y: number] | undefined>
+  isActive: Ref<boolean>
+  updateLocation: Ref<((e: Event) => void) | undefined>
+}
+
+export type ScrollStrategyFunction = (
+  data: ScrollStrategyData,
+  props: StrategyProps,
+  scope: EffectScope
+) => void
+
+const scrollStrategies = {
+  none: null,
+  close: closeScrollStrategy,
+  block: blockScrollStrategy,
+  reposition: repositionScrollStrategy,
+}
+
+export interface StrategyProps {
+  scrollStrategy: keyof typeof scrollStrategies | ScrollStrategyFunction
+  contained: boolean | undefined
+}
+
+export const makeScrollStrategyProps = propsFactory(
+  {
+    scrollStrategy: {
+      type: [String, Function] as PropType<StrategyProps['scrollStrategy']>,
+      default: 'block',
+      validator: (val: any) =>
+        typeof val === 'function' || val in scrollStrategies,
+    },
+  },
+  'VOverlay-scroll-strategies'
+)
+
+export function useScrollStrategies(
+  props: StrategyProps,
+  data: ScrollStrategyData
+) {
+  if (!IN_BROWSER) return
+
+  let scope: EffectScope | undefined
+  watchEffect(async () => {
+    scope?.stop()
+
+    if (!(data.isActive.value && props.scrollStrategy)) return
+
+    scope = effectScope()
+    await new Promise(resolve => setTimeout(resolve))
+    scope.active &&
+      scope.run(() => {
+        if (typeof props.scrollStrategy === 'function') {
+          props.scrollStrategy(data, props, scope!)
+        } else {
+          scrollStrategies[props.scrollStrategy]?.(data, props, scope!)
+        }
+      })
+  })
+
+  onScopeDispose(() => {
+    scope?.stop()
+  })
+}
+
+function closeScrollStrategy(data: ScrollStrategyData) {
+  function onScroll(e: Event) {
+    data.isActive.value = false
+  }
+
+  bindScroll(data.target.value ?? data.contentEl.value, onScroll)
+}
+
+function blockScrollStrategy(data: ScrollStrategyData, props: StrategyProps) {
+  const offsetParent = data.root.value?.offsetParent
+  const target = Array.isArray(data.target.value)
+    ? document.elementFromPoint(...data.target.value)
+    : data.target.value
+  const scrollElements = [
+    ...new Set([
+      ...getScrollParents(target, props.contained ? offsetParent : undefined),
+      ...getScrollParents(
+        data.contentEl.value,
+        props.contained ? offsetParent : undefined
+      ),
+    ]),
+  ].filter(el => !el.classList.contains('sp-overlay-scroll-blocked'))
+  const scrollbarWidth =
+    window.innerWidth - document.documentElement.offsetWidth
+
+  const scrollableParent = (el => hasScrollbar(el) && el)(
+    offsetParent || document.documentElement
+  )
+  if (scrollableParent) {
+    data.root.value!.classList.add('sp-overlay--scroll-blocked')
+  }
+
+  scrollElements.forEach((el, i) => {
+    el.style.setProperty('--sp-body-scroll-x', convertToUnit(-el.scrollLeft))
+    el.style.setProperty('--sp-body-scroll-y', convertToUnit(-el.scrollTop))
+
+    if (el !== document.documentElement) {
+      el.style.setProperty(
+        '--sp-scrollbar-offset',
+        convertToUnit(scrollbarWidth)
+      )
+    }
+
+    el.classList.add('sp-overlay-scroll-blocked')
+  })
+
+  onScopeDispose(() => {
+    scrollElements.forEach((el, i) => {
+      const x = parseFloat(el.style.getPropertyValue('--sp-body-scroll-x'))
+      const y = parseFloat(el.style.getPropertyValue('--sp-body-scroll-y'))
+
+      const scrollBehavior = el.style.scrollBehavior
+
+      el.style.scrollBehavior = 'auto'
+      el.style.removeProperty('--sp-body-scroll-x')
+      el.style.removeProperty('--sp-body-scroll-y')
+      el.style.removeProperty('--sp-scrollbar-offset')
+      el.classList.remove('sp-overlay-scroll-blocked')
+
+      el.scrollLeft = -x
+      el.scrollTop = -y
+
+      el.style.scrollBehavior = scrollBehavior
+    })
+    if (scrollableParent) {
+      data.root.value!.classList.remove('sp-overlay--scroll-blocked')
+    }
+  })
+}
+
+function repositionScrollStrategy(
+  data: ScrollStrategyData,
+  props: StrategyProps,
+  scope: EffectScope
+) {
+  let slow = false
+  let raf = -1
+  let ric = -1
+
+  function update(e: Event) {
+    requestNewFrame(() => {
+      const start = performance.now()
+      data.updateLocation.value?.(e)
+      const time = performance.now() - start
+      slow = time / (1000 / 60) > 2
+    })
+  }
+
+  ric = (
+    typeof requestIdleCallback === 'undefined'
+      ? (cb: Function) => cb()
+      : requestIdleCallback
+  )(() => {
+    scope.run(() => {
+      bindScroll(data.target.value ?? data.contentEl.value, e => {
+        if (slow) {
+          // If the position calculation is slow,
+          // defer updates until scrolling is finished.
+          // Browsers usually fire one scroll event per frame so
+          // we just wait until we've got two frames without an event
+          cancelAnimationFrame(raf)
+          raf = requestAnimationFrame(() => {
+            raf = requestAnimationFrame(() => {
+              update(e)
+            })
+          })
+        } else {
+          update(e)
+        }
+      })
+    })
+  })
+
+  onScopeDispose(() => {
+    typeof cancelIdleCallback !== 'undefined' && cancelIdleCallback(ric)
+    cancelAnimationFrame(raf)
+  })
+}
+
+/** @private */
+function bindScroll(
+  target: HTMLElement | [x: number, y: number] | undefined,
+  onScroll: (e: Event) => void
+) {
+  const el = Array.isArray(target)
+    ? document.elementFromPoint(...target)
+    : target
+  const scrollElements = [document, ...getScrollParents(el)]
+  scrollElements.forEach(el => {
+    el.addEventListener('scroll', onScroll, { passive: true })
+  })
+
+  onScopeDispose(() => {
+    scrollElements.forEach(el => {
+      el.removeEventListener('scroll', onScroll)
+    })
+  })
+}

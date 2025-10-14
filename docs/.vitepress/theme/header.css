@@ -1,0 +1,227 @@
+/* VitePress 导航栏毛玻璃美化 */
+
+/* 强制覆盖CSS变量 */
+:root {
+  --vp-nav-bg-color: transparent !important;
+}
+
+.dark {
+  --vp-nav-bg-color: transparent !important;
+}
+
+/* 为所有导航栏添加毛玻璃效果 - 无背景色 */
+.VPNavBar {
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.2) !important;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.05) !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* 暗色主题下的导航栏 - 也是透明背景 */
+.dark .VPNavBar {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-bottom-color: rgba(75, 85, 99, 0.2) !important;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 只在有侧边栏的页面应用额外样式 */
+.VPContent.has-sidebar .VPNavBar {
+  position: fixed !important;
+  z-index: 1000 !important;
+}
+
+/* 强制覆盖 VitePress 默认的 padding-left 计算 */
+@media (min-width: 1440px) {
+  .VPNavBar.has-sidebar .title {
+    padding-left: 32px !important;
+    width: var(--vp-sidebar-width) !important;
+  }
+
+  .VPNavBar.has-sidebar .content {
+    /* padding-left: var(--vp-sidebar-width) !important; */
+    padding-right: 32px !important;
+  }
+}
+.VPNavBar.has-sidebar .content {
+  padding-left: var(--vp-sidebar-width) !important;
+}
+@media (min-width: 960px) {
+  .VPNavBar.has-sidebar .title {
+    padding-left: 32px !important;
+  }
+
+  .VPNavBar.has-sidebar .content {
+    padding-right: 32px !important;
+  }
+}
+
+/* 隐藏导航栏下方的 divider-line */
+.VPNavBar .divider-line {
+  display: none !important;
+}
+
+/* 强制移除导航栏的所有边框，但保留主导航栏的阴影 */
+.VPNavBar.screen-open,
+.VPNavBar:not(.home):not(.has-sidebar),
+nav:not(.VPNavBar),
+header:not(.VPNavBar),
+.navbar:not(.VPNavBar),
+.header:not(.VPNavBar) {
+  border-bottom: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 移除导航栏容器的边框，但不影响主导航栏阴影 */
+.VPNavBar .wrapper,
+.VPNavBar .container,
+.VPNavBar .content,
+.VPNavBar .title,
+.VPNavBar .divider,
+.VPNavBar .divider-line {
+  border-bottom: none !important;
+  border: none !important;
+}
+.container {
+  max-width: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* 移除所有可能的分隔线 */
+.VPNavBar::after,
+.VPNavBar::before,
+.VPNavBar *::after,
+.VPNavBar *::before {
+  border: none !important;
+  /* background: none !important; */
+  box-shadow: none !important;
+}
+
+/* 移除所有灰色边框和阴影 */
+.VPContent.has-sidebar .VPNavBar .container,
+.VPContent.has-sidebar .VPNavBar .content {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 简化导航菜单项样式 */
+.VPContent.has-sidebar .VPNavBarMenuLink {
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.VPContent.has-sidebar .VPNavBarMenuLink:hover {
+  color: var(--vp-c-brand-1);
+  background: none !important;
+}
+
+/* 移除活动状态的背景色，只保留文字颜色 */
+.VPContent.has-sidebar .VPNavBarMenuLink.active {
+  color: var(--vp-c-brand-1);
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative;
+}
+
+/* 给选中的导航链接添加下划线 */
+.VPNavBarMenuLink.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background: var(--vp-c-brand-1);
+  border-radius: 1px;
+}
+
+/* 确保所有导航链接都有相对定位 */
+.VPNavBarMenuLink.active {
+  position: relative;
+}
+
+/* 移除非活动状态的伪元素装饰 */
+.VPContent.has-sidebar .VPNavBarMenuLink:not(.active)::before,
+.VPContent.has-sidebar .VPNavBarMenuLink:not(.active)::after {
+  display: none !important;
+}
+
+/* 确保搜索框也保持简洁 */
+.VPContent.has-sidebar .VPNavBarSearch .DocSearch-Button {
+  background: var(--vp-c-bg-soft);
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.VPContent.has-sidebar .VPNavBarSearch .DocSearch-Button:hover {
+  border: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* 移除页面元素的边框，但不影响导航栏阴影 */
+/* body *:not(.VPNavBar):not(.VPContent.has-sidebar .VPNavBar) {
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-right: none !important;
+} */
+
+/* 特别针对导航栏区域的子元素，但不影响主导航栏的阴影 */
+.VPNavBar *:not(.VPNavBar),
+.VPNavBar::before,
+.VPNavBar::after,
+.VPNavBar *::before,
+.VPNavBar *::after {
+  border: 0 !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  outline: none !important;
+}
+
+/* 强制添加导航栏阴影 - 最高优先级 */
+.VPContent.has-sidebar .VPNavBar,
+.VPNavBar.has-sidebar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  -moz-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 清除 VPContent 的 padding - 只针对内容区域 */
+/* 大屏幕时仅在有侧边栏的页面应用左侧留白 */
+@media (min-width: 960px) {
+  .VPContent.has-sidebar {
+    padding-left: var(--vp-sidebar-width) !important;
+    padding-right: 0 !important;
+  }
+  .VPContent:not(.has-sidebar),
+  .VPContent.is-home {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* 小屏幕时移除左侧 padding，因为侧边栏是隐藏的 */
+@media (max-width: 959px) {
+  .VPContent {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

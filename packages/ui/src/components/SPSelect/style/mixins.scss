@@ -1,0 +1,14 @@
+@mixin select-compact-tag-label {
+  &--tag.sp-input--density-compact {
+    .sp-field--variant-solo,
+    .sp-field--variant-solo-inverted,
+    .sp-field--variant-filled,
+    .sp-field--variant-solo-filled {
+      .sp-label.sp-float-label {
+        &--floating {
+          top: 0px;
+        }
+      }
+    }
+  }
+}

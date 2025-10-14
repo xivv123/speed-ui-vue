@@ -1,0 +1,120 @@
+/**
+ * VPSidebar 自定义样式
+ * 为 VitePress 文档站点的侧边栏提供简洁现代的视觉效果
+ */
+
+/* 侧边栏容器 - 优化样式 */
+.VPSidebar {
+  background: var(--vp-sidebar-bg-color) !important;
+  border-right: 1px solid var(--vp-c-divider) !important;
+  top: var(--vp-nav-height) !important;
+  height: calc(100vh - var(--vp-nav-height)) !important;
+  width: 240px !important;
+  padding: 16px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* 桌面端侧边栏宽度调整 */
+@media (min-width: 960px) {
+  .VPSidebar {
+    width: 240px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+}
+
+/* 侧边栏导航容器 */
+.VPSidebarNav {
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 216px !important;
+}
+
+/* 侧边栏分组 */
+.VPSidebarGroup {
+  margin-bottom: 12px !important;
+}
+
+/* 侧边栏分组标题 */
+.VPSidebarGroup .title {
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+  color: var(--vp-c-text-1) !important;
+  margin-bottom: 6px !important;
+  margin-top: 0 !important;
+  padding: 6px 8px !important;
+  background: var(--vp-c-bg-soft) !important;
+  border-radius: 6px !important;
+  border-left: 3px solid var(--vp-c-brand-1) !important;
+}
+
+.VPSidebarGroup:first-child .title {
+  margin-top: 0 !important;
+}
+
+/* 侧边栏链接项容器 */
+.VPSidebarItem {
+  margin-bottom: 2px !important;
+}
+
+/* 侧边栏链接项 */
+.VPSidebarItem .link {
+  color: var(--vp-c-text-2) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+  padding: 6px 12px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  display: block !important;
+  line-height: 1.4 !important;
+}
+
+.VPSidebarItem .link:hover {
+  color: var(--vp-c-text-1) !important;
+  background: var(--vp-c-bg-soft) !important;
+  transform: translateX(2px) !important;
+}
+
+.VPSidebarItem.is-active .link {
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 600 !important;
+  background: var(--vp-c-brand-soft) !important;
+  border-left: none !important;
+  padding-left: 12px !important;
+}
+
+/* 嵌套链接缩进 */
+.VPSidebarItem.level-2 .link {
+  padding-left: 20px !important;
+  font-size: 0.85rem !important;
+}
+
+.VPSidebarItem.level-3 .link {
+  padding-left: 28px !important;
+  font-size: 0.85rem !important;
+}
+
+/* 移动端优化 */
+@media (max-width: 959px) {
+  .VPSidebar {
+    width: 280px !important;
+    padding: 20px 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .VPSidebarNav {
+    max-width: 248px !important;
+  }
+
+  .VPSidebarItem .link {
+    font-size: 0.9rem !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* 简化的侧边栏样式结束 */

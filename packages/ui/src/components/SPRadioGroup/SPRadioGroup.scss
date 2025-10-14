@@ -1,0 +1,34 @@
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *;
+
+@include tools.layer('components') {
+  .sp-radio-group {
+    > .sp-input__control {
+      flex-direction: column;
+
+      > .sp-label {
+        margin-inline-start: $radio-group-label-margin-inline-start;
+
+        + .sp-selctrl-group {
+          padding-inline-start: $radio-group-label-selection-group-padding-inline;
+          margin-top: $radio-group-label-selection-group-margin-top;
+        }
+      }
+    }
+
+    .sp-input__details {
+      padding-inline: $radio-group-details-padding-inline;
+    }
+
+    // 确保 inline 模式下的正确对齐
+    .sp-selctrl-group--inline {
+      align-items: center;
+      gap: 16px; // radio 选项之间的间距
+
+      .sp-radio {
+        align-items: center;
+        gap: 8px; // 图标和文字之间的间距
+      }
+    }
+  }
+}

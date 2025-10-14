@@ -1,0 +1,1 @@
+export { SPProgCir } from './SPProgCir'

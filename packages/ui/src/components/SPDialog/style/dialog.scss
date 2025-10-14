@@ -1,0 +1,96 @@
+@use 'sass:map';
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+
+// Dialog variables
+$dialog-elevation: 24 !default;
+$dialog-border-radius: settings.$border-radius-root !default;
+$dialog-margin: 24px !default;
+$dialog-max-width: 560px !default;
+$dialog-max-height: calc(100% - 48px) !default;
+$dialog-background: rgb(var(--sp-theme-surface)) !default;
+$dialog-color: rgb(var(--sp-theme-on-surface)) !default;
+
+// Dialog styles
+.sp-dialog > .sp-overlay__content {
+  border-radius: $dialog-border-radius;
+  elevation: $dialog-elevation;
+  flex-direction: column;
+  max-height: $dialog-max-height;
+  max-width: $dialog-max-width;
+  overflow-y: auto;
+  pointer-events: auto;
+  transition: 0.2s cubic-bezier(0, 0, 0.2, 1);
+  width: 100%;
+  z-index: inherit;
+  background: $dialog-background;
+  color: $dialog-color;
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
+    0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12);
+}
+
+.sp-dialog--fullscreen > .sp-overlay__content {
+  border-radius: 0;
+  margin: 0;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  width: 100%;
+}
+
+.sp-dialog--scrollable > .sp-overlay__content {
+  display: flex;
+}
+
+.sp-dialog--scrollable > .sp-overlay__content > .sp-card {
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.sp-dialog--scrollable > .sp-overlay__content > .sp-card > .sp-card__text {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+// Dialog transition
+.sp-dialog-transition-enter-active,
+.sp-dialog-transition-leave-active {
+  transition: transform 0.2s cubic-bezier(0, 0, 0.2, 1),
+    opacity 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.sp-dialog-transition-enter-from {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.sp-dialog-transition-leave-to {
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+// Dialog content
+.sp-dialog__content {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  transition: inherit;
+  width: 100%;
+  z-index: inherit;
+
+  &--active {
+    pointer-events: auto;
+  }
+}
+
+// Dialog activator
+.sp-dialog__activator {
+  cursor: pointer;
+}

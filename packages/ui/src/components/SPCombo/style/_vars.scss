@@ -1,0 +1,14 @@
+@forward '../../SPInput/_vars';
+@use '@theme/src/material/settings' as settings;
+
+// Defaults
+$combo-content-border-radius: 4px !default;
+$combo-content-elevation: 4 !default;
+$combo-focused-input: 64px !default;
+$combo-input-buffer: 2px !default;
+$combo-line-height: 1.75 !default;
+$combo-selection-gap: 2px !default;
+$combo-transition: 0.2s settings.$standard-easing !default;
+$combo-chips-control-min-height: null !default;
+$combo-chips-margin-top: null !default;
+$combo-chips-margin-bottom: null !default;

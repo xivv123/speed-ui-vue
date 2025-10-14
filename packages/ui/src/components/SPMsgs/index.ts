@@ -1,0 +1,1 @@
+export { SPMsgs } from './SPMsgs'

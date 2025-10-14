@@ -1,0 +1,5 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+
+// SPCol 组件变量
+// 目前 SPCol 主要通过 props 控制样式，暂无特定变量

@@ -1,0 +1,5 @@
+export { SPMenu } from './SPMenu'
+export { makeSPMenuProps } from './props'
+export { SPMenuSymbol } from './types'
+export type { SPMenuSlots, MenuProvide } from './types'
+export type { SPMenu as SPMenuInstance } from './SPMenu'

@@ -1,0 +1,9 @@
+@use '@theme/src/material/settings' as settings;
+
+// SPNote variables
+$note-bg: rgba(255, 249, 196, 1) !default; // light yellow body
+$note-header-bg: rgba(255, 236, 179, 1) !default; // slightly darker header
+$note-border-color: rgba(0, 0, 0, 0.15) !default;
+$note-radius: settings.$border-radius-root !default;
+$note-header-height: 36px !default;
+$note-padding: 8px !default;

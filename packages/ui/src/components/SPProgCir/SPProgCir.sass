@@ -1,0 +1,90 @@
+@use 'sass:list'
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+@use './_var' as *
+
+@include tools.layer('components')
+  .sp-prog-cir
+    align-items: center
+    display: inline-flex
+    justify-content: center
+    position: relative
+    vertical-align: middle
+
+    > svg
+      width: 100%
+      height: 100%
+      margin: auto
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      z-index: 0
+
+  .sp-prog-cir__content
+    align-items: center
+    display: flex
+    justify-content: center
+
+  .sp-prog-cir__underlay
+    color: $prog-cir-underlay-color
+    stroke: currentColor
+    z-index: 1
+
+  .sp-prog-cir__overlay
+    stroke: currentColor
+    transition: $prog-cir-overlay-transition
+    z-index: 2
+
+  // Modifiers
+  .sp-prog-cir
+    @each $name, $multiplier in $prog-cir-sizes
+      $size: $prog-cir-size + (settings.$size-scale * $multiplier)
+
+      &--size-#{$name}
+        height: $size
+        width: $size
+
+  .sp-prog-cir--indeterminate
+    > svg
+      animation: $prog-cir-rotate-animation
+      transform-origin: center center
+      transition: $prog-cir-intermediate-svg-transition
+
+    .sp-prog-cir__overlay
+      animation: $prog-cir-rotate-dash, $prog-cir-rotate-animation
+      stroke-dasharray: 25, 200
+      stroke-dashoffset: 0
+      stroke-linecap: round
+      transform-origin: center center
+      transform: $prog-cir-overlay-transform
+
+  .sp-prog-cir--disable-shrink
+    > svg
+      animation-duration: list.nth($prog-cir-rotate-animation, 2) * .5
+
+    .sp-prog-cir__overlay
+      animation: none
+
+  .sp-prog-cir--indeterminate:not(.sp-prog-cir--visible)
+    > svg,
+    .sp-prog-cir__overlay
+      animation-play-state: paused !important
+
+  @keyframes prog-cir-dash
+    0%
+      stroke-dasharray: 1, 200
+      stroke-dashoffset: 0px
+
+    50%
+      stroke-dasharray: 100, 200
+      stroke-dashoffset: -15px
+
+    100%
+      stroke-dasharray: 100, 200
+      stroke-dashoffset: -124px
+
+  @keyframes prog-cir-rotate
+    100%
+      transform: rotate(270deg)

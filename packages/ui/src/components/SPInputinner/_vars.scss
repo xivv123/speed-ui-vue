@@ -1,0 +1,39 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+// CONTROL
+$inputinner-density: (
+  'default': 0,
+  'comfortable': -2,
+  'compact': -4,
+) !default;
+$inputinner-control-height: 56px !default;
+$inputinner-flex: 1 1 auto !default;
+$inputinner-font-size: tools.map-deep-get(
+  settings.$typography,
+  'body-1',
+  'size'
+) !default;
+$inputinner-font-weight: tools.map-deep-get(
+  settings.$typography,
+  'body-1',
+  'weight'
+) !default;
+$inputinner-line-height: 1.5 !default;
+
+// CHIPS
+$inputinner-chips-margin-top: null !default;
+$inputinner-chips-margin-bottom: null !default;
+
+// DETAILS
+$inputinner-details-font-size: 0.75rem !default;
+$inputinner-details-font-weight: 400 !default;
+$inputinner-details-letter-spacing: 0.0333333333em !default;
+$inputinner-details-line-height: normal !default;
+$inputinner-details-min-height: 22px !default;
+$inputinner-details-padding-above: 6px !default;
+$inputinner-details-transition: 150ms settings.$standard-easing !default;
+
+// AFFIXES
+$inputinner-affix-margin-inside: 16px !default;

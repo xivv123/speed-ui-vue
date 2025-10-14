@@ -1,0 +1,15 @@
+@use '@theme/src/material/tools' as tools;
+@use './_vars' as *;
+
+@include tools.layer('components') {
+  .sp-selctrl-group {
+    grid-area: $selctrl-group-grid-area;
+    display: flex;
+    flex-direction: column;
+
+    &--inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
+}

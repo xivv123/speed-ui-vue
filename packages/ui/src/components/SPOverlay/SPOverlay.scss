@@ -1,0 +1,77 @@
+@use 'sass:selector';
+@use '@theme/src/material/tools' as tools;
+@use './variables' as *;
+
+@include tools.layer('components') {
+  // Block
+  .sp-overlay-container {
+    contain: layout;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    display: contents;
+  }
+
+  .sp-overlay-scroll-blocked {
+    padding-inline-end: var(--sp-scrollbar-offset);
+
+    &:not(html) {
+      overflow-y: hidden !important;
+    }
+
+    @at-root #{selector.append(html, &)} {
+      position: fixed;
+      top: var(--sp-body-scroll-y);
+      left: var(--sp-body-scroll-x);
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .sp-overlay {
+    --sp-overlay-opacity: #{$overlay-opacity};
+    border-radius: inherit;
+    display: flex;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  // Element
+  .sp-overlay__content {
+    outline: none;
+    position: absolute;
+    pointer-events: auto;
+    contain: layout;
+  }
+
+  .sp-overlay__scrim {
+    pointer-events: auto;
+    background: $overlay-scrim-background;
+    border-radius: inherit;
+    bottom: 0;
+    left: 0;
+    opacity: var(--sp-overlay-opacity);
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Modifier
+  .sp-overlay--absolute {
+    position: absolute;
+  }
+
+  .sp-overlay--contained .sp-overlay__scrim {
+    position: absolute;
+  }
+
+  .sp-overlay--scroll-blocked {
+    padding-inline-end: var(--sp-scrollbar-offset);
+  }
+}

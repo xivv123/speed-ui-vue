@@ -1,0 +1,216 @@
+// ================================
+// Speed UI 主题变量
+// ================================
+
+// ========== 颜色系统 ==========
+// 主色调的CSS自定义属性定义
+:root {
+  // --sp-color-primary: #667eea;
+  --sp-theme-primary: #38447a;
+  --sp-color-primary: #1890ff;
+  --sp-color-primary-rgb: 24, 144, 255;
+  --sp-color-primary-hover: #40a9ff;
+  --sp-color-primary-active: #096dd9;
+  --sp-color-primary-disabled: #91d5ff;
+  --sp-color-primary-lightest: #e6f7ff; // hover用，非常浅的蓝色
+  --sp-color-primary-light: #bae7ff; // active用，略深一点的蓝色
+
+  // 次要色彩 CSS 变量
+  --sp-color-secondary: #6c757d;
+  --sp-color-secondary-hover: #868e96;
+  --sp-color-secondary-active: #495057;
+
+  // 功能色彩 CSS 变量
+  --sp-color-success: #52c41a;
+  --sp-color-success-hover: #73d13d;
+  --sp-color-success-active: #389e0d;
+
+  --sp-color-warning: #faad14;
+  --sp-color-warning-hover: #ffec3d;
+  --sp-color-warning-active: #d48806;
+
+  --sp-color-error: #ff4d4f;
+  --sp-color-error-hover: #ff7875;
+  --sp-color-error-active: #d9363e;
+
+  --sp-color-info: #1890ff;
+  --sp-color-info-hover: #40a9ff;
+  --sp-color-info-active: #096dd9;
+
+  // ========== 状态透明度变量 ==========
+  --sp-hover-opacity: 0.04;
+  --sp-focus-opacity: 0.12;
+  --sp-selected-opacity: 0.08;
+  --sp-activated-opacity: 0.12;
+  --sp-pressed-opacity: 0.12;
+  --sp-dragged-opacity: 0.08;
+
+  // ========== 主题覆盖层变量 ==========
+  --sp-theme-overlay-multiplier: 1;
+
+  // ========== 边框和透明度变量 ==========
+  --sp-border-color: 0, 0, 0;
+  --sp-border-opacity: 0.12;
+  --sp-high-emphasis-opacity: 0.87;
+  --sp-medium-emphasis-opacity: 0.6;
+  --sp-disabled-opacity: 0.38;
+  --sp-idle-opacity: 0.04;
+
+  // ========== 主题表面颜色变量 ==========
+  --sp-theme-surface: 255, 255, 255;
+  --sp-theme-on-surface: 0, 0, 0;
+  --sp-theme-surface-variant: 66, 66, 66;
+  --sp-theme-on-surface-variant: 180, 180, 180;
+  --sp-theme-surface-bright: 255, 255, 255;
+  --sp-theme-on-surface-bright: 0, 0, 0;
+
+  // ========== 主题功能色变量 ==========
+  --sp-theme-error: 210, 43, 43;
+
+  // ========== 阴影透明度变量 ==========
+  --sp-shadow-key-umbra-opacity: rgba(0, 0, 0, 0.2);
+  --sp-shadow-key-penumbra-opacity: rgba(0, 0, 0, 0.14);
+  --sp-shadow-key-ambient-opacity: rgba(0, 0, 0, 0.12);
+}
+
+// Sass变量引用CSS自定义属性，并提供默认值
+$color-primary: var(--sp-color-primary) !default;
+$color-primary-hover: var(--sp-color-primary-hover) !default;
+$color-primary-active: var(--sp-color-primary-active) !default;
+$color-primary-disabled: var(--sp-color-primary-disabled) !default;
+$color-primary-lightest: var(--sp-color-primary-lightest) !default;
+$color-primary-light: var(--sp-color-primary-light) !default;
+
+// 功能色彩
+$color-success: #52c41a !default;
+$color-success-hover: #73d13d !default;
+$color-success-active: #389e0d !default;
+
+$color-warning: #faad14 !default;
+$color-warning-hover: #ffec3d !default;
+$color-warning-active: #d48806 !default;
+
+$color-warning-hover-bg: rgb(226, 173, 28) !default;
+
+$color-danger: #ff4d4f !default;
+$color-danger-hover: #ff7875 !default;
+$color-danger-active: #d9363e !default;
+
+$color-info: #1890ff !default;
+$color-info-hover: #40a9ff !default;
+$color-info-active: #096dd9 !default;
+
+// 中性色
+$color-text-primary: #000000d9 !default;
+$color-text-secondary: #00000073 !default;
+$color-text-disabled: #00000040 !default;
+
+$border-color-base: #d9d9d9 !default;
+$border-color-hover: $color-primary-hover !default; // 引用 $color-primary-hover
+$border-color-active: #096dd9 !default;
+$border-color-disabled: #d9d9d9 !default;
+
+$background-color-base: #ffffff !default;
+$background-color-hover: #f5f5f5 !default;
+$background-color-active: #f0f0f0 !default;
+$background-color-disabled: #f5f5f5 !default;
+
+// 深色主题变量 (可选)
+$background-color-dark: #1f1f1f !default;
+$border-color-dark: #434343 !default;
+$border-color-hover-dark: #595959 !default;
+$color-text-dark: #ffffff !default;
+$color-text-placeholder-dark: #8c8c8c !default;
+$color-primary-dark: #1890ff !default;
+
+// ========== 按钮组件变量 ==========
+// 按钮尺寸
+$button-height-small: 24px !default;
+$button-height-medium: 32px !default;
+$button-height-large: 40px !default;
+
+$button-padding-horizontal-small: 8px !default;
+$button-padding-horizontal-medium: 15px !default;
+$button-padding-horizontal-large: 15px !default;
+
+$button-font-size-small: 12px !default;
+$button-font-size-medium: 14px !default;
+$button-font-size-large: 16px !default;
+
+// ========== 尺寸系统 ==========
+// 圆角
+$border-radius-small: 4px !default;
+$border-radius-base: 6px !default;
+$border-radius-large: 8px !default;
+
+// 间距系统
+$spacing-xs: 4px !default;
+$spacing-sm: 8px !default;
+$spacing-md: 16px !default;
+$spacing-lg: 24px !default;
+$spacing-xl: 32px !default;
+
+// ========== 动画系统 ==========
+$transition-duration-base: 0.3s !default;
+$transition-timing-base: cubic-bezier(0.215, 0.61, 0.355, 1) !default;
+
+// ========== 阴影系统 ==========
+$box-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.12) !default;
+$box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15) !default;
+$box-shadow-dark: 0 4px 16px rgba(0, 0, 0, 0.15) !default;
+
+// ========== 字体系统 ==========
+$font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'Helvetica Neue', Arial, 'Noto Sans', sans-serif !default;
+$font-size-base: 14px !default;
+$font-size-sm: 12px !default;
+$font-size-lg: 16px !default;
+$font-weight-base: 400 !default;
+$line-height-base: 1.5 !default;
+
+$button-theme-map: (
+  default: (
+    color: $color-primary,
+    hover: $color-primary-hover,
+    active: $color-primary-active,
+    bg: $color-primary-lightest,
+    bg-hover: $color-primary-light,
+    bg-active: $color-primary-light,
+    text: $color-primary,
+    text-hover: $color-primary-hover,
+    text-active: $color-primary-active,
+  ),
+  success: (
+    color: $color-success,
+    hover: $color-success-hover,
+    active: $color-success-active,
+    bg: #f6ffed,
+    bg-hover: #d9f7be,
+    bg-active: #d9f7be,
+    text: $color-success,
+    text-hover: $color-success-hover,
+    text-active: $color-success-active,
+  ),
+  warning: (
+    color: $color-warning,
+    hover: $color-warning-hover-bg,
+    active: $color-warning-active,
+    bg: #fffbe6,
+    bg-hover: #fffbe6,
+    bg-active: #fff1b8,
+    text: $color-warning,
+    text-hover: $color-warning-active,
+    text-active: $color-warning-active,
+  ),
+  danger: (
+    color: $color-danger,
+    hover: $color-danger-hover,
+    active: $color-danger-active,
+    bg: #fff1f0,
+    bg-hover: #ffccc7,
+    bg-active: #ffccc7,
+    text: $color-danger,
+    text-hover: $color-danger-hover,
+    text-active: $color-danger-active,
+  ),
+);

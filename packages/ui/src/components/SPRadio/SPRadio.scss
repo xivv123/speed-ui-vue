@@ -1,0 +1,24 @@
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components') {
+  .sp-radio {
+    // 确保 radio 按钮的正确对齐
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    // 确保图标和文字垂直居中对齐
+    .sp-selctrl__wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .sp-label {
+      display: flex;
+      align-items: center;
+      line-height: 1.5;
+      margin: 0;
+    }
+  }
+}

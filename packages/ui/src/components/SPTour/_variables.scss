@@ -1,0 +1,24 @@
+// Tour 组件变量
+$tour-mask-color: rgba(0, 0, 0, 0.5) !default;
+$tour-mask-z-index: 2001 !default;
+$tour-content-z-index: 2002 !default;
+
+$tour-card-padding: 20px !default;
+$tour-card-border-radius: 8px !default;
+$tour-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !default;
+
+$tour-title-font-size: 16px !default;
+$tour-title-font-weight: 600 !default;
+$tour-title-line-height: 1.4 !default;
+
+$tour-description-font-size: 14px !default;
+$tour-description-line-height: 1.5 !default;
+
+$tour-indicator-font-size: 12px !default;
+
+$tour-target-border-width: 2px !default;
+$tour-target-border-radius: 6px !default;
+$tour-target-padding: 4px !default;
+
+// 移动端断点
+$tour-mobile-breakpoint: 768px !default;

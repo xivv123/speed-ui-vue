@@ -1,0 +1,193 @@
+@use 'sass:math';
+@use 'sass:selector';
+@use './_vars' as *;
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components') {
+  .sp-form-item {
+    display: grid;
+    flex: $form-item-flex;
+    font-size: $form-item-font-size;
+    font-weight: $form-item-font-weight;
+    line-height: $form-item-line-height;
+    grid-template-areas: 'content' 'details';
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+
+    &--disabled {
+      pointer-events: none;
+    }
+
+    // 标签位置样式
+    // 顶部标签的情况
+    &--label-top {
+      grid-template-areas: 'label' 'content' 'details';
+      grid-template-rows: auto 1fr auto;
+    }
+
+    @at-root {
+      @include tools.density('sp-form-item', $form-item-density) using ($modifier) {
+        --sp-form-item-control-height: #{$form-item-control-height + $modifier};
+        --sp-form-item-padding-top: #{16px + $modifier * 0.5};
+      }
+    }
+  }
+
+
+
+  .sp-form-item__details {
+    align-items: flex-end;
+    display: flex;
+    font-size: $form-item-details-font-size;
+    font-weight: $form-item-details-font-weight;
+    grid-area: details;
+    letter-spacing: $form-item-details-letter-spacing;
+    line-height: $form-item-details-line-height;
+    min-height: $form-item-details-min-height;
+    // padding-top: $form-item-details-padding-above;
+    padding-bottom: $form-item-details-padding-above;
+    overflow: hidden;
+    justify-content: space-between;
+    
+    // 在 content 区域内部时，占据 details 区域
+    .sp-form-item__content & {
+      grid-area: details;
+    }
+  }
+
+  .sp-form-item__details,
+  .sp-form-item__left,
+  .sp-form-item__right {
+    > .sp-icon {
+      opacity: var(--sp-medium-emphasis-opacity);
+    }
+
+    .sp-form-item--disabled &,
+    .sp-form-item--error & {
+      > .sp-icon,
+      .sp-msgs {
+        opacity: 1;
+      }
+    }
+
+    .sp-form-item--disabled & {
+      opacity: var(--sp-disabled-opacity);
+    }
+
+    .sp-form-item--error:not(.sp-form-item--disabled) & {
+      > .sp-icon,
+      .sp-msgs {
+        color: rgb(var(--sp-theme-error));
+      }
+    }
+  }
+
+  .sp-form-item__left,
+  .sp-form-item__right {
+    display: flex;
+    align-items: center;
+    
+    // 在新的 content 结构中不需要 padding-top
+    .sp-form-item__content & {
+      padding-top: 0;
+    }
+  }
+
+  .sp-form-item__right {
+    margin-inline-start: $form-item-affix-margin-inside;
+  }
+
+  .sp-form-item__label {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    font-weight: 500;
+    color: var(--sp-theme-on-surface);
+    white-space: nowrap;
+  }
+
+  // 必填星号样式
+  .sp-form-item__required {
+    color: rgb(var(--sp-theme-error));
+    margin-right: 4px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+  }
+
+  // 校验成功的对勾图标样式
+  .sp-form-item__check-icon {
+    color: #4caf50 !important;
+    margin-right: 2px;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  // 校验失败的叉号图标样式
+  .sp-form-item__error-icon {
+    color: rgb(var(--sp-theme-error)) !important;
+    margin-right: 2px;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  .sp-form-item__left {
+    grid-area: left;
+  }
+
+  .sp-form-item__right {
+    grid-area: right;
+  }
+
+  .sp-form-item__control {
+    display: flex;
+    grid-area: control;
+    
+    // 让子元素自动占满宽度
+    > * {
+      flex: 1;
+    }
+  }
+
+  // 顶部标签样式
+  .sp-form-item__label-top {
+    grid-area: label;
+    margin-bottom: 8px;
+  }
+
+  // 内容区域（包含 left, control, right）
+  .sp-form-item__content {
+    display: grid;
+    grid-template-areas: 'left control right' 'left-space details right-space';
+    grid-template-columns: max-content 1fr max-content;
+    grid-template-rows: auto auto;
+    grid-area: content;
+  }
+
+  .sp-form-item {
+    &--plain-underlined {
+      .sp-form-item__left,
+      .sp-form-item__right {
+        $this: &;
+        align-items: flex-start;
+
+        @at-root {
+          @include tools.density('sp-form-item', $form-item-density) using ($modifier) {
+            @at-root #{selector.append(&, $this)} {
+              padding-top: calc(
+                var(--sp-form-item-padding-top) + #{math.max(
+                    0px,
+                    4px + $modifier * 0.25
+                  )}
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+// SPInputSrch 组件专用变量
+
+// 搜索按钮样式
+$sp-input-srch-search-btn-min-width: auto;
+$sp-input-srch-search-btn-padding: 0 8px;
+$sp-input-srch-search-btn-icon-size: 18px;
+$sp-input-srch-search-btn-inset-padding: 0 6px;
+
+// 菜单样式
+$sp-input-srch-menu-border-radius: 6px;
+$sp-input-srch-menu-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$sp-input-srch-menu-border: 1px solid rgba(0, 0, 0, 0.1);
+$sp-input-srch-menu-dark-background: #2d2d2d;
+$sp-input-srch-menu-dark-border: rgba(255, 255, 255, 0.2);
+
+// 建议项样式
+$sp-input-srch-suggestion-icon-size: 16px;
+$sp-input-srch-suggestion-icon-opacity: 0.7;
+$sp-input-srch-suggestion-icon-margin: 8px;
+
+$sp-input-srch-suggestion-category-font-size: 12px;
+$sp-input-srch-suggestion-category-opacity: 0.6;
+$sp-input-srch-suggestion-category-font-weight: 500;
+$sp-input-srch-suggestion-category-margin: 8px;
+$sp-input-srch-suggestion-category-padding: 2px 6px;
+$sp-input-srch-suggestion-category-border-radius: 4px;
+
+// 紧凑模式
+$sp-input-srch-inset-control-margin: 2px;

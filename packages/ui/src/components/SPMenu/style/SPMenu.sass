@@ -1,0 +1,19 @@
+@use '@theme/src/material/tools' as tools;
+@use './vars' as *
+
+@include tools.layer('components')
+  .sp-menu
+    > .sp-overlay__content
+      display: flex
+      flex-direction: column
+      @include tools.rounded($menu-content-border-radius)
+
+      > .sp-card,
+      > .sp-sheet,
+      > .sp-list
+        background: rgb(var(--sp-theme-surface))
+        border-radius: inherit
+        overflow: auto
+        height: 100%
+
+        @include tools.elevation($menu-elevation)

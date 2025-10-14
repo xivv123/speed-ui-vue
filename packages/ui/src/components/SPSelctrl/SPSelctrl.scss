@@ -1,0 +1,234 @@
+@use 'sass:map';
+@use 'sass:list';
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_vars' as *;
+
+@include tools.layer('components') {
+  .sp-selctrl {
+    align-items: center;
+    contain: layout;
+    display: flex;
+    // flex: 1 0;
+    grid-area: control;
+    position: relative;
+    user-select: none;
+    gap: 8px; // 添加图标和文字之间的间距
+
+    .sp-label {
+      white-space: normal;
+      word-break: break-word;
+      height: 100%;
+      opacity: 1;
+      display: flex;
+      align-items: center; // 确保标签文字垂直居中
+      line-height: 1.5; // 设置合适的行高
+    }
+
+    &--disabled {
+      opacity: var(--sp-disabled-opacity);
+      pointer-events: none;
+    }
+
+    &--error:not(.sp-selctrl--disabled) {
+      .sp-label {
+        color: rgb(var(--sp-theme-error));
+      }
+    }
+
+    &--inline {
+      display: inline-flex;
+      flex: 0 0 auto;
+      min-width: 0;
+      max-width: 100%;
+
+      .sp-label {
+        width: auto;
+      }
+    }
+
+    @at-root {
+      @include tools.density('sp-selctrl', $selctrl-density)
+        using ($modifier) {
+        // --sp-selctrl-size: #{$selctrl-size + $modifier};
+      }
+    }
+  }
+
+  .sp-selctrl__wrapper {
+    width: var(--sp-selctrl-size);
+    height: var(--sp-selctrl-size);
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    flex: none;
+    flex-shrink: 0; // 防止图标被压缩
+  }
+
+  .sp-selctrl__input {
+    width: var(--sp-selctrl-size);
+    height: var(--sp-selctrl-size);
+    align-items: center;
+    display: flex;
+    flex: none;
+    justify-content: center;
+    position: relative;
+    border-radius: 50%;
+    flex-shrink: 0; // 防止输入控件被压缩
+
+    input {
+      cursor: pointer;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+
+    &::before {
+      background-color: currentColor;
+      opacity: 0;
+      pointer-events: none;
+      @include tools.absolute(true);
+
+      // 根据控件类型设置不同的 border-radius
+      .sp-selctrl[data-type='checkbox'] & {
+        border-radius: 30%;
+      }
+
+      .sp-selctrl[data-type='radio'] & {
+        border-radius: 100%;
+      }
+
+      // 默认情况下使用圆形
+      // border-radius: 100%;
+    }
+
+    &:hover::before {
+      opacity: calc(
+        #{map.get(settings.$states, 'hover')} * var(--sp-theme-overlay-multiplier)
+      );
+    }
+
+    > .sp-icon {
+      opacity: var(--sp-medium-emphasis-opacity);
+      vertical-align: baseline;
+      line-height: 1;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    .sp-selctrl--disabled &,
+    .sp-selctrl--dirty &,
+    .sp-selctrl--error & {
+      > .sp-icon {
+        opacity: 1;
+      }
+    }
+
+    .sp-selctrl--error:not(.sp-selctrl--disabled) & {
+      > .sp-icon {
+        color: rgb(var(--sp-theme-error));
+      }
+    }
+
+    .sp-selctrl--focus-visible &::before {
+      opacity: calc(
+        #{map.get(settings.$states, 'focus')} * var(--sp-theme-overlay-multiplier)
+      );
+    }
+  }
+
+  // outlined 变体样式
+  .sp-selctrl--outlined {
+    // 主要的边框容器样式
+    border: 1px solid var(--sp-color-primary); // 主题色边框
+    border-radius: 8px;
+    padding: 8px 12px;
+    background-color: transparent; // 默认透明背景
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 36px;
+    cursor: pointer;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+
+    // hover 状态：显示主题色背景
+    &:hover:not(.sp-selctrl--disabled) {
+      background-color: rgba(56, 68, 122, 0.2); // 直接使用RGB值测试
+    }
+
+    // 选中状态
+    &.sp-selctrl--dirty {
+      border-color: var(--sp-color-primary);
+      background-color: rgba(56, 68, 122, 0.12); // 选中状态背景稍深
+
+      &:hover {
+        background-color: rgba(56, 68, 122, 0.25); // hover + 选中状态背景更深，提高透明度
+      }
+    }
+
+    // 禁用状态
+    &.sp-selctrl--disabled {
+      border-color: rgba(var(--sp-theme-on-surface), 0.12);
+      background-color: rgba(var(--sp-theme-on-surface), 0.04);
+      cursor: not-allowed;
+
+      &:hover {
+        border-color: rgba(var(--sp-theme-on-surface), 0.12);
+        background-color: rgba(var(--sp-theme-on-surface), 0.04);
+      }
+    }
+
+    // 错误状态
+    &.sp-selctrl--error {
+      border-color: rgb(var(--sp-theme-error));
+
+      &:hover {
+        border-color: rgb(var(--sp-theme-error));
+        background-color: rgba(var(--sp-theme-error), 0.04);
+      }
+
+      &.sp-selctrl--dirty {
+        background-color: rgba(var(--sp-theme-error), 0.08);
+
+        &:hover {
+          background-color: rgba(var(--sp-theme-error), 0.12);
+        }
+      }
+    }
+
+    // 聚焦状态
+    &.sp-selctrl--focused {
+      // outline: 2px solid rgba(56, 68, 122, 0.2);
+      // outline-offset: 2px;
+
+      &::before {
+        opacity: 0.12;
+      }
+    }
+
+    // 调整内部布局
+    .sp-selctrl__wrapper {
+      width: auto;
+      height: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    // 调整图标位置
+    .sp-selctrl__input {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      order: 1;
+    }
+  }
+}

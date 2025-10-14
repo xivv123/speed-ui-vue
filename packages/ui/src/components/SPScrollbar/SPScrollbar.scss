@@ -1,0 +1,242 @@
+@use 'sass:math';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components') {
+  .sp-scrollbar {
+    position: relative;
+    height: 100%;
+    // 默认不设置 overflow，让子元素控制
+
+    // 原生滚动条模式
+    &--native {
+      overflow: auto;
+      
+      .sp-scrollbar__wrap {
+        // 恢复原生滚动条样式
+        scrollbar-width: auto; /* Firefox */
+        -ms-overflow-style: auto; /* IE 10+ */
+        
+        &::-webkit-scrollbar {
+          display: block; /* Chrome Safari */
+          width: auto !important;
+          height: auto !important;
+          background: auto !important;
+        }
+        
+        &::-webkit-scrollbar-track {
+          display: block !important;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          display: block !important;
+        }
+        
+        &::-webkit-scrollbar-corner {
+          display: block !important;
+        }
+      }
+    }
+
+    // 自定义滚动条模式 - 隐藏溢出
+    &:not(.sp-scrollbar--native) {
+      overflow: hidden;
+    }
+
+    // 自定义滚动条的 wrap 容器
+    &__wrap {
+      overflow: auto;
+      height: 100%;
+      
+      // 强制隐藏所有浏览器的原生滚动条
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE 10+ */
+      
+      &::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+        width: 0 !important;
+        height: 0 !important;
+        background: transparent !important;
+      }
+      
+      &::-webkit-scrollbar-track {
+        display: none !important;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        display: none !important;
+      }
+      
+      &::-webkit-scrollbar-corner {
+        display: none !important;
+      }
+    }
+
+    // View container
+    &__view {
+      display: block;
+      height: 100%;
+    }
+
+    // 自定义滚动条轨道
+    &__bar {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      z-index: 1;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 240ms ease-out;
+      user-select: none;
+      background: rgba(var(--sp-theme-on-surface-variant), 0.08);
+
+      // 垂直滚动条
+      &--vertical {
+        width: 8px;
+        top: 2px;
+        
+        .sp-scrollbar__thumb {
+          width: 100%;
+        }
+      }
+
+      // 水平滚动条
+      &--horizontal {
+        height: 8px;
+        left: 2px;
+        
+        .sp-scrollbar__thumb {
+          height: 100%;
+        }
+      }
+
+      // 鼠标悬停显示
+      &:hover {
+        opacity: 1 !important;
+        
+        .sp-scrollbar__thumb {
+          background-color: rgba(var(--sp-theme-on-surface-variant), 0.5);
+        }
+      }
+    }
+
+    // 自定义滚动条滑块
+    &__thumb {
+      position: relative;
+      display: block;
+      width: 0;
+      height: 0;
+      cursor: pointer;
+      border-radius: inherit;
+      background-color: rgba(var(--sp-theme-on-surface-variant), 0.3);
+      transition: background-color 240ms ease;
+
+      &:hover {
+        background-color: rgba(var(--sp-theme-on-surface-variant), 0.6) !important;
+      }
+
+      &:active {
+        background-color: rgba(var(--sp-theme-on-surface-variant), 0.8) !important;
+      }
+    }
+
+    // 鼠标悬停容器时显示滚动条
+    &:hover {
+      .sp-scrollbar__bar {
+        opacity: 1;
+      }
+    }
+
+    // 始终显示滚动条
+    &--always-show {
+      .sp-scrollbar__bar {
+        opacity: 1 !important;
+      }
+    }
+
+    // 暗色主题适配
+    .sp-theme--dark & {
+      .sp-scrollbar__bar {
+        background: rgba(var(--sp-theme-on-surface), 0.08);
+      }
+      
+      .sp-scrollbar__thumb {
+        background-color: rgba(var(--sp-theme-on-surface), 0.4);
+
+        &:hover {
+          background-color: rgba(var(--sp-theme-on-surface), 0.6) !important;
+        }
+
+        &:active {
+          background-color: rgba(var(--sp-theme-on-surface), 0.8) !important;
+        }
+      }
+    }
+
+    // 响应式设计
+    @media (max-width: 768px) {
+      .sp-scrollbar__bar {
+        &--vertical {
+          width: 6px;
+        }
+        
+        &--horizontal {
+          height: 6px;
+        }
+      }
+    }
+
+    // 高对比度模式
+    @media (prefers-contrast: high) {
+      .sp-scrollbar__thumb {
+        background-color: rgb(var(--sp-theme-on-surface)) !important;
+        opacity: 0.8;
+
+        &:hover {
+          opacity: 1 !important;
+        }
+      }
+    }
+
+    // 减少动画模式
+    @media (prefers-reduced-motion: reduce) {
+      .sp-scrollbar__bar,
+      .sp-scrollbar__thumb {
+        transition: none !important;
+      }
+    }
+
+    // 焦点样式
+    &__wrap:focus-visible {
+      outline: 2px solid rgb(var(--sp-theme-primary));
+      outline-offset: -2px;
+    }
+
+    // 追加：原生模式强制显示系统滚动条（覆盖前面的隐藏规则）
+    &--native {
+      .sp-scrollbar__wrap {
+        scrollbar-width: auto; /* Firefox */
+        -ms-overflow-style: auto; /* IE 10+ */
+
+        &::-webkit-scrollbar {
+          display: block !important; /* Chrome Safari */
+          width: auto !important;
+          height: auto !important;
+          background: auto !important;
+        }
+
+        &::-webkit-scrollbar-track {
+          display: block !important;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          display: block !important;
+        }
+
+        &::-webkit-scrollbar-corner {
+          display: block !important;
+        }
+      }
+    }
+  }
+}

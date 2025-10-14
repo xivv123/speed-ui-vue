@@ -1,0 +1,18 @@
+
+@use '@theme/src/material/tools' as tools;
+@use './variables' as *
+
+.sp-row
+  display: grid
+  width: 100%
+  box-sizing: border-box
+
+  // 默认间距
+  gap: var(--sp-row-gap, 0)
+  column-gap: var(--sp-row-column-gap, var(--sp-row-gap, 0))
+  row-gap: var(--sp-row-row-gap, var(--sp-row-gap, 0))
+
+  // 确保子元素正确布局
+  > *
+    min-width: 0
+    min-height: 0

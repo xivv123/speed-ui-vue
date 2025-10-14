@@ -1,0 +1,7 @@
+@use '../settings';
+
+@if (settings.$layers) {
+  @layer SpeedUI {
+    @layer reset, transitions, base, components, overrides, colors, theme, utilities;
+  }
+}

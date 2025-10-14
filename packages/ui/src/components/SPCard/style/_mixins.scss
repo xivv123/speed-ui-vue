@@ -1,0 +1,13 @@
+@mixin card-line-height-densities($map) {
+  @each $density, $lineHeight in $map {
+    @if $density == null {
+      .sp-card & {
+        line-height: $lineHeight;
+      }
+    } @else {
+      .sp-card--density-#{$density} & {
+        line-height: $lineHeight;
+      }
+    }
+  }
+}

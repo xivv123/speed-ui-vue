@@ -1,0 +1,19 @@
+@use '@theme/src/material/settings' as settings;
+
+// SPSidebar
+$sidebar-height: 100% !default;
+$sidebar-padding: 8px !default;
+$sidebar-gap: 8px !default;
+
+$sidebar-background: rgb(var(--sp-theme-surface)) !default;
+$sidebar-color: rgb(var(--sp-theme-on-surface)) !default;
+$sidebar-elevation: 0 !default;
+
+$sidebar-border-radius: 0 !default;
+$sidebar-transition-duration: 0.3s !default;
+$sidebar-transition-timing: cubic-bezier(0.4, 0, 0.2, 1) !default;
+
+// Border
+$sidebar-border-color: rgba(var(--sp-border-color), var(--sp-border-opacity)) !default;
+$sidebar-border-style: solid !default;
+$sidebar-border-width: thin !default;

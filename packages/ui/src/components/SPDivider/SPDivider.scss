@@ -1,0 +1,70 @@
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_variables' as *;
+
+@include tools.layer('components') {
+  .sp-divider {
+    display: block;
+    flex: $divider-flex;
+    height: 0px;
+    max-height: 0px;
+    opacity: $divider-opacity;
+    transition: inherit;
+
+    @include tools.border($divider-border...);
+
+    // 应用 useTextColor 生成的文本颜色到边框颜色
+    &[class*="text-"] {
+      border-color: currentColor !important;
+    }
+
+    &--vertical {
+      align-self: stretch;
+      border-width: $divider-vertical-border-width;
+      display: inline-flex;
+      height: auto;
+      margin-left: $divider-vertical-margin-left;
+      max-height: 100%;
+      max-width: 0px;
+      vertical-align: text-bottom;
+      width: 0px;
+    }
+
+    &--inset {
+      &:not(.sp-divider--vertical) {
+        max-width: $divider-inset-max-width;
+        margin-inline-start: $divider-inset-margin;
+      }
+
+      &.sp-divider--vertical {
+        margin-bottom: $divider-vertical-inset-margin-bottom;
+        margin-top: $divider-vertical-inset-margin-top;
+        max-height: $divider-vertical-inset-max-height;
+      }
+    }
+  }
+
+  .sp-divider__content {
+    padding: $divider-content-padding;
+    text-wrap: nowrap;
+
+    .sp-divider__wrapper--vertical & {
+      padding: $divider-content-vertical-padding;
+    }
+  }
+
+  .sp-divider__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--vertical {
+      flex-direction: column;
+      height: 100%;
+
+      .sp-divider {
+        margin: 0 auto;
+      }
+    }
+  }
+}

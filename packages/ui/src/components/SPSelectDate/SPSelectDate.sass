@@ -1,0 +1,153 @@
+@use 'sass:selector'
+@use 'sass:math'
+@use '@theme/src/material/settings' as settings
+@use '@theme/src/material/tools' as tools
+
+@include tools.layer('components')
+  // SPSelectDate 基础样式，继承 SPSelect 的样式
+  .sp-select-date
+    .sp-field
+      .sp-text-field__prefix,
+      .sp-text-field__suffix,
+      .sp-field__input,
+      &.sp-field
+        cursor: pointer
+
+    .sp-field
+      .sp-field__input
+        > input
+          align-self: flex-start
+          opacity: 1
+          flex: 0 0
+          position: absolute
+          width: 100%
+          transition: none
+          pointer-events: none
+          caret-color: transparent
+
+    // 日历图标样式
+    &__calendar-icon
+      margin-inline-end: 8px
+      opacity: 0.7
+      
+      .sp-field--focused &,
+      .sp-select-date--active-menu &
+        opacity: 1
+
+    // 下拉菜单图标样式
+    &__menu-icon
+      opacity: 0.7
+      
+      .sp-field--focused &,
+      .sp-select-date--active-menu &
+        opacity: 1
+
+    // 下拉内容样式
+    &__content
+      overflow: hidden
+      background: rgb(var(--sp-theme-surface))
+      @include tools.elevation(8)
+      @include tools.rounded(4px)
+
+    // 日期面板容器
+    &__panel
+      padding: 16px
+
+// SPDatePanel 日期面板样式
+.sp-date-panel
+  width: 280px
+  font-family: inherit
+  background: rgb(var(--sp-theme-surface))
+  color: rgb(var(--sp-theme-on-surface))
+
+  // 头部导航
+  &__header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-bottom: 16px
+    padding: 0 4px
+
+  &__nav-button
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 32px
+    height: 32px
+    border: none
+    background: transparent
+    border-radius: 50%
+    cursor: pointer
+    color: inherit
+    transition: background-color 0.2s ease
+
+    &:hover
+      background-color: rgba(0, 0, 0, 0.04)
+
+    &:active
+      background-color: rgba(0, 0, 0, 0.08)
+
+  &__title
+    font-size: 16px
+    font-weight: 500
+    color: inherit
+
+  // 星期标题
+  &__weekdays
+    display: grid
+    grid-template-columns: repeat(7, 1fr)
+    gap: 2px
+    margin-bottom: 8px
+
+  &__weekday
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 32px
+    font-size: 12px
+    font-weight: 500
+    color: rgba(0, 0, 0, 0.6)
+    text-align: center
+
+  // 日期网格
+  &__days
+    display: grid
+    grid-template-columns: repeat(7, 1fr)
+    gap: 2px
+
+  &__day
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 32px
+    height: 32px
+    border: none
+    background: transparent
+    border-radius: 50%
+    font-size: 14px
+    cursor: pointer
+    color: inherit
+    transition: all 0.2s ease
+
+    &:not(&--empty):not(:disabled):hover
+      background-color: rgba(0, 0, 0, 0.04)
+
+    &--empty
+      cursor: default
+
+    &--today
+      background-color: rgba(var(--sp-theme-primary), 0.12)
+      color: rgb(var(--sp-theme-primary))
+      font-weight: 500
+
+    &--selected
+      background-color: rgb(var(--sp-theme-primary))
+      color: rgb(var(--sp-theme-on-primary))
+      font-weight: 500
+
+      &:hover
+        background-color: rgb(var(--sp-theme-primary))
+
+    &:disabled
+      cursor: default
+      opacity: 0.38

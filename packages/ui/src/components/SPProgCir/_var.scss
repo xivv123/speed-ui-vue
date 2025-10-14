@@ -1,0 +1,20 @@
+// VProgressCircular
+$prog-cir-intermediate-svg-transition: all 0.2s ease-in-out !default;
+$prog-cir-overlay-transition: all 0.2s ease-in-out, stroke-width 0s !default;
+$prog-cir-overlay-transform: rotate(calc(-90deg)) !default;
+$prog-cir-rotate-animation: prog-cir-rotate 1.4s linear infinite !default;
+$prog-cir-rotate-dash: prog-cir-dash 1.4s ease-in-out infinite !default;
+$prog-cir-size: 32px !default;
+$prog-cir-underlay-color: rgba(
+  var(--sp-border-color),
+  var(--sp-border-opacity)
+) !default;
+
+// Lists
+$prog-cir-sizes: (
+  'x-small': -2,
+  'small': -1,
+  'default': 0,
+  'large': 2,
+  'x-large': 4,
+) !default;

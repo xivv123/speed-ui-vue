@@ -1,0 +1,182 @@
+@use 'sass:selector';
+
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_vars' as *;
+
+// ===== SETTINGS VARIABLES =====
+$color-pack: true !default;
+$reset: true !default;
+$layers: false !default;
+
+$body-font-family: 'Roboto', sans-serif !default;
+$font-size-root: 1rem !default;
+$line-height-root: 1.5 !default;
+$border-color-root: rgba(
+  var(--sp-border-color),
+  var(--sp-border-opacity)
+) !default;
+$border-radius-root: 4px !default;
+$border-style-root: solid !default;
+$border-width-root: thin !default;
+$transition-duration-root: 0.3s !default;
+$transition-move-duration-root: 0.5s !default;
+$standard-easing: cubic-bezier(0.4, 0, 0.2, 1) !default;
+
+$spacer: 4px !default;
+$spacers-steps: 16 !default;
+input {
+  background-color: transparent;
+  border-style: none;
+}
+
+// ===== TOOLS MIXINS =====
+@mixin layer($name) {
+  @if ($layers) {
+    @layer speed.#{$name} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// ===== VFIELD VARIABLES =====
+$field-input-min-height: 40px !default;
+$field-input-padding-bottom: 6px !default;
+$field-input-padding-top: 4px !default;
+
+// ===== VTEXTFIELD VARIABLES =====
+$text-field-affix-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-medium-emphasis-opacity)
+) !default;
+$text-field-border-radius: $border-radius-root !default;
+$text-field-details-padding-inline: 16px !default;
+$text-field-disabled-affix-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-disabled-opacity)
+) !default;
+$text-field-input-flex: 1 !default;
+$text-field-input-padding-end: 0 !default;
+$text-field-input-padding-start: 6px !default;
+$text-field-input-transition: 0.15s opacity $standard-easing !default;
+
+@include layer('components') {
+  /* region BLOCK */
+  .sp-text-field {
+    input {
+      color: inherit;
+      opacity: 0;
+      flex: $text-field-input-flex;
+      transition: $text-field-input-transition;
+      min-width: 0;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+
+      // Remove Firefox red outline
+      &:invalid {
+        box-shadow: none;
+      }
+    }
+
+    .sp-field {
+      cursor: text;
+
+      &:not(.sp-field--reverse) {
+        .sp-field__input {
+          @at-root #{selector.append('.sp-text-field--prefixed', &)} {
+            --sp-field-padding-start: #{$text-field-input-padding-start};
+          }
+
+          @at-root #{selector.append('.sp-text-field--suffixed', &)} {
+            --sp-field-padding-end: #{$text-field-input-padding-end};
+          }
+        }
+      }
+
+      &.sp-field--reverse {
+        .sp-field__input {
+          @at-root #{selector.append('.sp-text-field--prefixed', &)} {
+            --sp-field-padding-end: #{$text-field-input-padding-start};
+          }
+
+          @at-root #{selector.append('.sp-text-field--suffixed', &)} {
+            --sp-field-padding-start: #{$text-field-input-padding-end};
+          }
+        }
+      }
+    }
+
+    .sp-inputinner__details {
+      padding-inline: $text-field-details-padding-inline;
+      @at-root #{selector.append('.sp-inputinner--plain-underlined', &)} {
+        padding-inline: 0;
+      }
+    }
+
+    .sp-field--no-label,
+    .sp-field--active {
+      input {
+        opacity: 1;
+      }
+    }
+
+    .sp-field--single-line {
+      input {
+        transition: none;
+      }
+    }
+  }
+
+  /* endregion */
+  /* region ELEMENTS */
+  .sp-text-field {
+    &__prefix,
+    &__suffix {
+      align-items: center;
+      color: $text-field-affix-color;
+      cursor: default;
+      display: flex;
+      opacity: 0;
+      transition: inherit;
+      white-space: nowrap;
+      min-height: $field-input-min-height;
+      padding-top: calc(
+        var(--sp-field-padding-top, 4px) + var(--sp-inputinner-padding-top, 0)
+      );
+      padding-bottom: var(--sp-field-padding-bottom, 6px);
+
+      .sp-field--active & {
+        opacity: 1;
+      }
+
+      .sp-field--disabled & {
+        color: $text-field-disabled-affix-color;
+      }
+    }
+
+    &__prefix {
+      @at-root #{selector.nest('.sp-field:not(.sp-field--reverse)', &)} {
+        padding-inline-start: var(--sp-field-padding-start);
+      }
+      @at-root #{selector.nest('.sp-field.sp-field--reverse', &)} {
+        padding-inline-end: var(--sp-field-padding-end);
+      }
+    }
+
+    &__suffix {
+      @at-root #{selector.nest('.sp-field:not(.sp-field--reverse)', &)} {
+        padding-inline-end: var(--sp-field-padding-end);
+      }
+      @at-root #{selector.nest('.sp-field.sp-field--reverse', &)} {
+        padding-inline-start: var(--sp-field-padding-start);
+      }
+    }
+  }
+
+  /* endregion */
+}

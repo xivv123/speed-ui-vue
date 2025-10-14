@@ -1,0 +1,7 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+
+// SPRow 组件变量
+$row-gap: 0 !default;
+$row-column-gap: 0 !default;
+$row-row-gap: 0 !default;

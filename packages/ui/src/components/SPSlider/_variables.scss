@@ -1,0 +1,41 @@
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+
+$slider-horizontal-start: 8px !default;
+$slider-horizontal-min-height: 32px !default;
+$slider-horizontal-end: 8px !default;
+$slider-label-margin-end: 12px !default;
+$slider-label-margin-start: 12px !default;
+$slider-state-track-background-opacity: 0.4 !default;
+$slider-thumb-hover-opacity: var(--sp-hover-opacity) !default;
+$slider-thumb-focus-opacity: var(--sp-focus-opacity) !default;
+$slider-thumb-pressed-opacity: var(--sp-pressed-opacity) !default;
+$slider-thumb-border-radius: 50% !default;
+$slider-thumb-focused-size-increase: 24px !default;
+$slider-thumb-label-font-size: tools.map-deep-get(
+  settings.$typography,
+  'caption',
+  'size'
+) !default;
+$slider-thumb-label-border-radius: 4px !default;
+$slider-thumb-label-height: 25px !default;
+$slider-thumb-label-min-width: 35px !default;
+$slider-thumb-label-wedge-size: 6px !default;
+$slider-thumb-label-offset: calc(var(--sp-slider-thumb-size) / 2) !default;
+$slider-thumb-label-transition: 0.2s settings.$accelerated-easing !default;
+$slider-thumb-label-padding: 6px !default;
+$slider-thumb-touch-size: 42px !default;
+$slider-tick-background: rgb(var(--sp-theme-surface-light)) !default;
+$slider-tick-border-radius: 2px !default;
+$slider-tick-label-margin-top: 8px !default;
+$slider-tick-label-margin-start: 12px !default;
+$slider-track-border-radius: 6px !default;
+$slider-track-active-size-offset: 2px !default;
+$slider-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1) !default;
+$slider-vertical-margin-bottom: 12px !default;
+$slider-vertical-margin-top: 12px !default;
+$slider-vertical-min-height: 300px !default;
+
+$slider-track-active-size: calc(
+  var(--sp-slider-track-size) + #{$slider-track-active-size-offset}
+) !default;

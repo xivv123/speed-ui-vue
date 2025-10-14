@@ -1,0 +1,130 @@
+@use 'sass:math';
+@use 'sass:selector';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+@use './variables' as *;
+
+@include tools.layer('components') {
+  .sp-text-super {
+    .sp-field {
+      --sp-text-super-control-height: var(--sp-inputinner-control-height);
+    }
+
+    .sp-field__field {
+      --sp-inputinner-control-height: var(--sp-text-super-control-height);
+    }
+
+    .sp-field__input {
+      $a: calc(
+        (var(--sp-field-padding-top, 0) + var(--sp-inputinner-padding-top, 0)) - 6px
+      );
+      $b: calc(
+        var(--sp-field-padding-top, 0) + var(--sp-inputinner-padding-top, 0) + 4px
+      );
+
+      flex: 1 1 auto;
+      outline: none;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        transparent $a,
+        black $b
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        transparent $a,
+        black $b
+      );
+
+      &.sp-text-super__sizer {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 0 !important;
+        min-height: 0 !important;
+        pointer-events: none;
+      }
+    }
+
+    // ensure sizer hidden even when not carrying sp-field__input
+    .sp-text-super__sizer {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 0 !important;
+      min-height: 0 !important;
+      pointer-events: none;
+    }
+
+    &--no-resize {
+      .sp-field__input { resize: none; }
+      .sp-text-super__textarea { resize: none; }
+    }
+
+    .sp-field--no-label,
+    .sp-field--active {
+      textarea {
+        opacity: 1;
+      }
+    }
+
+    textarea {
+      opacity: 0;
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      // enable user vertical resize by default (unless no-resize/auto-grow)
+      resize: vertical;
+      transition: 0.15s opacity settings.$standard-easing;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
+
+      &:invalid {
+        box-shadow: none;
+      }
+    }
+
+    .sp-text-super__body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    // footer bar inside field input area
+    .sp-text-super__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 8px;
+
+      &__left,
+      &__right {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      &__content {
+        flex: 1 1 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+
+    &.sp-field--prepend-inner {
+      .sp-field__prepend-inner {
+        align-items: center !important;
+        padding-top: 0 !important;
+      }
+    }
+  }
+}

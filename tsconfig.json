@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@speed-ui/ui": ["packages/ui/src"],
+      "@speed-ui/ui/*": ["packages/ui/src/*"],
+      "@speed-ui/utils": ["packages/utils/src"],
+      "@speed-ui/utils/*": ["packages/utils/src/*"],
+      "@theme": ["packages/theme"],
+      "@theme/*": ["packages/theme/*"]
+    }
+  },
+  "include": [
+    "packages/*/src/**/*.ts",
+    "packages/*/src/**/*.d.ts",
+    "packages/*/src/**/*.tsx",
+    "packages/*/src/**/*.vue",
+    "playground/src/**/*.ts",
+    "playground/src/**/*.d.ts",
+    "playground/src/**/*.tsx",
+    "playground/src/**/*.vue",
+    "env.d.ts"
+  ],
+  "vueCompilerOptions": {
+    "jsxSlots": true
+  }
+}

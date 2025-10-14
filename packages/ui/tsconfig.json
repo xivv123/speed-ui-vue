@@ -1,0 +1,56 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    // 构建输出配置
+    "outDir": "types2",
+    "composite": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "emitDeclarationOnly": true,
+
+    // 覆盖根配置的路径映射，添加内部别名
+    "baseUrl": ".",
+    "paths": {
+      // 继承根配置的全局路径
+      "@speed-ui/ui": ["../../packages/ui/src"],
+      "@speed-ui/ui/*": ["../../packages/ui/src/*"],
+
+      // UI 包内部路径映射
+      "@/*": ["src/*"],
+      "@/composables/*": ["src/composables/*"],
+      "@/components/*": ["src/components/*"],
+      "@/utils": ["src/utils"],
+      "@/utils/*": ["src/utils/*"],
+      "@/util": ["src/utils"],
+      "@theme": ["../../packages/theme"],
+      "@theme/*": ["../../packages/theme/*"]
+    },
+
+    // 测试环境类型支持
+    "types": ["vitest/globals", "node", "jsdom"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    // "src/**/*.d.ts",
+    // "src/types/global.d.ts",
+    "vue-jsx.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib",
+    "es",
+    "types",
+    "types2",
+    "src/**/*.spec.*",
+    "src/**/*.test.*",
+    "src/**/*.cy.*",
+    "src/**/__tests__/**",
+    "src/**/cases/**",
+    "src/**/demo*/**",
+    "src/**/examples/**",
+    "src/**/capable/**",
+    "src/**/copy*/**"
+  ]
+}

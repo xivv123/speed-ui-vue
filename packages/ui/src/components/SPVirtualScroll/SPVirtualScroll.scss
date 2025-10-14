@@ -1,0 +1,15 @@
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components') {
+  .sp-virtual-scroll {
+    display: block;
+    flex: 1 1 auto;
+    max-width: 100%;
+    overflow: auto;
+    position: relative;
+
+    &__container {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+@use '@theme/src/material/tools' as tools;
+
+.sp-morph-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  
+  // CSS 变量
+  width: var(--sp-morph-btn-width);
+  height: var(--sp-morph-btn-height);
+  border-radius: var(--sp-morph-btn-border-radius);
+  
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  &--animating {
+    pointer-events: none;
+  }
+  
+  &__default,
+  &__expanded {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  
+  &__icon {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  &__expanded-content {
+    padding: 0 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: inherit;
+    border-radius: inherit;
+  }
+  
+  // 悬停效果
+  &:not(&--disabled):hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  // 按下效果
+  &:not(&--disabled):active {
+    transform: scale(0.95);
+  }
+  
+  // 展开状态的特殊样式
+  &--expanded {
+    &:not(&--disabled):hover {
+      transform: scale(1.02);
+    }
+  }
+}

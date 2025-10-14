@@ -1,0 +1,121 @@
+@use '@theme/src/material/settings' as settings
+@use '@theme/src/material/tools' as tools
+@use './_variables' as *
+
+@include tools.layer('components')
+  // 过渡动画
+  .sp-sidebar-enter-active,
+  .sp-sidebar-leave-active
+    transition: width $sidebar-transition-duration $sidebar-transition-timing, opacity $sidebar-transition-duration $sidebar-transition-timing
+
+  .sp-sidebar-enter-from,
+  .sp-sidebar-leave-to
+    opacity: 0
+
+  .sp-sidebar-enter-to,
+  .sp-sidebar-leave-from
+    opacity: 1
+
+  .sp-sidebar
+    display: flex
+    flex-direction: column
+    height: 100%
+    position: relative
+    overflow: visible
+    transition: width $sidebar-transition-duration $sidebar-transition-timing
+    border-radius: $sidebar-border-radius
+    flex-shrink: 0
+
+    @include tools.variant($sidebar-background, $sidebar-color, $sidebar-elevation, 0.38, 'sp-sidebar')
+
+    &--closed
+      width: 0 !important
+      min-width: 0
+      padding: 0
+      border: none
+      overflow: visible
+      
+      .sp-sidebar__prepend,
+      .sp-sidebar__content,
+      .sp-sidebar__append
+        opacity: 0
+        visibility: hidden
+      
+      .sp-sidebar__toggle
+        opacity: 1
+        visibility: visible
+
+    &--left
+      border-right: $sidebar-border-width $sidebar-border-style $sidebar-border-color
+
+    &--right
+      border-left: $sidebar-border-width $sidebar-border-style $sidebar-border-color
+
+    &--floating
+      position: fixed
+      top: 0
+      bottom: 0
+      z-index: 1000
+
+      &.sp-sidebar--left
+        left: 0
+
+      &.sp-sidebar--right
+        right: 0
+
+    &--rail
+      .sp-sidebar__content
+        align-items: center
+
+  .sp-sidebar__prepend
+    padding: $sidebar-padding
+    flex-shrink: 0
+    white-space: nowrap
+    transition: opacity $sidebar-transition-duration $sidebar-transition-timing, visibility $sidebar-transition-duration $sidebar-transition-timing
+
+  .sp-sidebar__content
+    display: flex
+    flex-direction: column
+    flex: 1
+    overflow-x: hidden
+    overflow-y: auto
+    padding: $sidebar-padding
+    white-space: nowrap
+    transition: opacity $sidebar-transition-duration $sidebar-transition-timing, visibility $sidebar-transition-duration $sidebar-transition-timing
+
+  .sp-sidebar__append
+    padding: $sidebar-padding
+    flex-shrink: 0
+    margin-top: auto
+    white-space: nowrap
+    transition: opacity $sidebar-transition-duration $sidebar-transition-timing, visibility $sidebar-transition-duration $sidebar-transition-timing
+
+  // 切换按钮
+  .sp-sidebar__toggle
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+    z-index: 10
+    cursor: pointer
+    opacity: 1
+    visibility: visible
+    pointer-events: auto
+    transition: left $sidebar-transition-duration $sidebar-transition-timing, right $sidebar-transition-duration $sidebar-transition-timing, margin $sidebar-transition-duration $sidebar-transition-timing
+
+    &--left
+      left: 100%
+      margin-left: -20px
+
+    &--right
+      right: 100%
+      margin-right: -20px
+
+  // 关闭状态下，按钮完整显示在外面
+  .sp-sidebar--closed
+    .sp-sidebar__toggle--left
+      left: 0
+      margin-left: 0
+
+    .sp-sidebar__toggle--right
+      right: 0
+      margin-right: 0

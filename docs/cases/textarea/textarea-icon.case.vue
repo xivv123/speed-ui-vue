@@ -1,0 +1,28 @@
+<text>
+> 带有图标的多行文本域
+</text>
+
+<template>
+  <sp-space direction="vertical" :size="16">
+    <sp-textarea
+      label="基础文本域"
+      placeholder="基础样式"
+      prepend-icon="Location"
+      prepend-inner-icon="Person"
+      append-inner-icon="Notifications"
+      :rows="3"
+      style="width: 400px"
+    />
+    <sp-textarea
+      label="轮廓文本域"
+      variant="outlined"
+      placeholder="轮廓样式"
+      prepend-icon="Heart"
+      prepend-inner-icon="Star"
+      append-icon="Play"
+      append-inner-icon="Wifi"
+      :rows="3"
+      style="width: 400px"
+    />
+  </sp-space>
+</template>

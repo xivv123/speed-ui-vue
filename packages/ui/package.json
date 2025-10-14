@@ -1,0 +1,69 @@
+{
+  "name": "speed-ui-vue",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Vue 3 UI 组件库",
+  "license": "MIT",
+  "author": "Speed UI Team",
+  "keywords": [
+    "vue",
+    "vue3",
+    "ui",
+    "components",
+    "component-library",
+    "design-system",
+    "typescript"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "lib",
+    "es",
+    "types"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.scss",
+    "*.sass",
+    "*.less",
+    "*.vue",
+    "*/styles.ts",
+    "*/styles.js"
+  ],
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./es/index.js",
+      "require": "./lib/index.js"
+    },
+    "./styles": "./es/speed-ui-vue.css",
+    "./es/speed-ui-vue.css": "./es/speed-ui-vue.css",
+    "./entry": {
+      "types": "./types/entry.d.ts",
+      "import": "./es/entry.js",
+      "require": "./lib/entry.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "vite build",
+    "clean": "rimraf lib es types",
+    "dev": "vite build --watch",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "peerDependenciesMeta": {
+    "vue-router": {
+      "optional": true
+    }
+  },
+  "dependencies": {},
+  "optionalDependencies": {},
+  "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "^5.0.0"
+  }
+}

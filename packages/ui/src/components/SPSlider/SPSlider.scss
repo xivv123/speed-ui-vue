@@ -1,0 +1,83 @@
+@use 'sass:map';
+@use 'sass:selector';
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_variables' as *;
+
+@include tools.layer('components') {
+  // Block
+  .sp-slider {
+    .sp-slider__container {
+      input {
+        cursor: default;
+        padding: 0;
+        width: 100%;
+        display: none;
+      }
+    }
+
+    > .sp-inputinner__append,
+    > .sp-inputinner__prepend {
+      padding: 0;
+    }
+  }
+
+  // Elements
+  .sp-slider__container {
+    position: relative;
+    min-height: inherit;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+    // 拖拽时优化性能
+    .sp-slider--pressed & {
+      pointer-events: none; // 防止拖拽时的意外事件
+    }
+
+    .sp-inputinner--disabled & {
+      opacity: var(--sp-disabled-opacity);
+    }
+
+    .sp-inputinner--error:not(.sp-inputinner--disabled) & {
+      color: rgb(var(--sp-theme-error));
+    }
+  }
+
+  // Modifiers
+  .sp-slider.sp-inputinner--horizontal {
+    align-items: center;
+    margin-inline: $slider-horizontal-start $slider-horizontal-end;
+
+    > .sp-inputinner__control {
+      min-height: $slider-horizontal-min-height;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .sp-slider.sp-inputinner--vertical {
+    justify-content: center;
+    margin-top: $slider-vertical-margin-top;
+    margin-bottom: $slider-vertical-margin-bottom;
+
+    > .sp-inputinner__control {
+      min-height: $slider-vertical-min-height;
+    }
+  }
+
+  .sp-slider.sp-inputinner--disabled {
+    pointer-events: none;
+  }
+
+  .sp-slider--has-labels > .sp-inputinner__control {
+    margin-bottom: $slider-tick-label-margin-top * 0.5;
+  }
+
+  .sp-slider__label {
+    margin-inline-end: $slider-label-margin-end;
+  }
+}

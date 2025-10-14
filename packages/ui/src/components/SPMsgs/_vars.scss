@@ -1,0 +1,9 @@
+// SPMessages
+$messages-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-medium-emphasis-opacity)
+) !default;
+$messages-font-size: 12px !default;
+$messages-line-height: $messages-font-size !default;
+$messages-min-height: 14px !default;
+$messages-transition-duration: 150ms !default;

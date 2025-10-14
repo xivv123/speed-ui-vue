@@ -1,0 +1,156 @@
+@use '@theme/src/material/tools' as tools
+@use './_vars' as *
+
+@include tools.layer('components')
+  .sp-note
+    position: absolute
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1)
+    border: 1px solid $note-border-color
+    border-radius: $note-radius
+    background: $note-bg
+    color: rgba(var(--sp-theme-on-surface), 0.8)
+    overflow: hidden
+
+    &--dragging
+      cursor: grabbing
+      opacity: 0.98
+
+    &__header
+      height: $note-header-height
+      display: flex
+      align-items: center
+      justify-content: space-between
+      padding: 0 10px
+      background: $note-header-bg
+      border-bottom: 1px solid $note-border-color
+      cursor: grab
+      line-height: 1
+      user-select: none
+
+      .sp-note__title
+        font-size: 14px
+        opacity: 0.8
+        flex: 1
+        min-width: 0
+
+      .sp-note__title-text
+        cursor: pointer
+        padding: 2px 4px
+        border-radius: 3px
+        transition: background-color 0.2s ease
+        display: inline-block
+        min-width: 80px
+
+        &:hover
+          background-color: rgba(var(--sp-theme-on-surface), 0.05)
+
+      .sp-note__title-input
+        .sp-field
+          min-height: auto !important
+
+          .sp-field__input
+            padding: 2px 4px !important
+            min-height: auto !important
+
+          input
+            font-size: 14px !important
+            line-height: 1.2 !important
+            background: transparent !important
+            border: none !important
+            outline: none !important
+            opacity: 1 !important
+            cursor: text !important
+            pointer-events: auto !important
+
+      .sp-note__actions
+        display: inline-flex
+        align-items: center
+        gap: 10px
+        color: rgba(0, 0, 0, 0.45)
+
+      .sp-note__close-btn
+        cursor: pointer
+        padding: 2px
+        border-radius: 3px
+        transition: all 0.2s ease
+        color: rgba(0, 0, 0, 0.45)
+
+        &:hover
+          background-color: rgba(var(--sp-theme-on-surface), 0.08)
+          color: rgba(0, 0, 0, 0.65)
+
+    &__body
+      padding: $note-padding
+      height: calc(100% - $note-header-height)
+      background: $note-bg
+
+    textarea.sp-note__textarea
+      width: 100%
+      height: 100%
+      background: transparent
+      border: none
+      resize: none
+      outline: none
+      color: inherit
+      font-size: 14px
+      line-height: 1.5
+
+    &__resize
+      position: absolute
+      z-index: 2
+      user-select: none
+      touch-action: none
+
+    &__resize--n,
+    &__resize--s
+      left: 6px
+      right: 6px
+      height: 8px
+      cursor: ns-resize
+
+    &__resize--n
+      top: -1px
+
+    &__resize--s
+      bottom: -1px
+
+    &__resize--e,
+    &__resize--w
+      top: 6px
+      bottom: 6px
+      width: 8px
+      cursor: ew-resize
+
+    &__resize--e
+      right: -1px
+
+    &__resize--w
+      left: -1px
+
+    &__resize--ne,
+    &__resize--nw,
+    &__resize--se,
+    &__resize--sw
+      width: 12px
+      height: 12px
+      background: transparent
+
+    &__resize--ne
+      right: -1px
+      top: -1px
+      cursor: nesw-resize
+
+    &__resize--nw
+      left: -1px
+      top: -1px
+      cursor: nwse-resize
+
+    &__resize--se
+      right: -1px
+      bottom: -1px
+      cursor: nwse-resize
+
+    &__resize--sw
+      left: -1px
+      bottom: -1px
+      cursor: nesw-resize

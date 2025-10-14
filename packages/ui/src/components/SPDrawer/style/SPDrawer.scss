@@ -1,0 +1,113 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+@use './variables' as *;
+
+.sp-drawer {
+  .sp-overlay__content {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    overflow: hidden;
+    position: fixed;
+    box-shadow: $sp-drawer-elevation;
+    background-color: rgb(var(--sp-theme-surface));
+    color: rgba(var(--sp-theme-on-surface), var(--sp-high-emphasis-opacity));
+  }
+
+  &--left {
+    .sp-overlay__content {
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-right: $sp-drawer-border-width solid rgba(var(--sp-border-color), var(--sp-border-opacity));
+    }
+  }
+
+  &--right {
+    .sp-overlay__content {
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-left: $sp-drawer-border-width solid rgba(var(--sp-border-color), var(--sp-border-opacity));
+    }
+  }
+
+  &--top {
+    .sp-overlay__content {
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: auto;
+      max-height: 50%;
+      border-bottom: $sp-drawer-border-width solid rgba(var(--sp-border-color), var(--sp-border-opacity));
+    }
+  }
+
+  &--bottom {
+    .sp-overlay__content {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: auto;
+      max-height: 50%;
+      border-top: $sp-drawer-border-width solid rgba(var(--sp-border-color), var(--sp-border-opacity));
+    }
+  }
+
+  &--permanent {
+    .sp-overlay__scrim {
+      display: none;
+    }
+  }
+}
+
+// Drawer transitions - 完整的滑入滑出动画
+.drawer-left-transition,
+.drawer-right-transition,
+.drawer-top-transition,
+.drawer-bottom-transition {
+  &-enter-active {
+    transition-duration: 300ms !important;
+    transition-timing-function: settings.$decelerated-easing !important;
+  }
+
+  &-leave-active {
+    transition-duration: 250ms !important;
+    transition-timing-function: settings.$accelerated-easing !important;
+  }
+
+  &-enter-active,
+  &-leave-active {
+    transition-property: transform !important;
+  }
+}
+
+.drawer-left-transition {
+  &-enter-from,
+  &-leave-to {
+    transform: translateX(-100%);
+  }
+}
+
+.drawer-right-transition {
+  &-enter-from,
+  &-leave-to {
+    transform: translateX(100%);
+  }
+}
+
+.drawer-top-transition {
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(-100%);
+  }
+}
+
+.drawer-bottom-transition {
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(100%);
+  }
+}

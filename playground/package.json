@@ -1,0 +1,27 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/fira-code": "^5.2.6",
+    "@fontsource/inter": "^5.2.5",
+    "@speed-ui/theme": "workspace:*",
+    "speed-ui-vue": "workspace:*",
+    "@vee-validate/i18n": "^4.15.0",
+    "@vee-validate/rules": "^4.15.0",
+    "vee-validate": "^4.15.0",
+    "vue-i18n": "^9.13.1",
+    "vue-router": "^4.4.0",
+    "xicons": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "@vue/runtime-dom": "^3.5.14"
+  }
+}

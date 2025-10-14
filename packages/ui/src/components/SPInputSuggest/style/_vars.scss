@@ -1,0 +1,14 @@
+@forward '../../SPInputinner/_vars';
+@use '@theme/src/material/settings' as settings;
+
+// Defaults
+$input-suggest-content-border-radius: 4px !default;
+$input-suggest-content-elevation: 4 !default;
+$input-suggest-focused-input: 64px !default;
+$input-suggest-input-buffer: 2px !default;
+$input-suggest-line-height: 1.75 !default;
+$input-suggest-selection-gap: 2px !default;
+$input-suggest-transition: 0.2s settings.$standard-easing !default;
+$input-suggest-chips-control-min-height: 64px !default;
+$input-suggest-chips-margin-top: null !default;
+$input-suggest-chips-margin-bottom: null !default;

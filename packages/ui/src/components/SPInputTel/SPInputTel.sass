@@ -1,0 +1,88 @@
+@use 'sass:selector'
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *
+
+@include tools.layer('components')
+  .sp-input-tel
+    $root: &
+    $control-root: #{selector.append($root, '__control')}
+
+    input[type="tel"]
+      -webkit-appearance: none
+      -moz-appearance: textfield
+
+    .sp-field
+      &:has(.sp-field__prepend-inner > .sp-input-tel__control:first-child)
+        padding-inline-start: 0
+
+    .sp-field__prepend-inner:has(.sp-input-tel__control)
+      > .sp-icon
+        margin-inline-end: 4px
+
+      > hr + .sp-icon,
+      > .sp-input-tel__control + .sp-icon
+        margin-inline: 8px 0
+
+    &--inset
+      .sp-divider
+        height: $input-tel-inset-divider-size
+        width: $input-tel-inset-divider-size
+        align-self: center
+
+    &__control
+      display: flex
+      height: 100%
+
+      .sp-btn
+        background-color: transparent
+        border-radius: 0
+        min-width: auto
+        padding: 0 12px
+        font-size: 0.875rem
+
+    &__country-btn
+      display: flex
+      align-items: center
+      justify-content: center
+      font-weight: 500
+      min-width: auto !important
+      height: 100%
+      padding: 0 12px
+      line-height: 1
+      
+      &:hover
+        background-color: rgba(var(--sp-theme-on-surface), 0.04)
+
+    &__dial-code
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
+      font-size: 0.95rem
+      font-weight: 600
+      line-height: 1
+      letter-spacing: 0.01em
+
+    &__menu-content
+      max-height: 300px
+      overflow-y: auto
+
+    &__menu-flag
+      font-size: 1.2em
+      margin-inline-end: 8px
+      line-height: 1
+      flex-shrink: 0
+
+    &--menu-active
+      .sp-input-tel__country-btn
+        background-color: rgba(var(--sp-theme-on-surface), 0.08)
+
+    // Focus styles
+    .sp-field--focused &__country-btn
+      color: rgb(var(--sp-theme-primary))
+
+    // Error styles  
+    .sp-field--error &__country-btn
+      color: rgb(var(--sp-theme-error))
+
+    // Disabled styles
+    .sp-field--disabled &__country-btn
+      opacity: 0.38
+      pointer-events: none

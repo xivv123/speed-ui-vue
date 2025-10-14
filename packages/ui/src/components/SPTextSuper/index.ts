@@ -1,0 +1,2 @@
+export { SPTextSuper } from './SPTextSuper'
+

@@ -1,0 +1,2 @@
+export { SPThumb } from './SPThumb'
+

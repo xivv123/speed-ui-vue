@@ -1,0 +1,12 @@
+@use '@theme/src/material/settings' as settings;
+// VLabel
+$label-color: inherit !default;
+$label-disabled-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-disabled-opacity)
+) !default;
+$label-display: inline-flex !default;
+$label-error-color: rgb(var(--sp-theme-error)) !default;
+$label-font-size: 1rem !default;
+$label-letter-spacing: 0.009375em !default;
+$label-opacity: var(--sp-medium-emphasis-opacity) !default;

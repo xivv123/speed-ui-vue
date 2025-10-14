@@ -1,0 +1,115 @@
+// SPSpace 间距组件样式
+.sp-space {
+  display: flex;
+  align-items: center;
+
+  // 基础样式
+  &__item {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  &__spacer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--sp-text-color-secondary, #d0d0d0);
+    font-size: 14px;
+    user-select: none;
+    margin: 0 4px; // 给分隔符左右添加一点间距
+    opacity: 0.6; // 让分隔符稍微透明一些
+  }
+
+  // 方向变体
+  &--horizontal {
+    flex-direction: row;
+
+    .sp-space__spacer {
+      height: 100%;
+      min-height: 1em;
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+    align-items: stretch;
+
+    .sp-space__item {
+      align-items: stretch;
+    }
+
+    .sp-space__spacer {
+      width: 100%;
+      justify-content: center;
+      min-width: 1em;
+    }
+  }
+
+  // 换行支持
+  &--wrap {
+    flex-wrap: wrap !important;
+    gap: 0 !important; // 强制移除gap，使用margin替代
+
+    .sp-space__item {
+      flex-shrink: 1;
+      min-width: 0;
+    }
+  }
+
+  // 填充模式
+  &--fill {
+    width: 100%;
+
+    .sp-space__item {
+      flex: 1;
+      min-width: 0; // 防止内容溢出
+    }
+  }
+
+  // 对齐方式
+  &[data-alignment='start'] {
+    align-items: flex-start;
+  }
+
+  &[data-alignment='end'] {
+    align-items: flex-end;
+  }
+
+  &[data-alignment='center'] {
+    align-items: center;
+  }
+
+  &[data-alignment='baseline'] {
+    align-items: baseline;
+  }
+
+  &[data-alignment='stretch'] {
+    align-items: stretch;
+
+    .sp-space__item {
+      align-items: stretch;
+    }
+  }
+
+  // 垂直布局时的对齐方式调整
+  &--vertical {
+    &[data-alignment='start'] {
+      align-items: flex-start;
+    }
+
+    &[data-alignment='end'] {
+      align-items: flex-end;
+    }
+
+    &[data-alignment='center'] {
+      align-items: center;
+    }
+
+    &[data-alignment='stretch'] {
+      align-items: stretch;
+    }
+  }
+}
+

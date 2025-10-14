@@ -1,0 +1,62 @@
+@use 'sass:math'
+@use 'sass:map'
+@use '@theme/src/material/tools' as tools;
+
+@use '@theme/src/material/settings' as settings;
+@use './_variables' as *
+
+@include tools.layer('components')
+  // Block
+  .sp-slide-group
+    display: flex
+    overflow: hidden
+
+  // Element
+  .sp-slide-group__next,
+  .sp-slide-group__prev
+    align-items: center
+    display: flex
+    flex: 0 1 $slide-group-prev-basis
+    justify-content: center
+    min-width: $slide-group-prev-basis
+    cursor: pointer
+
+    &--disabled
+      pointer-events: none
+      opacity: var(--sp-disabled-opacity)
+
+  .sp-slide-group__content
+    display: flex
+    flex: 1 0 auto
+    position: relative
+    transition: 0.2s all settings.$standard-easing
+    white-space: nowrap
+
+    > *
+      white-space: initial
+
+  .sp-slide-group__container
+    contain: content
+    display: flex
+    flex: 1 1 auto
+    overflow-x: auto
+    overflow-y: hidden
+
+    scrollbar-width: none
+    scrollbar-color: rgba(0, 0, 0, 0)
+
+    &::-webkit-scrollbar
+      display: none
+
+  // Modifiers
+  .sp-slide-group--vertical
+    max-height: inherit
+
+    &,
+    .sp-slide-group__container,
+    .sp-slide-group__content
+      flex-direction: column
+
+    .sp-slide-group__container
+      overflow-x: hidden
+      overflow-y: auto

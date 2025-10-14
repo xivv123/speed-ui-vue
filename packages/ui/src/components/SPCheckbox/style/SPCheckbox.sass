@@ -1,0 +1,12 @@
+@use 'sass:map'
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *
+
+@include tools.layer('components')
+  .sp-checkbox
+    &.sp-input
+      flex: $checkbox-flex
+
+    .sp-selctrl
+      min-height: var(--sp-input-control-height)

@@ -1,0 +1,325 @@
+@use 'sass:math';
+@use '@theme/src/common/var' as *;
+// @use '@theme/src/material/settings' as settings;
+// @use '@theme/src/material/tools' as tools;
+.sp-tour {
+  &__mask {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &__content {
+    pointer-events: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  &__card {
+    margin: 0;
+    padding: 0;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 0;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sp-text-color, #{$color-text-primary});
+    line-height: 1.4;
+  }
+
+  &__body {
+    padding: 12px 20px;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 14px;
+    color: var(--sp-text-color-secondary, #{$color-text-secondary});
+    line-height: 1.5;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 16px;
+    margin-top: 8px;
+  }
+
+  &__indicator {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &-text {
+      font-size: 12px;
+      color: var(--sp-text-color-secondary, #{$color-text-secondary});
+    }
+  }
+
+  &__dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--sp-border-color, #{$border-color-base});
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+
+    &:hover {
+      background: var(--sp-primary-color, #{$color-primary});
+      transform: scale(1.2);
+    }
+
+    &--active {
+      background: var(--sp-primary-color, #{$color-primary});
+      width: 16px;
+      border-radius: 3px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+}
+
+// 高亮元素的样式增强
+.sp-tour-target {
+  position: relative;
+  z-index: 2002;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid var(--sp-primary-color, #{$color-primary});
+    border-radius: 6px;
+    pointer-events: none;
+    animation: sp-tour-pulse 2s infinite;
+  }
+}
+
+@keyframes sp-tour-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--sp-primary-rgb, 25, 118, 210), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--sp-primary-rgb, 25, 118, 210), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--sp-primary-rgb, 25, 118, 210), 0);
+  }
+}
+
+// 内容卡片的动画效果
+.sp-tour__content {
+  animation: sp-tour-fade-in 0.3s ease-out;
+
+  // 平滑过渡（放在嵌套规则之前，避免 mixed-decls 警告）
+  transition: opacity 0.2s ease-out, transform 0.3s ease-out;
+
+  // 定位中状态：隐藏并防止交互
+  &--positioning {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+}
+
+@keyframes sp-tour-fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+// 针对不同 placement 的动画
+.sp-tour__content[style*='translateX(-50%)'] {
+  animation: sp-tour-slide-down 0.3s ease-out;
+}
+
+.sp-tour__content[style*='translateY(-50%)'] {
+  animation: sp-tour-slide-right 0.3s ease-out;
+}
+
+@keyframes sp-tour-slide-down {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes sp-tour-slide-right {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .sp-tour {
+    &__content {
+      max-width: calc(100vw - 32px) !important;
+      min-width: calc(100vw - 32px) !important;
+      left: 16px !important;
+      right: 16px !important;
+      transform: translateX(0) !important;
+    }
+
+    &__header {
+      padding: 12px 16px 0;
+    }
+
+    &__body {
+      padding: 8px 16px;
+    }
+
+    &__footer {
+      padding: 0 16px 12px;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    &__indicator {
+      order: 2;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &__actions {
+      order: 1;
+      gap: 6px;
+      justify-content: space-between;
+
+      // 在移动端让按钮更容易点击
+      > * {
+        flex: 1;
+        min-height: 44px;
+      }
+    }
+
+    &__title {
+      font-size: 15px;
+    }
+
+    &__description {
+      font-size: 13px;
+    }
+
+    &__dots {
+      gap: 4px;
+    }
+
+    &__dot {
+      width: 5px;
+      height: 5px;
+
+      &--active {
+        width: 12px;
+      }
+    }
+  }
+}
+
+// 暗色主题支持
+@media (prefers-color-scheme: dark) {
+  .sp-tour {
+    &__mask svg path {
+      fill: rgba(0, 0, 0, 0.7);
+    }
+
+    &__dot {
+      background: rgba(255, 255, 255, 0.3);
+
+      &:hover,
+      &--active {
+        background: var(--sp-primary-color, #{$color-primary});
+      }
+    }
+  }
+
+  .sp-tour-target::before {
+    border-color: var(--sp-primary-color, #{$color-primary});
+  }
+}
+
+// 高对比度模式
+@media (prefers-contrast: high) {
+  .sp-tour {
+    &__content {
+      border: 2px solid var(--sp-border-color, #{$border-color-base});
+    }
+
+    &__title {
+      font-weight: 700;
+    }
+
+    &__dot {
+      border: 1px solid var(--sp-text-color, #{$color-text-primary});
+    }
+  }
+
+  .sp-tour-target::before {
+    border-width: 3px;
+  }
+}
+
+// 减少动画（用户偏好）
+@media (prefers-reduced-motion: reduce) {
+  .sp-tour__content {
+    animation: none;
+  }
+
+  .sp-tour-target::before {
+    animation: none;
+  }
+
+  .sp-tour__dot {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+// 打印样式
+@media print {
+  .sp-tour {
+    display: none !important;
+  }
+}

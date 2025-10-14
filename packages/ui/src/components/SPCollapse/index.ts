@@ -1,0 +1,6 @@
+export { SPCollapse } from './SPCollapse'
+export { SPCollapseItem } from './SPCollapseItem'
+export { makeSPCollapseProps } from './props'
+export type { SPCollapseSlots, SPCollapseContext } from './types'
+export { SPCollapseSymbol } from './types'
+export type { SPCollapseItemSlots } from './SPCollapseItem'

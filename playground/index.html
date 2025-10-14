@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="/logo.png"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Speed UI Playground</title>
+    <style>
+      /* 立即设置主题色，确保组件初始渲染时就有正确的颜色 */
+      :root {
+        --sp-color-primary: #1890ff;
+        --sp-color-primary-hover: #40a9ff;
+        --sp-color-primary-active: #096dd9;
+        --sp-color-primary-disabled: #91d5ff;
+        --sp-color-primary-lightest: #e6f7ff;
+        --sp-color-primary-light: #bae7ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script
+      type="module"
+      src="/src/main.ts"
+    ></script>
+  </body>
+</html>

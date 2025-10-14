@@ -1,0 +1,91 @@
+@use '@theme/src/common/var.scss' as *;
+
+// ========== SPTooltip 组件变量 ==========
+$tooltip-max-width: 300px !default;
+$tooltip-padding-y: 8px !default;
+$tooltip-padding-x: 12px !default;
+$tooltip-font-size: 12px !default;
+$tooltip-line-height: 1.4 !default;
+$tooltip-border-radius: $border-radius-base !default;
+$tooltip-background-color: rgba(0, 0, 0, 0.87) !default;
+$tooltip-text-color: #ffffff !default;
+$tooltip-z-index: 2100 !default;
+$tooltip-box-shadow: $box-shadow-base !default;
+$tooltip-transition-duration: $transition-duration-base !default;
+$tooltip-arrow-size: 5px !default;
+
+// ========== SPTooltip 组件样式 ==========
+.sp-tooltip {
+  &__content {
+    position: relative;
+    max-width: $tooltip-max-width;
+    padding: $tooltip-padding-y $tooltip-padding-x;
+    background-color: $tooltip-background-color;
+    color: $tooltip-text-color;
+    font-size: $tooltip-font-size;
+    line-height: $tooltip-line-height;
+    border-radius: $tooltip-border-radius;
+    box-shadow: $tooltip-box-shadow;
+    word-wrap: break-word;
+    text-align: center;
+    font-weight: 400;
+
+    // 箭头基础样式 - 使用当前背景色作为箭头颜色
+    &::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: $tooltip-arrow-size solid transparent;
+      z-index: 1;
+    }
+
+    // 响应式设计
+    @media (max-width: 768px) {
+      max-width: 250px;
+      font-size: 11px;
+      padding: 6px 10px;
+
+      &::after {
+        border-width: 4px;
+      }
+    }
+  }
+
+  // ========== 箭头方向样式 ==========
+  // 箭头向上（tooltip在下方）
+  &--arrow-up .sp-tooltip__content::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--sp-tooltip-bg, $tooltip-background-color);
+    border-top: none;
+  }
+
+  // 箭头向下（tooltip在上方）
+  &--arrow-down .sp-tooltip__content::after {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--sp-tooltip-bg, $tooltip-background-color);
+    border-bottom: none;
+  }
+
+  // 箭头向左（tooltip在右侧）
+  &--arrow-left .sp-tooltip__content::after {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--sp-tooltip-bg, $tooltip-background-color);
+    border-left: none;
+  }
+
+  // 箭头向右（tooltip在左侧）
+  &--arrow-right .sp-tooltip__content::after {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--sp-tooltip-bg, $tooltip-background-color);
+    border-right: none;
+  }
+}

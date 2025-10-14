@@ -1,0 +1,242 @@
+@use 'sass:selector'
+@use '@theme/src/material/tools' as tools
+@use '@theme/src/material/settings' as settings
+@use './_vars' as *
+
+@include tools.layer('components')
+  .sp-switch
+    .sp-label
+      padding-inline-start: $switch-label-margin-inline-start
+
+  .sp-switch__loader
+    display: flex
+
+    .sp-progress-circular
+      color: $switch-loader-color
+
+  .sp-switch__track,
+  .sp-switch__thumb
+    transition: none
+
+    .sp-selctrl--error:not(.sp-selctrl--disabled) &
+      background-color: $switch-error-background-color
+      color: $switch-error-color
+
+  .sp-switch__track-true
+    margin-inline-end: auto
+
+    .sp-selctrl:not(.sp-selctrl--dirty) &
+      opacity: 0
+
+  .sp-switch__track-false
+    margin-inline-start: auto
+
+    .sp-selctrl--dirty &
+      opacity: 0
+
+  .sp-switch__track
+    display: inline-flex
+    align-items: center
+    font-size: 0.5rem
+    padding: 0 5px
+    background-color: $switch-track-background
+    border-radius: $switch-track-radius
+    height: $switch-track-height
+    opacity: $switch-track-opacity
+    min-width: $switch-track-width
+    cursor: pointer
+    transition: $switch-track-transition
+
+    .sp-switch--inset &
+      border-radius: $switch-inset-track-border-radius
+      font-size: 0.75rem
+      height: $switch-inset-track-height
+      min-width: $switch-inset-track-width
+
+    .sp-switch--inset-square &
+      border-radius: $switch-inset-square-track-border-radius
+      font-size: 0.75rem
+      height: $switch-inset-square-track-height
+      min-width: $switch-inset-square-track-width
+
+  .sp-switch__thumb
+    align-items: center
+    background-color: $switch-thumb-background
+    color: $switch-thumb-color
+    border-radius: $switch-thumb-radius
+    display: flex
+    font-size: 0.75rem
+    height: $switch-thumb-height
+    justify-content: center
+    width: $switch-thumb-width
+    pointer-events: none
+    transition: $switch-thumb-transition
+    position: relative
+    overflow: hidden
+
+  .sp-switch__thumb-text
+    font-size: 0.65rem
+    font-weight: 600
+    line-height: 1
+    white-space: nowrap
+    user-select: none
+    color: inherit
+    text-shadow: none
+
+    .sp-switch--inset &
+      font-size: 0.75rem
+      font-weight: 700
+      letter-spacing: 0.01em
+
+    .sp-switch--inset-square &
+      font-size: 0.75rem
+      font-weight: 700
+      letter-spacing: 0.01em
+
+  .sp-switch__thumb
+    .sp-switch:not(.sp-switch--inset) &
+      @include tools.elevation($switch-thumb-elevation)
+
+    .sp-switch.sp-switch--flat:not(.sp-switch--inset) &
+      @include tools.elevation(0)
+
+    .sp-switch--inset &
+      height: $switch-inset-thumb-height
+      width: $switch-inset-thumb-width
+      transform: none
+
+      &--filled
+        transform: none
+
+    .sp-switch--inset .sp-selctrl--dirty &
+      transform: none
+      transition: 0.15s 0.05s transform settings.$decelerated-easing
+
+    .sp-switch--inset-square &
+      height: $switch-inset-square-thumb-height
+      width: $switch-inset-square-thumb-width
+      border-radius: $switch-inset-square-thumb-border-radius
+      transform: none
+
+      &--filled
+        transform: none
+
+    .sp-switch--inset-square .sp-selctrl--dirty &
+      transform: none
+      transition: 0.15s 0.05s transform settings.$decelerated-easing
+
+  .sp-switch
+    $switch-thumb-transform: $switch-track-width * 0.5 - $switch-thumb-width * 0.5 + $switch-thumb-offset
+
+    &.sp-input
+      flex: $switch-flex
+
+    .sp-selctrl
+      min-height: var(--sp-input-control-height)
+
+    .sp-selctrl__input
+      border-radius: 50%
+      transition: $switch-control-input-transition
+      position: absolute
+      @include tools.ltr()
+        transform: translateX(-$switch-thumb-transform)
+      @include tools.rtl()
+        transform: translateX($switch-thumb-transform)
+
+      .sp-icon
+        position: absolute
+
+    .sp-selctrl--dirty
+      .sp-selctrl__input
+        @include tools.ltr()
+          transform: translateX($switch-thumb-transform)
+        @include tools.rtl()
+          transform: translateX(-$switch-thumb-transform)
+
+    &.sp-switch--indeterminate
+      .sp-selctrl__input
+        transform: scale(0.8)
+      .sp-switch__thumb
+        transform: scale(0.75)
+        box-shadow: none
+
+    &.sp-switch--inset
+      .sp-selctrl__wrapper
+        width: auto
+
+    &.sp-switch--inset-square
+      .sp-selctrl__wrapper
+        width: auto
+
+    &.sp-input--vertical
+      .sp-label
+        min-width: max-content
+
+      .sp-selctrl__wrapper
+        transform: $switch-thumb-vertical-transform
+
+@media (forced-colors: active)
+  .sp-switch
+    .sp-switch__loader
+      .sp-progress-circular
+        color: currentColor
+
+    .sp-switch__thumb
+      background-color: buttontext
+
+    .sp-switch__track,
+    .sp-switch__thumb
+      border: 1px solid
+      color: buttontext
+
+    &:not(.sp-switch--loading):not(.sp-input--disabled)
+      .sp-selctrl--dirty
+        .sp-switch__thumb
+          background-color: highlight
+
+    &:not(.sp-input--disabled)
+      .sp-selctrl--dirty
+        .sp-switch__track
+          background-color: highlight
+
+        .sp-switch__track,
+        .sp-switch__thumb
+          color: highlight
+
+    &.sp-switch--inset
+      .sp-switch__track
+        border-width: 2px
+
+      &:not(.sp-switch--loading):not(.sp-input--disabled)
+        .sp-selctrl--dirty
+          .sp-switch__thumb
+            background-color: highlighttext
+            color: highlighttext
+
+    &.sp-switch--inset-square
+      .sp-switch__track
+        border-width: 2px
+
+      &:not(.sp-switch--loading):not(.sp-input--disabled)
+        .sp-selctrl--dirty
+          .sp-switch__thumb
+            background-color: highlighttext
+            color: highlighttext
+
+    &.sp-input--disabled
+      .sp-switch__thumb
+        background-color: graytext
+
+      .sp-switch__track,
+      .sp-switch__thumb
+        color: graytext
+
+    &.sp-switch--loading
+      .sp-switch__thumb
+        background-color: canvas
+
+      &.sp-switch--inset,
+      &.sp-switch--inset-square,
+      &.sp-switch--indeterminate
+        .sp-switch__thumb
+          border-width: 0

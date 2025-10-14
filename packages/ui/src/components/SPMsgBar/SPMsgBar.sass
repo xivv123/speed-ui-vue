@@ -1,0 +1,107 @@
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+@use './_variables' as *
+
+@include tools.layer('components')
+  .sp-msgbar
+    justify-content: center
+    z-index: $msgbar-z-index
+    margin: $msgbar-wrapper-margin
+    margin-inline-end: calc(#{$msgbar-wrapper-margin} + var(--sp-scrollbar-offset))
+    padding: var(--sp-layout-top) var(--sp-layout-right) var(--sp-layout-bottom) var(--sp-layout-left)
+
+    &:not(.sp-msgbar--center):not(.sp-msgbar--top)
+      align-items: flex-end
+
+    &__wrapper
+      align-items: center
+      display: flex
+      max-width: $msgbar-wrapper-max-width
+      min-height: $msgbar-wrapper-min-height
+      min-width: $msgbar-wrapper-min-width
+      overflow: hidden
+      padding: $msgbar-wrapper-padding
+
+      @include tools.rounded($msgbar-border-radius)
+
+      @at-root .sp-msgbar
+        @include tools.variant($msgbar-variants...)
+
+    &__content
+      flex-grow: 1
+      font-size: $msgbar-font-size
+      font-weight: $msgbar-font-weight
+      letter-spacing: $msgbar-letter-spacing
+      line-height: $msgbar-line-height
+      margin-right: auto
+      padding: $msgbar-content-padding
+      text-align: initial
+
+    &__actions
+      align-items: center
+      align-self: center
+      display: flex
+      margin-inline-end: $msgbar-action-margin
+
+      & > .sp-btn
+        padding: $msgbar-btn-padding
+        min-width: auto
+
+    &__timer
+      width: 100%
+      position: absolute
+      top: 0
+
+      .sp-progress-linear
+        transition: .2s linear
+
+    &--absolute
+      position: absolute
+      z-index: $msgbar-absolute-z-index
+
+    &--multi-line &__wrapper
+      min-height: $msgbar-multi-line-wrapper-min-height
+
+    &--vertical &__wrapper
+      flex-direction: column
+
+      .sp-msgbar__actions
+        align-self: flex-end
+        margin-bottom: $msgbar-vertical-action-margin-bottom
+
+    &--center
+      align-items: center
+      justify-content: center
+
+    &--top
+      align-items: flex-start
+
+    &--bottom
+      align-items: flex-end
+
+    &--left,
+    &--start
+      justify-content: flex-start
+
+    &--right,
+    &--end
+      justify-content: flex-end
+
+  .sp-msgbar-transition
+    &-enter-active,
+    &-leave-active
+      transition-duration: .15s
+      transition-timing-function: settings.$decelerated-easing
+
+    &-enter-active
+      transition-property: opacity, transform
+
+    &-enter-from
+      opacity: 0
+      transform: scale($msgbar-transition-scale)
+
+    &-leave-active
+      transition-property: opacity
+
+    &-leave-to
+      opacity: 0

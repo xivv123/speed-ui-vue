@@ -1,0 +1,8 @@
+@use '@theme/src/material/settings' as settings;
+
+$checkbox-flex: 0 1 auto !default;
+$checkbox-disabled-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-disabled-opacity)
+) !default;
+$checkbox-error-color: rgb(var(--sp-theme-error)) !default;

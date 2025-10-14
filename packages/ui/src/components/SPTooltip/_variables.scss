@@ -1,0 +1,11 @@
+@use '@theme/src/common/var.scss' as *;
+
+// Tooltip 样式变量
+$tooltip-background-color: rgba(0, 0, 0, 0.87) !default;
+$tooltip-text-color: #ffffff !default;
+$tooltip-max-width: 300px !default;
+$tooltip-padding: 8px 12px !default;
+$tooltip-font-size: 12px !default;
+$tooltip-border-radius: $border-radius-base !default;
+$tooltip-box-shadow: $box-shadow-base !default;
+$tooltip-z-index: 2100 !default;

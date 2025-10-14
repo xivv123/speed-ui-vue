@@ -1,0 +1,28 @@
+{
+  "name": "@speed-ui/theme",
+  "version": "1.0.0",
+  "description": "Speed UI 默认主题包",
+  "main": "lib/index.css",
+  "style": "lib/index.css",
+  "exports": {
+    ".": "./lib/index.css",
+    "./lib/index.css": "./lib/index.css"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "sass src/index.scss lib/index.css",
+    "build:watch": "sass --watch src/index.scss lib/index.css"
+  },
+  "keywords": [
+    "speed-ui",
+    "theme",
+    "css",
+    "scss"
+  ],
+  "peerDependencies": {
+    "sass": "^1.0.0"
+  }
+}

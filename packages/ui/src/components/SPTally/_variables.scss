@@ -1,0 +1,9 @@
+$tally-color: rgba(
+  var(--sp-theme-on-surface-variant),
+  var(--sp-high-emphasis-opacity)
+) !default;
+$tally-flex: 0 1 auto !default;
+$tally-font-size: 12px !default;
+$tally-line-height: $tally-font-size !default;
+$tally-min-height: 12px !default;
+$tally-transition-duration: 150ms !default;

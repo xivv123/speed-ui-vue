@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+// VSelectionControl
+$selctrl-disabled-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-disabled-opacity)
+) !default;
+$selctrl-error-color: rgb(var(--sp-theme-error)) !default;
+$selctrl-density: (
+  'default': 0,
+  'comfortable': -1,
+  'compact': -3,
+) !default;
+$selctrl-color: rgba(
+  var(--sp-theme-on-surface),
+  var(--sp-high-emphasis-opacity)
+) !default;
+$selctrl-size: 40px !default;

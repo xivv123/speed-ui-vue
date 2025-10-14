@@ -1,0 +1,576 @@
+@use 'sass:map'
+@use 'sass:math'
+@use 'sass:selector'
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_vars' as *;
+
+@include tools.layer('components')
+  /* region INPUT */
+  .sp-field
+    display: grid
+    grid-template-areas: "prepend-inner field clear counter append-inner"
+    grid-template-columns: min-content minmax(0, 1fr) min-content auto min-content
+    font-size: $field-font-size
+    letter-spacing: $field-letter-spacing
+    max-width: $field-max-width
+    border-radius: $field-border-radius
+    contain: layout
+    flex: 1 0
+    grid-area: control
+    position: relative
+
+    --sp-theme-overlay-multiplier: 1
+    --sp-field-padding-start: #{$field-control-padding-start}
+    --sp-field-padding-end: #{$field-control-padding-end}
+    --sp-field-padding-top: #{$field-control-padding-top}
+    --sp-field-padding-bottom: #{$field-control-padding-bottom}
+    --sp-field-input-padding-top: #{$field-input-padding-top}
+    --sp-field-input-padding-bottom: #{$field-input-padding-bottom}
+
+    &--disabled
+      opacity: var(--sp-disabled-opacity)
+      pointer-events: none
+
+    .sp-chip
+      --sp-chip-height: #{$field-chip-height}
+
+  /* endregion */
+  /* region MODIFIERS */
+  .sp-field
+    &--prepended
+      padding-inline-start: $field-control-affixed-padding
+
+    &--appended
+      padding-inline-end: $field-control-affixed-padding
+
+    &--variant-solo,
+    &--variant-solo-filled
+      background: $field-control-solo-background
+      border-color: transparent
+      color: $field-control-solo-color
+      @include tools.elevation($field-control-solo-elevation)
+
+      &.sp-field--focused
+        box-shadow: 0px 3px 1px -2px rgba(var(--sp-color-primary-rgb, 24, 144, 255), 0.2), 0px 2px 2px 0px rgba(var(--sp-color-primary-rgb, 24, 144, 255), 0.14), 0px 1px 5px 0px rgba(var(--sp-color-primary-rgb, 24, 144, 255), 0.12)
+
+      &.sp-field--error:not(.sp-field--disabled)
+        box-shadow: 0px 3px 1px -2px rgba(var(--sp-theme-error), 0.2), 0px 2px 2px 0px rgba(var(--sp-theme-error), 0.14), 0px 1px 5px 0px rgba(var(--sp-theme-error), 0.12)
+
+    &--variant-solo-inverted
+      background: $field-control-solo-background
+      border-color: transparent
+      color: $field-control-solo-inverted-color
+      @include tools.elevation($field-control-solo-elevation)
+
+      &.sp-field--focused
+        color: $field-control-solo-inverted-focused-color
+        box-shadow: 0px 3px 1px -2px rgba(var(--sp-color-primary-rgb, 24, 144, 255), 0.2), 0px 2px 2px 0px rgba(var(--sp-color-primary-rgb, 24, 144, 255), 0.14), 0px 1px 5px 0px rgba(var(--sp-color-primary-rgb, 24, 144, 255), 0.12)
+
+      &.sp-field--error:not(.sp-field--disabled)
+        box-shadow: 0px 3px 1px -2px rgba(var(--sp-theme-error), 0.2), 0px 2px 2px 0px rgba(var(--sp-theme-error), 0.14), 0px 1px 5px 0px rgba(var(--sp-theme-error), 0.12)
+
+    &--variant-filled
+      border-bottom-left-radius: 0
+      border-bottom-right-radius: 0
+
+    &--variant-solo,
+    &--variant-solo-inverted,
+    &--variant-solo-filled,
+    &--variant-filled
+      $root: &
+
+      @at-root
+        @include tools.density('sp-inputinner', $inputinner-density) using ($modifier)
+          @at-root #{selector.nest(&, $root)}
+            --sp-inputinner-control-height: #{$field-control-height + $modifier}
+            --sp-field-padding-bottom: #{math.max(0px, $field-control-padding-bottom + $modifier * .5)}
+
+    &--variant-outlined,
+    &--single-line,
+    &--no-label
+      --sp-field-padding-top: 0px
+      $root: &
+
+      @at-root
+        @include tools.density('sp-inputinner', $inputinner-density) using ($modifier)
+          @at-root #{selector.nest(&, $root)}
+            --sp-field-padding-bottom: #{16px + $modifier * .5}
+
+    &--variant-plain,
+    &--variant-underlined
+      $root: &
+      border-radius: 0
+      padding: 0
+
+      &.sp-field
+        --sp-field-padding-start: 0px
+        --sp-field-padding-end: 0px
+
+      @at-root
+        @include tools.density('sp-inputinner', $inputinner-density) using ($modifier)
+          @at-root #{selector.nest(&, $root)}
+            --sp-inputinner-control-height: #{$field-control-underlined-height + $modifier}
+            --sp-field-padding-top: #{math.max(0px, 4px + $modifier * .25)}
+            --sp-field-padding-bottom: #{math.max(0px, $field-control-padding-bottom + $modifier * .5)}
+
+    &--flat
+      box-shadow: none
+
+    &--rounded
+      @include tools.rounded($field-rounded-border-radius)
+
+    // These are separate so they can override the default variant styles
+    &.sp-field
+      &--prepended
+        --sp-field-padding-start: #{$field-control-affixed-inner-padding}
+
+      &--appended
+        --sp-field-padding-end: #{$field-control-affixed-inner-padding}
+
+  /* endregion */
+  /* region ELEMENTS */
+  .sp-field__input
+    align-items: center
+    color: inherit
+    column-gap: $field-input-column-gap
+    display: flex
+    flex-wrap: wrap
+    letter-spacing: $field-letter-spacing
+    opacity: $field-input-opacity
+    min-height: $field-input-min-height
+    min-width: 0
+    padding-inline: var(--sp-field-padding-start) var(--sp-field-padding-end)
+    padding-top: var(--sp-field-input-padding-top)
+    padding-bottom: var(--sp-field-input-padding-bottom)
+    position: relative
+    width: 100%
+
+    $root: &
+
+    @at-root
+      @include tools.density('sp-inputinner', $inputinner-density) using ($modifier)
+        @at-root #{selector.nest(&, $root)}
+          row-gap: #{$field-input-row-gap + $modifier * .25}
+
+    input
+      letter-spacing: inherit
+
+    @at-root
+      & input::placeholder,
+      input#{&}::placeholder,
+      textarea#{&}::placeholder
+        color: currentColor
+        opacity: var(--sp-disabled-opacity)
+
+    &:focus,
+    &:active
+      outline: none
+
+    // Remove Firefox red outline
+    &:invalid
+      box-shadow: none
+
+  .sp-field__field
+    flex: 1 0
+    grid-area: field
+    position: relative
+    align-items: flex-start
+    display: flex
+
+  /* endregion */
+  /* region AFFIXES */
+  .sp-field__prepend-inner
+    grid-area: prepend-inner
+    padding-inline-end: var(--sp-field-padding-after)
+
+  .sp-field__clearable
+    grid-area: clear
+
+  .sp-field__counter
+    grid-area: counter
+    padding-inline-start: 4px
+
+  .sp-field__append-inner
+    grid-area: append-inner
+    padding-inline-start: var(--sp-field-padding-after)
+
+  .sp-field__append-inner,
+  .sp-field__clearable,
+  .sp-field__counter,
+  .sp-field__prepend-inner
+    display: flex
+    align-items: flex-start
+    padding-top: var(--sp-inputinner-padding-top, $field-control-padding-top)
+
+    .sp-field--center-affix &
+      align-items: center
+      padding-top: 0
+
+  .sp-field.sp-field--variant-underlined,
+  .sp-field.sp-field--variant-plain
+    .sp-field__append-inner,
+    .sp-field__clearable,
+    .sp-field__counter,
+    .sp-field__prepend-inner
+      align-items: flex-start
+      padding-top: $field-input-padding-top
+      padding-bottom: $field-input-padding-bottom
+
+  .sp-field__prepend-inner,
+  .sp-field__append-inner
+    .sp-field--focused &
+      opacity: 1
+
+  .sp-field__prepend-inner,
+  .sp-field__append-inner,
+  .sp-field__clearable,
+  .sp-field__counter
+    > .sp-icon
+      opacity: var(--sp-medium-emphasis-opacity)
+
+    .sp-field--disabled &,
+    .sp-field--error &,
+    .sp-field--glow.sp-field--focused &
+      > .sp-icon
+        opacity: 1
+
+    .sp-field--error:not(.sp-field--disabled) &
+      > .sp-icon
+        color: rgb(var(--sp-theme-error))
+
+  .sp-field__counter
+    font-size: 0.75rem
+    opacity: 0.6
+    white-space: nowrap
+    display: flex
+    align-items: center
+
+    .sp-field--focused &
+      opacity: 1
+
+    .sp-tally
+      display: inline-block
+
+  .sp-field__clearable
+    cursor: pointer
+    opacity: 0
+    overflow: hidden
+    margin-inline: $field-clearable-margin
+    transition: $field-transition-timing
+    transition-property: opacity, transform, width
+
+    .sp-field--focused &,
+    .sp-field--persistent-clear &
+      opacity: 1
+
+    @media (hover: hover)
+      .sp-field:hover &
+        opacity: 1
+
+    @media (hover: none)
+      opacity: 1
+
+  /* endregion */
+  /* region LABEL */
+  .sp-label.sp-float-label
+    contain: layout paint
+    display: block
+    margin-inline-start: var(--sp-field-padding-start)
+    margin-inline-end: var(--sp-field-padding-end)
+    max-width: calc(100% - var(--sp-field-padding-start) - var(--sp-field-padding-end))
+    pointer-events: none
+    position: absolute
+    top: var(--sp-inputinner-padding-top)
+    transform-origin: left center
+    transition: $field-transition-timing
+    transition-property: opacity, transform
+    z-index: 1
+
+    .sp-field--variant-underlined &,
+    .sp-field--variant-plain &
+      top: calc(var(--sp-inputinner-padding-top) + var(--sp-field-padding-top))
+
+    .sp-field--center-affix &
+      top: 50%
+      transform: translateY(-50%)
+
+    .sp-field--active &
+      visibility: hidden
+
+    .sp-field--focused &,
+    .sp-field--error &
+      opacity: 1
+
+    .sp-field--error:not(.sp-field--disabled) &
+      color: rgb(var(--sp-theme-error))
+
+    &--floating
+      --sp-float-label-scale: #{$field-label-floating-scale}em
+      font-size: var(--sp-float-label-scale)
+      visibility: hidden
+
+      .sp-field--variant-outlined &
+        max-width: 100%
+
+      .sp-field--center-affix &
+        transform: none
+
+      .sp-field.sp-field--active &
+        visibility: unset
+
+      .sp-field--variant-solo &,
+      .sp-field--variant-solo-inverted &,
+      .sp-field--variant-filled &,
+      .sp-field--variant-solo-filled &
+        $root: &
+
+        @at-root
+          @include tools.density('sp-inputinner', $inputinner-density) using ($modifier)
+            @at-root #{selector.nest(&, $root)}
+              top: 7px + $modifier * .25
+
+      .sp-field--variant-plain &,
+      .sp-field--variant-underlined &
+        transform: translateY(-16px)
+        margin: 0
+        top: var(--sp-inputinner-padding-top)
+
+      .sp-field--variant-outlined &
+        transform: translateY(-50%)
+        transform-origin: center
+        position: static
+        margin: 0 4px
+
+  /* endregion */
+  /* region OUTLINE */
+  .sp-field__outline
+    --sp-field-border-width: #{$field-border-width}
+    --sp-field-border-opacity: #{$field-outline-opacity}
+    align-items: stretch
+    contain: layout
+    display: flex
+    height: 100%
+    left: 0
+    pointer-events: none
+    position: absolute
+    right: 0
+    width: 100%
+
+    @media (hover: hover)
+      .sp-field:hover &
+        --sp-field-border-opacity: var(--sp-high-emphasis-opacity)
+
+    .sp-field--error:not(.sp-field--disabled) &
+      color: rgb(var(--sp-theme-error))
+
+    .sp-field.sp-field--focused &,
+    .sp-inputinner.sp-inputinner--error &
+      --sp-field-border-opacity: 1
+
+    .sp-field--variant-outlined.sp-field--focused &
+      --sp-field-border-width: #{$field-focused-border-width}
+
+    .sp-field--variant-filled &,
+    .sp-field--variant-underlined &
+      &::before
+        border-color: currentColor
+        border-style: solid
+        border-width: 0 0 var(--sp-field-border-width)
+        opacity: var(--sp-field-border-opacity)
+        transition: opacity $field-subtle-transition-timing
+        @include tools.absolute(true)
+
+    .sp-field--variant-filled &,
+    .sp-field--variant-underlined &
+      &::after
+        border-color: currentColor
+        border-style: solid
+        border-width: 0 0 $field-focused-border-filled-width
+        transform: scaleX(0)
+        transition: transform $field-transition-timing
+        @include tools.absolute(true)
+
+        @at-root #{selector.append('.sp-field--focused', &)}
+          transform: scaleX(1)
+
+    .sp-field--variant-outlined &
+      border-radius: inherit
+
+      &__start,
+      &__notch::before,
+      &__notch::after,
+      &__end
+        border: 0 solid currentColor
+        opacity: var(--sp-field-border-opacity)
+        transition: opacity $field-subtle-transition-timing
+
+      &__start
+        flex: 0 0 $field-control-affixed-padding
+        border-top-width: var(--sp-field-border-width)
+        border-bottom-width: var(--sp-field-border-width)
+        border-inline-start-width: var(--sp-field-border-width)
+        border-start-start-radius: inherit
+        border-start-end-radius: 0
+        border-end-end-radius: 0
+        border-end-start-radius: inherit
+
+        @at-root
+          #{selector.append('.sp-field--rounded', &)},
+          #{selector.append('[class^="rounded-"]', &)},
+          #{selector.append('[class*=" rounded-"]', &)}
+            flex-basis: calc(var(--sp-inputinner-control-height) / 2 + 2px)
+
+        @at-root #{selector.append('.sp-field--reverse', &)}
+          border-start-start-radius: 0
+          border-start-end-radius: inherit
+          border-end-end-radius: inherit
+          border-end-start-radius: 0
+          border-inline-end-width: var(--sp-field-border-width)
+          border-inline-start-width: 0
+
+      &__notch
+        flex: none
+        position: relative
+        max-width: calc(100% - $field-control-affixed-padding * 2)
+
+        @at-root
+          #{selector.append('.sp-field--rounded', &)},
+          #{selector.append('[class^="rounded-"]', &)},
+          #{selector.append('[class*=" rounded-"]', &)}
+            max-width: calc(100% - var(--sp-inputinner-control-height))
+
+        &::before,
+        &::after
+          opacity: var(--sp-field-border-opacity)
+          transition: opacity $field-subtle-transition-timing
+
+          @include tools.absolute(true)
+
+        &::before
+          border-width: var(--sp-field-border-width) 0 0
+
+        &::after
+          bottom: 0
+          border-width: 0 0 var(--sp-field-border-width)
+
+        @at-root #{selector.append('.sp-field--active', &)}
+          &::before
+            opacity: 0
+
+      &__end
+        flex: 1
+        border-top-width: var(--sp-field-border-width)
+        border-bottom-width: var(--sp-field-border-width)
+        border-inline-end-width: var(--sp-field-border-width)
+        border-start-start-radius: 0
+        border-start-end-radius: inherit
+        border-end-end-radius: inherit
+        border-end-start-radius: 0
+
+        @at-root #{selector.append('.sp-field--reverse', &)}
+          border-start-start-radius: inherit
+          border-start-end-radius: 0
+          border-end-end-radius: 0
+          border-end-start-radius: inherit
+          border-inline-end-width: 0
+          border-inline-start-width: var(--sp-field-border-width)
+
+  /* endregion */
+  /* region LOADER */
+  .sp-field__loader
+    top: calc(100% - 2px)
+    left: 0
+    position: absolute
+    right: 0
+    width: 100%
+    border-top-left-radius: 0
+    border-top-right-radius: 0
+    border-bottom-left-radius: inherit
+    border-bottom-right-radius: inherit
+    overflow: hidden
+
+    .sp-field--variant-outlined &
+      top: calc(100% - 3px)
+      width: calc(100% - #{$field-border-width} * 2)
+      left: $field-border-width
+
+  /* endregion */
+  /* region OVERLAY */
+  .sp-field__overlay
+    border-radius: inherit
+    pointer-events: none
+
+    @include tools.absolute()
+
+  .sp-field--variant-filled
+    .sp-field__overlay
+      background-color: currentColor
+      opacity: $field-overlay-filled-opacity
+      transition: opacity $field-subtle-transition-timing, background-color $field-subtle-transition-timing
+
+    &.sp-field--has-background .sp-field__overlay
+      opacity: 0
+
+    @media (hover: hover)
+      &:hover .sp-field__overlay
+        background-color: var(--sp-field-current-color, currentColor)
+        opacity: calc((#{$field-overlay-filled-opacity} + #{map.get(settings.$states, 'hover')}) * var(--sp-theme-overlay-multiplier))
+
+    &.sp-field--focused .sp-field__overlay
+      background-color: var(--sp-field-current-color, currentColor)
+      opacity: calc((#{$field-overlay-filled-opacity} + #{map.get(settings.$states, 'focus')}) * var(--sp-theme-overlay-multiplier))
+
+  .sp-field--variant-solo-filled
+    .sp-field__overlay
+      background-color: currentColor
+      opacity: $field-overlay-filled-opacity
+      transition: opacity $field-subtle-transition-timing, background-color $field-subtle-transition-timing
+
+    @media (hover: hover)
+      &:hover .sp-field__overlay
+        background-color: var(--sp-field-current-color, currentColor)
+        opacity: calc((#{$field-overlay-filled-opacity} + #{map.get(settings.$states, 'hover')}) * var(--sp-theme-overlay-multiplier))
+
+    &.sp-field--focused .sp-field__overlay
+      background-color: var(--sp-field-current-color, currentColor)
+      opacity: calc((#{$field-overlay-filled-opacity} + #{map.get(settings.$states, 'focus')}) * var(--sp-theme-overlay-multiplier))
+
+  .sp-field--variant-solo-inverted
+    .sp-field__overlay
+      transition: opacity $field-subtle-transition-timing
+
+    &.sp-field--has-background .sp-field__overlay
+      opacity: 0
+
+    @media (hover: hover)
+      &:hover .sp-field__overlay
+        opacity: calc((#{.04} + #{map.get(settings.$states, 'hover')}) * var(--sp-theme-overlay-multiplier))
+
+    &.sp-field--focused .sp-field__overlay
+      background-color: $field-overlay-focused-background-color
+      opacity: 1
+
+  /* endregion */
+  /* region MODIFIERS */
+  .sp-field--reverse
+    .sp-field__field,
+    .sp-field__input,
+    .sp-field__outline
+      flex-direction: row-reverse
+
+    .sp-field__input, input
+      text-align: end
+
+  .sp-field--variant-filled,
+  .sp-field--variant-underlined
+    .sp-inputinner--disabled &
+      .sp-field__outline::before
+        border-image: repeating-linear-gradient(to right, $field-disabled-color 0px, $field-disabled-color 2px, transparent 2px, transparent 4px) 1 repeat
+
+  .sp-field--loading
+    .sp-field__outline::after,
+    .sp-field__outline::before
+      opacity: 0
+
+  /* endregion */

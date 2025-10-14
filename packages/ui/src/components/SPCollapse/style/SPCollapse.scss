@@ -1,0 +1,137 @@
+@use './variables' as *;
+
+.sp-collapse {
+  background: $collapse-background;
+  border: $collapse-border-width $collapse-border-style $collapse-border-color;
+  border-radius: $collapse-border-radius;
+  color: $collapse-color;
+  overflow: hidden;
+}
+
+.sp-collapse-item {
+  background: $collapse-item-background;
+  position: relative;
+  transition: $collapse-item-transition-property $collapse-item-transition-duration $collapse-item-transition-timing-function;
+
+  &--disabled {
+    opacity: $collapse-item-disabled-opacity;
+    pointer-events: none;
+  }
+
+  &--active {
+    .sp-collapse-item__header {
+      background: $collapse-item-header-background-active;
+      color: $collapse-item-header-color-active;
+    }
+
+    .sp-collapse-item__icon {
+      color: $collapse-item-icon-color-active;
+    }
+  }
+}
+
+.sp-collapse-item__header {
+  align-items: center;
+  background: $collapse-item-header-background;
+  color: $collapse-item-header-color;
+  cursor: pointer;
+  display: flex;
+  font-size: $collapse-item-header-font-size;
+  font-weight: $collapse-item-header-font-weight;
+  line-height: $collapse-item-header-line-height;
+  min-height: $collapse-item-header-min-height;
+  outline: none;
+  padding: $collapse-item-header-padding;
+  position: relative;
+  transition: $collapse-item-transition-property $collapse-item-transition-duration $collapse-item-transition-timing-function;
+  user-select: none;
+  width: 100%;
+
+  // underline is rendered via SPDivider under the header
+
+  &:hover:not(.sp-collapse-item--disabled .sp-collapse-item__header) {
+    background: $collapse-item-header-background-hover;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(var(--sp-theme-primary));
+    outline-offset: -2px;
+  }
+
+  &--icon-left {
+    .sp-collapse-item__title {
+      margin-inline-start: 8px;
+    }
+  }
+}
+
+// When user supplies a custom underline slot, disable the default border
+.sp-collapse-item.sp-collapse-item--custom-underline .sp-collapse-item__header {
+  border-bottom: 0;
+}
+
+.sp-collapse-item__underline {
+  // acts as a container for a custom underline component
+  width: 100%;
+}
+
+// Default divider element used as underline. Hide on last item
+.sp-collapse-item:last-child .sp-collapse-item__divider {
+  display: none;
+}
+
+// Strengthen the default underline visibility for SPCollapse
+.sp-collapse-item__divider {
+  // Control SPDivider's runtime CSS variable
+  --sp-border-opacity: #{$collapse-item-underline-opacity};
+}
+
+.sp-collapse-item__title {
+  flex: 1;
+  text-align: start;
+}
+
+.sp-collapse-item__icon {
+  align-items: center;
+  color: $collapse-item-icon-color;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  height: $collapse-item-header-min-height;
+  min-height: $collapse-item-header-min-height;
+
+  &--left {
+    margin-inline-end: $collapse-item-icon-margin;
+  }
+
+  &--right {
+    margin-inline-start: $collapse-item-icon-margin;
+  }
+}
+
+.sp-collapse-item__expand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $collapse-item-icon-size;
+  transition: $collapse-item-expand-icon-transition-property $collapse-item-expand-icon-transition-duration $collapse-item-expand-icon-transition-timing-function;
+  width: $collapse-item-icon-size;
+  height: $collapse-item-icon-size;
+}
+
+// Rotate the chevron when active
+.sp-collapse-item--active .sp-collapse-item__expand-icon--rotatable {
+  transform: rotate(90deg);
+}
+
+.sp-collapse-item__content {
+  background: $collapse-item-content-background;
+  color: $collapse-item-content-color;
+  overflow: hidden;
+}
+
+.sp-collapse-item__content-wrapper {
+  font-size: $collapse-item-content-font-size;
+  line-height: $collapse-item-content-line-height;
+  padding: $collapse-item-content-padding;
+}

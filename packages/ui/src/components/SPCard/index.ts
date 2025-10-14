@@ -1,0 +1,5 @@
+﻿export { SPCard } from './SPCard'
+export { makeSPCardProps } from './props'
+export { SPCardActions, SPCardItem, SPCardSubtitle, SPCardText, SPCardTitle } from './internal'
+export type { SPCardSlots } from './types'
+export type { SPCardItemSlots } from './internal'

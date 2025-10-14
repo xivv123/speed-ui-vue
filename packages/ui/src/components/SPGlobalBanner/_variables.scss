@@ -1,0 +1,14 @@
+@use '@theme/src/material/settings' as settings;
+
+// SPGlobalBanner
+$global-banner-height: 48px !default;
+$global-banner-padding-x: 16px !default;
+$global-banner-padding-y: 8px !default;
+$global-banner-gap: 16px !default;
+
+$global-banner-background: rgb(var(--sp-theme-surface)) !default;
+$global-banner-color: rgb(var(--sp-theme-on-surface)) !default;
+$global-banner-elevation: 2 !default;
+
+$global-banner-sticky-z-index: 1000 !default;
+$global-banner-border-radius: 0 !default;

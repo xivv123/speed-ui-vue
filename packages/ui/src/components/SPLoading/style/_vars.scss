@@ -1,0 +1,28 @@
+@use 'sass:map';
+@use '@theme/src/material/settings' as settings;
+
+// SPLoading Variables
+$loading-gap: 16px !default;
+$loading-text-color: rgba(var(--sp-theme-on-surface), var(--sp-medium-emphasis-opacity)) !default;
+$loading-text-font-size: 0.875rem !default;
+$loading-text-font-weight: 400 !default;
+$loading-text-line-height: 1.25rem !default;
+$loading-text-margin-top: 8px !default;
+$loading-text-max-width: 200px !default;
+
+// Loading sizes
+$loading-sizes: (
+  'x-small': -2,
+  'small': -1,
+  'default': 0,
+  'large': 1,
+  'x-large': 2
+) !default;
+
+// Loading progress sizes
+$loading-progress-size: 48px !default;
+$loading-progress-width: 4px !default;
+
+// Loading overlay
+$loading-overlay-opacity: 0.6 !default;
+$loading-overlay-z-index: 2001 !default;

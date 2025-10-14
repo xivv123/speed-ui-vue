@@ -1,0 +1,68 @@
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+@use './_variables' as *;
+
+@include tools.layer('components') {
+  .sp-scroll-text {
+    position: $scroll-text-container-position;
+    overflow: $scroll-text-container-overflow;
+    font-size: $scroll-text-font-size;
+    line-height: $scroll-text-line-height;
+    color: $scroll-text-color;
+    background: $scroll-text-background;
+    padding: $scroll-text-padding;
+    margin: $scroll-text-margin;
+    width: 100%;
+    height: 100%;
+
+    // 水平滚动时的样式
+    &--left,
+    &--right {
+      white-space: $scroll-text-container-white-space;
+    }
+
+    // 垂直滚动时的样式
+    &--up,
+    &--down {
+      white-space: normal;
+    }
+
+    &__content {
+      will-change: $scroll-text-content-will-change;
+      position: absolute;
+      top: 0;
+      left: 0;
+      
+      // 水平滚动内容样式
+      .sp-scroll-text--left &,
+      .sp-scroll-text--right & {
+        display: $scroll-text-content-display;
+        white-space: nowrap;
+      }
+
+      // 垂直滚动内容样式
+      .sp-scroll-text--up &,
+      .sp-scroll-text--down & {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    // 主题支持
+    &.sp-theme--light {
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    &.sp-theme--dark {
+      color: rgba(255, 255, 255, 0.87);
+    }
+
+    // 响应式支持
+    @media (prefers-reduced-motion: reduce) {
+      .sp-scroll-text__content {
+        animation: none !important;
+        transform: none !important;
+      }
+    }
+  }
+}

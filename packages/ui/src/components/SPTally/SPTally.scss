@@ -1,0 +1,34 @@
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+@use './_variables' as *;
+
+.sp-tally {
+  color: rgba(
+    var(--sp-theme-on-surface-variant),
+    var(--sp-high-emphasis-opacity)
+  );
+  flex: 0 1 auto;
+  font-size: 12px;
+  transition-duration: 150ms;
+
+  &--error {
+    color: rgb(var(--sp-theme-error));
+  }
+
+  &--shake {
+    animation: shake 0.5s ease-in-out;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-3px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(3px);
+  }
+}

@@ -1,0 +1,11 @@
+@use '../settings';
+
+@mixin layer($name) {
+  @if (settings.$layers) {
+    @layer SpeedUI.#{$name} {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

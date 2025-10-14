@@ -1,0 +1,778 @@
+/**
+ * Speed UI 主题自定义样式
+ */
+
+:root {
+  /* 品牌色彩 */
+  --vp-c-brand-1: #197AAB;
+  --vp-c-brand-2: #2B8BC7;
+  --vp-c-brand-3: #4A9FD1;
+  --vp-c-brand-soft: rgba(25, 122, 171, 0.14);
+
+  /* 渐变色 */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    135deg,
+    #197AAB 0%,
+    #2B8BC7 50%,
+    #4A9FD1 100%
+  );
+
+  /* 自定义颜色 */
+  --speed-gradient-1: linear-gradient(135deg, #197AAB 0%, #2B8BC7 100%);
+  --speed-gradient-2: linear-gradient(135deg, #4A9FD1 0%, #197AAB 100%);
+  --speed-gradient-3: linear-gradient(135deg, #2B8BC7 0%, #4A9FD1 100%);
+  --speed-shadow: 0 10px 25px rgba(25, 122, 171, 0.1);
+
+  /* VitePress 布局变量 */
+  --vp-sidebar-width: 240px;
+  --vp-nav-height: 64px;
+}
+
+/* 主页内容容器修复 */
+.VPContent.is-home {
+  min-height: 100vh !important;
+  position: relative !important;
+  /* background: #fff !important; */
+}
+
+/* 动态背景装饰 */
+.VPContent.is-home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(25, 122, 171, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(43, 139, 199, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(74, 159, 209, 0.05) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 浮动装饰元素 */
+.VPContent.is-home::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, #197AAB, #2B8BC7);
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* 额外的装饰几何图形 */
+.VPHero::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4A9FD1, #197AAB);
+  border-radius: 12px;
+  opacity: 0.08;
+  animation: float 8s ease-in-out infinite reverse;
+  z-index: 0;
+}
+
+.VPHero::after {
+  content: '';
+  position: absolute;
+  bottom: 20%;
+  right: 8%;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(225deg, #06b6d4, #3b82f6);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  opacity: 0.06;
+  animation: float 10s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Hero 区域美化 - 极简紧凑显示 */
+.VPHero {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+  min-height: 90vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  z-index: 1 !important;
+  background: transparent !important;
+}
+
+/* Home: 关闭装饰背景，保持纯白 */
+.VPContent.is-home::before,
+.VPContent.is-home::after,
+.VPHero::before,
+.VPHero::after {
+  content: none !important;
+}
+
+/* 首页 Hero 区域特殊样式 */
+.VPHomeHero {
+  padding-top: 100px !important;
+  padding-bottom: 100px !important;
+  min-height: 95vh !important;
+}
+
+.VPHero .container {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.VPHero .VPHeroInfo {
+  padding-bottom: 0px;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.VPHero .name {
+  font-size: clamp(56px, 10vw, 120px) !important;
+  font-weight: 800 !important;
+  background: var(--vp-home-hero-name-background) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+  position: relative !important;
+  animation: none !important;
+  line-height: 1.1 !important;
+  margin-bottom: 20px !important;
+}
+
+.VPHero .name::before { content: none !important; }
+
+@keyframes titleGlow {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(79, 70, 229, 0.3));
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.5));
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.VPHero .text {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: var(--vp-c-text-1) !important;
+  margin-top: 8px !important;
+  animation: fadeInUp 1s ease-out 0.3s both !important;
+}
+
+.VPHero .tagline {
+  font-size: 1.1rem !important;
+  color: var(--vp-c-text-2) !important;
+  margin-top: 8px !important;
+  margin-bottom: 16px !important;
+  line-height: 1.4 !important;
+  animation: fadeInUp 1s ease-out 0.6s both !important;
+}
+
+.VPHero .actions {
+  animation: fadeInUp 1s ease-out 0.9s both !important;
+}
+
+/* 按钮美化 */
+.VPHero .actions {
+  margin-top: 0px !important;
+  position: relative !important;
+}
+
+/* 居中 Logo */
+.VPHero .image {
+  order: -1;
+  margin: 0 auto !important;
+}
+
+.VPHero .image img {
+  width: clamp(64px, 8vw, 96px) !important;
+  height: auto !important;
+  border-radius: 12px;
+}
+
+.VPButton.brand {
+  background: linear-gradient(135deg, #197AAB 0%, #2B8BC7 100%) !important;
+  border: none !important;
+  box-shadow: var(--speed-shadow) !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.VPButton.brand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.VPButton.brand:hover::before {
+  left: 100%;
+}
+
+.VPButton.brand:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 15px 35px rgba(25, 122, 171, 0.3) !important;
+  background: linear-gradient(135deg, #2B8BC7 0%, #4A9FD1 100%) !important;
+}
+
+.VPButton.alt {
+  border: 2px solid var(--vp-c-brand-1) !important;
+  color: var(--vp-c-brand-1) !important;
+  background: transparent !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.VPButton.alt::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #197AAB 0%, #2B8BC7 100%);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.VPButton.alt:hover::before {
+  width: 100%;
+}
+
+.VPButton.alt:hover {
+  color: white !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  border-color: transparent !important;
+}
+
+/* Features 区域美化 */
+.VPFeatures {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+.VPFeature {
+  background: var(--vp-c-bg-soft) !important;
+  border: 1px solid var(--vp-c-divider) !important;
+  border-radius: 16px !important;
+  padding: 32px !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.VPFeature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--speed-gradient-1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.VPFeature:nth-child(2)::before {
+  background: var(--speed-gradient-2);
+}
+
+.VPFeature:nth-child(3)::before {
+  background: var(--speed-gradient-3);
+}
+
+.VPFeature:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: var(--speed-shadow) !important;
+  border-color: var(--vp-c-brand-1) !important;
+}
+
+.VPFeature:hover::before {
+  opacity: 1;
+}
+
+.VPFeature .title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 12px !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+.VPFeature .details {
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  color: var(--vp-c-text-2) !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .VPHero {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+    min-height: 80vh !important;
+  }
+
+  .VPHomeHero {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+    min-height: 85vh !important;
+  }
+
+  .VPHero .name {
+    font-size: 4rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .VPHero .text {
+    font-size: 1.2rem !important;
+  }
+
+  .VPHero .tagline {
+    font-size: 1rem !important;
+  }
+
+  .VPFeature {
+    padding: 24px !important;
+  }
+}
+
+/* 添加一些动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.VPFeature {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.VPFeature:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.VPFeature:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.VPFeature:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.VPFeature:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.VPFeature:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.VPFeature:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+/* VPContent 布局修复 - 确保与侧边栏正确并排 */
+.VPContent {
+  max-width: none !important;
+  /* 不要设置 width: 100%，这会破坏与侧边栏的并排布局 */
+}
+
+/* 全局容器样式优化 - 移除最大宽度限制 */
+.VPDoc .container,
+.VPContent .container,
+.vp-doc .container {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  width: 100% !important;
+}
+
+/* 文档内容区域容器 - 移除最大宽度限制 */
+.vp-doc {
+  max-width: none !important;
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+/* VPDoc 内容区域 */
+.VPDoc {
+  padding: 24px !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* 侧边栏和内容的整体布局 - 移除可能导致重叠的样式 */
+.VPContent.has-sidebar .content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* 确保 curtain 元素被隐藏 */
+.VPSidebarCurtain,
+.curtain,
+[class*='curtain'] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* 自定义滚动条 - 更浅的颜色 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-divider);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-3);
+}
+
+/* 已移除不需要的 divider padding-left 样式 */
+
+/* 清除 .vp-doc h2 的 top 边框 */
+.vp-doc h2 {
+  border-top: none !important;
+  padding-top: 0 !important;
+  margin-top: 32px !important;
+}
+
+/* VitePress 布局修复 - 确保侧边栏和内容正确并排 */
+@media (min-width: 960px) {
+  .VPContent {
+    max-width: none !important;
+    /* 保持 VitePress 默认的 margin-left 来为侧边栏留出空间 */
+  }
+
+  /* 仅针对有侧边栏的页面进行侧边栏定位 */
+  .VPContent.has-sidebar .VPSidebar,
+  .VPSidebar {
+    position: fixed !important;
+    left: 0 !important;
+    top: var(--vp-nav-height, 64px) !important;
+    width: var(--vp-sidebar-width, 272px) !important;
+    height: calc(100vh - var(--vp-nav-height, 64px)) !important;
+    z-index: 10 !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .VPContent {
+    max-width: none !important;
+    /* 保持 VitePress 默认的 margin-left 来为侧边栏留出空间 */
+  }
+}
+
+/* 移除所有可能的容器宽度限制 */
+.VPContent .container,
+.VPContent .content,
+.VPDoc .container,
+.VPDoc .content {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.content-container {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+/* 修正文档标题左侧 # 锚点与文字未对齐问题 */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6 {
+  position: relative;
+}
+
+/* 统一锚点的垂直对齐与尺寸 */
+.vp-doc h1 > .header-anchor,
+.vp-doc h2 > .header-anchor,
+.vp-doc h3 > .header-anchor,
+.vp-doc h4 > .header-anchor,
+.vp-doc h5 > .header-anchor,
+.vp-doc h6 > .header-anchor {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  height: 1em !important; /* 与标题文字等高 */
+  margin-top: 0 !important;
+  /* VitePress 默认用 float，导致基线对不齐，这里取消 */
+  float: none !important;
+  /* 维持原来的左侧位置（相对标题文本左移一点） */
+  margin-left: -0.9em !important;
+  padding-right: 0.25em !important;
+  position: relative !important;
+  top: 0 !important;
+  transform: translateY(-0.08em); /* 轻微上移，保证和文字在同一水平线 */
+}
+
+/* 深色模式保持同样的表现 */
+.dark .vp-doc h1 > .header-anchor,
+.dark .vp-doc h2 > .header-anchor,
+.dark .vp-doc h3 > .header-anchor,
+.dark .vp-doc h4 > .header-anchor,
+.dark .vp-doc h5 > .header-anchor,
+.dark .vp-doc h6 > .header-anchor {
+  transform: translateY(-0.08em);
+}
+
+/* 再次修正：让 # 锚点绝对定位到标题左侧，避免跑到文字末尾 */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6 {
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.vp-doc h1 > .header-anchor,
+.vp-doc h2 > .header-anchor,
+.vp-doc h3 > .header-anchor,
+.vp-doc h4 > .header-anchor,
+.vp-doc h5 > .header-anchor,
+.vp-doc h6 > .header-anchor {
+  position: absolute !important;
+  left: -1.1em !important; /* 放到标题文字左侧 */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  display: inline-block !important;
+  width: 1em !important;
+  height: 1em !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+}
+
+/* 重置组件示例容器内的 VitePress 默认样式 */
+/* 移除 .vp-doc 给 div、p 等元素添加的默认 margin */
+.demo-showcase .vp-doc > div,
+.demo-showcase .vp-doc p,
+.demo-showcase .vp-doc hr {
+  margin: 0 !important;
+}
+
+/* 强制重置 VitePress 给 hr 元素添加的 margin */
+.vp-doc hr {
+  margin: 0 !important;
+}
+
+/* 为 Speed UI 组件示例容器重置样式 */
+.sp-collapse,
+.sp-collapse-item,
+.sp-collapse-item__content,
+.sp-collapse-item__content-wrapper {
+  margin: 0 !important;
+}
+
+/* 确保 SP 组件内的 div 不受 VitePress 默认样式影响 */
+.sp-collapse div,
+.sp-collapse-item div {
+  margin: 0 !important;
+}
+
+/* 重置 SPDivider (会被渲染为 hr) 的样式 */
+.sp-divider,
+.sp-collapse-item__divider {
+  margin: 0 !important;
+}
+
+/* 重置菜单组件的样式，避免 VitePress 默认样式干扰 */
+.sp-menu .menu-content,
+.sp-menu .menu-item,
+.sp-overlay__content .menu-content,
+.sp-overlay__content .menu-item {
+  margin: 0 !important;
+  padding: initial !important;
+  line-height: normal !important;
+}
+
+/* 菜单内容样式 */
+.sp-overlay__content .menu-content {
+  min-width: 160px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 8px 0 !important;
+}
+
+.sp-overlay__content .menu-item {
+  padding: 8px 16px !important;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.sp-overlay__content .menu-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* 用户菜单样式 */
+.sp-overlay__content .user-menu,
+.sp-overlay__content .action-menu {
+  min-width: 200px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 8px 0 !important;
+}
+
+.sp-overlay__content .user-info {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 12px;
+}
+
+.sp-overlay__content .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1976d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+}
+
+.sp-overlay__content .user-details {
+  flex: 1;
+}
+
+.sp-overlay__content .username {
+  font-weight: 500;
+  color: #333;
+}
+
+.sp-overlay__content .email {
+  font-size: 12px;
+  color: #666;
+}
+
+.sp-overlay__content .menu-item.danger {
+  color: #f56565;
+}
+
+.sp-overlay__content .menu-item.danger:hover {
+  background-color: #fed7d7;
+}
+
+.sp-overlay__content .menu-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 4px 0;
+}
+
+.sp-overlay__content .icon {
+  font-size: 16px;
+}
+
+/* 确保菜单内的所有 div 不受 VitePress 影响 */
+.sp-overlay__content div {
+  margin: 0 !important;
+}
+
+/* 修复 docs 站点遮罩层黑屏闪烁 */
+.sp-overlay__scrim.fade-transition-enter-from {
+  opacity: 0 !important;
+}
+
+.sp-overlay__scrim.fade-transition-enter-active {
+  opacity: var(--sp-overlay-opacity, 0.32) !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.sp-overlay__scrim.fade-transition-enter-to {
+  opacity: var(--sp-overlay-opacity, 0.32) !important;
+}
+
+.sp-overlay__scrim.fade-transition-leave-from {
+  opacity: var(--sp-overlay-opacity, 0.32) !important;
+}
+
+.sp-overlay__scrim.fade-transition-leave-active {
+  opacity: 0 !important;
+  transition: opacity 0.2s ease !important;
+}
+
+.sp-overlay__scrim.fade-transition-leave-to {
+  opacity: 0 !important;
+}

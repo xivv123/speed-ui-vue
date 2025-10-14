@@ -1,0 +1,35 @@
+.sp-thumb {
+  // 基础容器，不添加任何可能冲突的样式
+  // 让具体的使用场景（如 .sp-segmented__thumb）来定义样式
+  
+  // 只在非特定场景下应用基础样式
+  &:not(.sp-segmented__thumb):not(.sp-switch__thumb) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  // 文字样式
+  &__text {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  
+  // 状态样式
+  &--filled {
+    // 填充状态的样式，由具体使用场景定义
+  }
+  
+  &--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  
+  &--focused {
+    outline: 2px solid rgba(var(--sp-color-primary-rgb, 56, 68, 122), 0.2);
+    outline-offset: 2px;
+  }
+}

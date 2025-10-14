@@ -1,0 +1,245 @@
+@use '@theme/src/material/tools' as tools;
+@use '@theme/src/material/settings' as settings;
+
+@include tools.layer('components') {
+  // SPFlipText 组件样式
+  .sp-flip-text {
+    position: relative;
+    display: inline-block;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    // 默认立方体深度
+    --sp-flip-depth: 20px;
+    
+    &__inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+    }
+    
+    &__face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      opacity: 0;
+      
+      // 默认样式
+      background: var(--sp-color-surface);
+      color: var(--sp-color-on-surface);
+      border-radius: var(--sp-border-radius-md);
+      padding: var(--sp-spacing-sm) var(--sp-spacing-md);
+      box-shadow: var(--sp-shadow-sm);
+      
+      // 四个面的3D定位
+      // 立方体六个面的3D定位
+      &--front {
+        transform: rotateY(0deg) translateZ(var(--sp-flip-depth));
+        &.sp-flip-text__face--active { opacity: 1; }
+        .sp-flip-text__content { transform: rotateY(0deg); }
+      }
+
+      &--back {
+        transform: rotateY(180deg) translateZ(var(--sp-flip-depth));
+        &.sp-flip-text__face--active { opacity: 1; }
+        // 使背面在翻到正面时文字保持正向
+        .sp-flip-text__content { transform: rotateY(180deg); }
+      }
+
+      &--top {
+        transform: rotateX(90deg) translateZ(var(--sp-flip-depth));
+        
+        &.sp-flip-text__face--active { opacity: 1; }
+        // 顶面内容反向旋转，保持文字正向
+        .sp-flip-text__content { transform: rotateX(-90deg); }
+      }
+      
+      &--bottom {
+        transform: rotateX(-90deg) translateZ(var(--sp-flip-depth));
+        
+        &.sp-flip-text__face--active { opacity: 1; }
+        // 底面内容反向旋转，保持文字正向
+        .sp-flip-text__content { transform: rotateX(90deg); }
+      }
+      
+      &--left {
+        transform: rotateY(-90deg) translateZ(var(--sp-flip-depth));
+        
+        &.sp-flip-text__face--active { opacity: 1; }
+        // 左侧内容反向旋转，保持文字正向
+        .sp-flip-text__content { transform: rotateY(90deg); }
+      }
+      
+      &--right {
+        transform: rotateY(90deg) translateZ(var(--sp-flip-depth));
+        
+        &.sp-flip-text__face--active { opacity: 1; }
+        // 右侧内容反向旋转，保持文字正向
+        .sp-flip-text__content { transform: rotateY(-90deg); }
+      }
+    }
+    
+    // 翻转方向样式
+    &--flip-up {
+      .sp-flip-text__inner {
+        transform-origin: center center;
+      }
+    }
+    
+    &--flip-down {
+      .sp-flip-text__inner {
+        transform-origin: center center;
+      }
+    }
+    
+    &--flip-left {
+      .sp-flip-text__inner {
+        transform-origin: center center;
+      }
+    }
+    
+    &--flip-right {
+      .sp-flip-text__inner {
+        transform-origin: center center;
+      }
+    }
+    
+    // 翻转状态
+    &--flipping {
+      .sp-flip-text__face {
+        transition: transform 0.6s ease, opacity 0.3s ease;
+        // 翻转中展示所有面以获得更真实的立体效果
+        opacity: 1;
+      }
+    }
+    
+    // 暂停状态
+    &--paused {
+      .sp-flip-text__face {
+        animation-play-state: paused;
+      }
+    }
+    
+    // 主题样式
+    &--light {
+      .sp-flip-text__face {
+        background: var(--sp-color-surface-light, #ffffff);
+        color: var(--sp-color-on-surface-light, #1a1a1a);
+        border: 1px solid var(--sp-color-outline-light, #e0e0e0);
+      }
+    }
+    
+    &--dark {
+      .sp-flip-text__face {
+        background: var(--sp-color-surface-dark, #2a2a2a);
+        color: var(--sp-color-on-surface-dark, #ffffff);
+        border: 1px solid var(--sp-color-outline-dark, #404040);
+      }
+    }
+    
+    // 交互状态
+    &:hover {
+      .sp-flip-text__face {
+        box-shadow: var(--sp-shadow-md);
+      }
+    }
+    
+    // 响应式设计
+    @media (max-width: 768px) {
+      perspective: 800px;
+      
+      .sp-flip-text__face {
+        padding: var(--sp-spacing-xs) var(--sp-spacing-sm);
+        font-size: 0.9em;
+      }
+    }
+    
+    // 减少动画偏好
+    @media (prefers-reduced-motion: reduce) {
+      perspective: none;
+      
+      .sp-flip-text__face {
+        transition: opacity 0.2s ease;
+        transform: none !important;
+      }
+      
+      &--flipping {
+        .sp-flip-text__face {
+          transition: opacity 0.2s ease;
+        }
+      }
+    }
+    
+    // 高对比度模式
+    @media (prefers-contrast: high) {
+      .sp-flip-text__face {
+        border-width: 2px;
+        box-shadow: none;
+      }
+    }
+    
+    // 打印样式
+    @media print {
+      .sp-flip-text__face {
+        background: white !important;
+        color: black !important;
+        box-shadow: none !important;
+        border: 1px solid black !important;
+        
+        &:not(.sp-flip-text__face--active) {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  // 动画关键帧
+  @keyframes sp-flip-x {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(90deg); }
+    100% { transform: rotateX(180deg); }
+  }
+  
+  @keyframes sp-flip-y {
+    0% { transform: rotateY(0deg); }
+    50% { transform: rotateY(90deg); }
+    100% { transform: rotateY(180deg); }
+  }
+  
+  // 工具类
+  .sp-flip-text-container {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-spacing-md);
+    
+    .sp-flip-text {
+      flex-shrink: 0;
+    }
+  }
+  
+  // 特殊效果
+  .sp-flip-text--glow {
+    .sp-flip-text__face {
+      box-shadow: 0 0 10px rgba(var(--sp-color-primary-rgb), 0.3);
+    }
+  }
+  
+  .sp-flip-text--neon {
+    .sp-flip-text__face {
+      background: transparent;
+      border: 2px solid var(--sp-color-primary);
+      color: var(--sp-color-primary);
+      text-shadow: 0 0 5px currentColor;
+      box-shadow: 
+        0 0 5px var(--sp-color-primary),
+        inset 0 0 5px var(--sp-color-primary);
+    }
+  }
+}

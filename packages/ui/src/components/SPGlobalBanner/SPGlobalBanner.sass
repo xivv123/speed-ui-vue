@@ -1,0 +1,60 @@
+@use '@theme/src/material/settings' as settings
+@use '@theme/src/material/tools' as tools
+@use './_variables' as *
+
+@include tools.layer('components')
+  // 过渡动画 - 使用 margin-top 推动下面的内容
+  .sp-global-banner-enter-active,
+  .sp-global-banner-leave-active
+    transition: margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+
+  .sp-global-banner
+    display: flex
+    width: 100%
+    min-height: $global-banner-height
+    position: relative
+    overflow: hidden
+    border-radius: $global-banner-border-radius
+
+    @include tools.variant($global-banner-background, $global-banner-color, $global-banner-elevation, 0.38, 'sp-global-banner')
+
+    &--sticky
+      position: sticky
+      top: 0
+      z-index: $global-banner-sticky-z-index
+
+  .sp-global-banner__container
+    display: flex
+    align-items: center
+    justify-content: space-between
+    width: 100%
+    padding: $global-banner-padding-y $global-banner-padding-x
+    gap: $global-banner-gap
+
+  .sp-global-banner__left
+    display: flex
+    align-items: center
+    flex-shrink: 0
+    gap: $global-banner-gap
+
+  .sp-global-banner__center
+    display: flex
+    align-items: center
+    justify-content: center
+    flex: 1
+    gap: $global-banner-gap
+
+  .sp-global-banner__right
+    display: flex
+    align-items: center
+    flex-shrink: 0
+    gap: $global-banner-gap
+
+  .sp-global-banner__close
+    display: flex
+    align-items: center
+    flex-shrink: 0
+    margin-inline-start: auto
+
+    .sp-btn
+      margin: -4px

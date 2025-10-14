@@ -1,0 +1,28 @@
+@use '@theme/src/material/settings' as settings;
+
+// Cascader Content
+$cascader-content-elevation: 8 !default;
+$cascader-content-border-radius: settings.$border-radius-root !default;
+$cascader-content-min-width: 300px !default;
+
+// Cascader Panels
+$cascader-panels-min-height: 200px !default;
+$cascader-panels-max-height: 300px !default;
+$cascader-panel-min-width: 160px !default;
+$cascader-panel-divider: 1px solid rgba(var(--sp-border-color), var(--sp-border-opacity)) !default;
+$cascader-panel-padding: 4px 0 !default;
+
+// Cascader Items
+$cascader-item-selected-bg: rgba(var(--sp-theme-primary), 0.12) !default;
+$cascader-item-selected-color: rgb(var(--sp-theme-primary)) !default;
+$cascader-item-hover-bg: rgba(var(--sp-theme-on-surface), 0.04) !default;
+$cascader-item-focus-bg: rgba(var(--sp-theme-on-surface), 0.08) !default;
+$cascader-item-focus-outline: 2px solid rgba(var(--sp-theme-primary), 0.24) !default;
+$cascader-item-with-children-padding: 32px !default;
+
+// Cascader Expand Icon
+$cascader-expand-icon-position: 12px !default;
+$cascader-expand-icon-opacity: 0.6 !default;
+
+// Transitions
+$cascader-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) !default;

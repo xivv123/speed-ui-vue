@@ -1,0 +1,45 @@
+@use '@theme/src/material/tools' as tools;
+
+.sp-stretch-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  width: var(--sp-stretch-btn-width);
+  height: var(--sp-stretch-btn-height);
+  border-radius: var(--sp-stretch-btn-radius);
+  background-clip: padding-box;
+  box-sizing: border-box;
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &--animating { pointer-events: none; }
+
+  &:not(&--disabled):hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+  &:not(&--disabled):active { transform: scale(0.95); }
+
+  &__default, &__expanded {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  &__icon { font-size: 1.2em; font-weight: bold; }
+  &__expanded-content { padding: 0 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  &__background { position: absolute; inset: 0; z-index: 1; background: inherit; border-radius: inherit; will-change: width, height, border-radius; }
+}
