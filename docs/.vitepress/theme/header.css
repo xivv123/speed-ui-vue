@@ -226,9 +226,6 @@ header:not(.VPNavBar),
   }
 }
 
-/* ========== 终极修复：强制显示 VPLocalNav（侧边栏切换按钮） ========== */
-/* VPLocalNav 应该显示在页面标题下方，包含侧边栏菜单按钮 */
-/* 默认在大屏幕上隐藏 */
 .VPLocalNav {
   display: none !important;
 }

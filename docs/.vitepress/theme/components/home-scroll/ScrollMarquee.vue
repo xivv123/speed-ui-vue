@@ -67,10 +67,12 @@ const diagonalComponentItems = reactive([
   { component: 'sp-text-field', props: { modelValue: '输入', label: '文本', variant: 'filled', color: 'secondary' }, content: '', class: 'diagonal-text-field' }
 ])
 
-const componentItemsFixed = reactive([
+const allComponentItems = [
   { component: 'sp-text-field', props: { modelValue: '输入', label: '用户名', variant: 'outlined', color: 'primary' }, content: '', class: 'scroll-text-field' },
   { component: 'sp-textarea', props: { modelValue: '这是一段示例文本', label: '备注', rows: 3, variant: 'filled' }, content: '', class: 'scroll-textarea' },
   { component: 'sp-btn', props: { color: 'success', variant: 'elevated', size: 'large' }, content: '确定', class: 'scroll-button' },
+  { component: 'sp-slider', props: { modelValue: 65, min: 0, max: 100, step: 5, color: 'error' }, content: '', class: 'scroll-slider' },
+  { component: 'sp-switch', props: { modelValue: true, label: '开启', color: 'warning' }, content: '', class: 'scroll-switch' },
   {
     component: 'sp-card',
     props: { title: '展示卡片', subtitle: '卡片示例', elevation: 4, hover: true },
@@ -92,9 +94,26 @@ const componentItemsFixed = reactive([
   { component: 'sp-slider', props: { modelValue: 40, min: 0, max: 100, step: 5, color: 'secondary' }, content: '', class: 'scroll-slider' },
   { component: 'sp-progress-linear', props: { modelValue: 60, color: 'success', height: 6 }, content: '', class: 'scroll-progress' },
   { component: 'sp-tag', props: { color: 'warning', pill: true }, content: '标签', class: 'scroll-tag' },
-  { component: 'sp-text-field', props: { modelValue: '输入', label: '用户名', variant: 'outlined', color: 'primary' }, content: '', class: 'scroll-text-field' },
-  { component: 'sp-text-field', props: { modelValue: '输入', label: '用户名', variant: 'solo', color: 'primary' }, content: '', class: 'scroll-text-field' },
-])
+  { component: 'sp-text-field', props: { modelValue: '输入', label: '邮箱', variant: 'outlined', color: 'primary' }, content: '', class: 'scroll-text-field' },
+  { component: 'sp-text-field', props: { modelValue: '输入', label: '密码', variant: 'solo', color: 'primary' }, content: '', class: 'scroll-text-field' },
+  { component: 'sp-btn', props: { color: 'error', variant: 'outlined', size: 'medium' }, content: '取消', class: 'scroll-button' },
+  { component: 'sp-btn', props: { color: 'info', variant: 'filled', size: 'small' }, content: '保存', class: 'scroll-button' },
+  { component: 'sp-tag', props: { color: 'error', pill: false }, content: '重要', class: 'scroll-tag' },
+  { component: 'sp-tag', props: { color: 'info', pill: true }, content: '消息', class: 'scroll-tag' },
+  { component: 'sp-checkbox', props: { modelValue: false, label: '记住我' }, content: '', class: 'scroll-checkbox' },
+  { component: 'sp-switch', props: { modelValue: false, label: '通知', color: 'success' }, content: '', class: 'scroll-switch' },
+  { component: 'sp-progress-linear', props: { modelValue: 35, color: 'warning', height: 5 }, content: '', class: 'scroll-progress' },
+  { component: 'sp-slider', props: { modelValue: 70, min: 0, max: 100, step: 10, color: 'primary' }, content: '', class: 'scroll-slider' },
+]
+
+// 根据屏幕宽度决定显示的组件数量
+const getComponentItems = () => {
+  if (typeof window === 'undefined') return allComponentItems
+  // 桌面端显示所有组件，手机端显示12个
+  return window.innerWidth <= 768 ? allComponentItems.slice(0, 12) : allComponentItems
+}
+
+const componentItemsFixed = reactive(getComponentItems())
 
 const onMouseEnter = () => {
   isHovering.value = true
@@ -112,6 +131,14 @@ onMounted(() => {
     const track = document.querySelector('.scroll-track') as HTMLElement
     track && (track.style.animationPlayState = 'running')
   }, 120)
+
+  // 监听窗口大小变化，动态调整组件数量
+  const updateComponents = () => {
+    const newItems = getComponentItems()
+    componentItemsFixed.splice(0, componentItemsFixed.length, ...newItems)
+  }
+  
+  window.addEventListener('resize', updateComponents)
 })
 </script>
 
@@ -203,5 +230,50 @@ onMounted(() => {
 .scroll-slider { width: 300px; }
 .scroll-progress { width: 320px; }
 .scroll-tag { min-width: 80px; }
+
+/* 手机端显示更多行 */
+@media (max-width: 768px) {
+  .scroll-container {
+    max-height: 240px;
+    overflow: hidden;
+    margin: 8px 0 0;
+  }
+
+  .scroll-track {
+    filter: blur(3px);
+  }
+
+  .component-group {
+    padding: 10px;
+    gap: 10px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+  }
+
+  .component-item {
+    transform: scale(0.75);
+    transform-origin: left top;
+    flex-shrink: 0;
+  }
+
+  /* 缩小组件宽度 */
+  .scroll-text-field { width: 140px; }
+  .scroll-textarea { width: 180px; }
+  .scroll-button { min-width: 70px; width: auto; }
+  .scroll-card { width: 160px; max-width: 160px; }
+  .scroll-select { width: 140px; }
+  .scroll-checkbox { width: 130px; }
+  .scroll-slider { width: 170px; }
+  .scroll-progress { width: 190px; }
+  .scroll-tag { min-width: 55px; width: auto; }
+  .scroll-switch { width: 110px; }
+  .diagonal-button { min-width: 65px; width: auto; }
+  .diagonal-card { width: 150px; max-width: 150px; }
+  .diagonal-tag { min-width: 45px; width: auto; }
+  .diagonal-switch { width: 100px; }
+  .diagonal-checkbox { width: 120px; }
+  .diagonal-text-field { width: 130px; }
+  .diagonal-progress { width: 160px; }
+}
 </style>
 

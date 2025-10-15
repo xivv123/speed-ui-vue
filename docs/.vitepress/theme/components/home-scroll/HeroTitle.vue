@@ -82,8 +82,15 @@ function onMove(e: MouseEvent) {
   letter-spacing: 4px;
   font-stretch: ultra-condensed;
   color: #1866ff;
-  font-size: clamp(40px, 12vw, 172px);
+  font-size: clamp(60px, 12vw, 172px);
   min-height: clamp(120px, 20vw, 300px);
+}
+
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: clamp(64px, 14vw, 120px);
+    min-height: clamp(150px, 23vw, 230px);
+  }
 }
 
 .hero-headline span {
