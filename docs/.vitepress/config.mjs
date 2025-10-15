@@ -31,14 +31,34 @@ export default defineConfig({
       caseFilePlugin(),
       // imageOptimizerPlugin(), // 暂时禁用，可能导致问题
       {
+        name: 'api-file-plugin',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            // 确保 .api.js 文件返回正确的 MIME 类型
+            if (req.url && req.url.includes('.api.js')) {
+              res.setHeader('Content-Type', 'application/javascript')
+            }
+            next()
+          })
+        }
+      },
+      {
         name: 'docs-path-resolver',
         resolveId(id) {
           if (id.startsWith('/docs/')) {
             const relativePath = id.replace('/docs/', '')
-            return resolve(__dirname, '..', relativePath)
+            const fullPath = resolve(__dirname, '..', relativePath)
+            return fullPath
           }
           return null
         },
+        load(id) {
+          // 确保 .api.js 文件能被正确加载
+          if (id.endsWith('.api.js')) {
+            return null // 让 Vite 使用默认的加载逻辑
+          }
+          return null
+        }
       },
     ],
     server: {

@@ -33,6 +33,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const apiData = ref<any[]>([])
 
+// 使用 Vite 的 glob import 导入所有 API 文件
+const apiModules = import.meta.glob('../../../cases/**/*.api.js', { eager: true })
+
 // 根据类型定义不同的列
 const columns = computed(() => {
   switch (props.type) {
@@ -58,14 +61,29 @@ const formatCell = (value: any) => {
 }
 
 // 加载 API 数据
-const loadApiData = async () => {
+const loadApiData = () => {
   if (!props.apiFile) return
 
   try {
-    const module = await import(/* @vite-ignore */ props.apiFile)
-    apiData.value = module.default || []
+    console.log('Loading API file:', props.apiFile)
+    console.log('Available modules:', Object.keys(apiModules))
+
+    // 从 /docs/cases/badge/badge-props.api.js 转换为 ../../../cases/badge/badge-props.api.js
+    const relativePath = props.apiFile.replace('/docs/', '../../../')
+    console.log('Looking for module:', relativePath)
+
+    const module = apiModules[relativePath]
+    if (module) {
+      console.log('API module found:', module)
+      apiData.value = (module as any).default || []
+      console.log('API data:', apiData.value)
+    } else {
+      console.error('API module not found:', relativePath)
+      console.log('Available keys:', Object.keys(apiModules))
+      apiData.value = []
+    }
   } catch (error) {
-    console.error('Failed to load API file:', error)
+    console.error('Failed to load API file:', props.apiFile, error)
     apiData.value = []
   }
 }
@@ -165,6 +183,7 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+
   .api-table th,
   .api-table td {
     padding: 8px 12px;

@@ -225,3 +225,80 @@ header:not(.VPNavBar),
     padding-right: 0 !important;
   }
 }
+
+/* ========== 终极修复：强制显示 VPLocalNav（侧边栏切换按钮） ========== */
+/* VPLocalNav 应该显示在页面标题下方，包含侧边栏菜单按钮 */
+/* 默认在大屏幕上隐藏 */
+.VPLocalNav {
+  display: none !important;
+}
+
+/* 只在小屏幕（移动端）显示 */
+@media (max-width: 959px) {
+  .VPLocalNav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: relative !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 90 !important;
+    /* 毛玻璃效果 - 与 header 一致 */
+    background: transparent !important;
+    backdrop-filter: saturate(180%) blur(20px) !important;
+    -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+    border-bottom: 1px solid rgba(229, 231, 235, 0.2) !important;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05) !important;
+    padding: 0 24px !important;
+    height: 48px !important;
+    /* 给导航栏留出空间，避免被 fixed 的 header 遮挡 */
+    margin-top: var(--vp-nav-height, 64px) !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    /* 确保全宽 */
+    width: 100% !important;
+    max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  }
+}
+
+/* 暗色主题下的 VPLocalNav */
+.dark .VPLocalNav {
+  background: transparent !important;
+  border-bottom-color: rgba(75, 85, 99, 0.2) !important;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Menu 按钮简单样式 */
+.VPLocalNav .menu,
+.VPLocalNav .menu-text,
+.VPLocalNav button,
+.VPLocalNav .VPMenuLink,
+.VPLocalNav [class*="menu"],
+.VPLocalNav .icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* 确保小屏幕时 VPLocalNav 可见 */
+@media (max-width: 959px) {
+  .VPLocalNav {
+    display: block !important;
+  }
+}
+
+/* ========== 修复：小屏幕时确保内容不被 VPLocalNav 遮挡 ========== */
+@media (max-width: 959px) {
+  /* VPLocalNav 使用 relative 定位，会正常占用文档流空间 */
+  /* 确保内容在它下方正常显示 */
+  .VPLocalNav ~ .vp-doc,
+  .VPLocalNav ~ * {
+    position: relative !important;
+    z-index: 1 !important;
+  }
+}
