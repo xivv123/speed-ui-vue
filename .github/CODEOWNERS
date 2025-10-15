@@ -1,0 +1,7 @@
+# Code owners for this repository
+# 当分支保护启用“Require review from Code Owners”时，变更需要代码所有者审核
+
+* @xivv123
+docs/* @xivv123
+packages/* @xivv123
+playground/* @xivv123

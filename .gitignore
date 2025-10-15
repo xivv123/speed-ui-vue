@@ -14,6 +14,19 @@ dist
 dist-ssr
 *.local
 
+# Environment files
+.env
+.env.*
+.env.local
+.env.*.local
+
+# Vercel local project directory
+.vercel/
+
+# Coverage reports
+coverage/
+*.coverage.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
