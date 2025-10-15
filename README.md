@@ -1,8 +1,6 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/xivv123/speed-ui-vue/master/docs/public/logos/logo.png" alt="Speed UI Logo" width="120" height="120">
 
-Speed UI
-
 <p align="center">
     基于 Vue 3 + TypeScript + Vite 的现代化组件库
   </p>
@@ -13,8 +11,6 @@ Speed UI
     <img src="https://img.shields.io/badge/Vite-6.x-646CFF?style=flat-square&logo=vite" alt="Vite">
     <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
 </div>
-
----
 
 ## 特性
 
