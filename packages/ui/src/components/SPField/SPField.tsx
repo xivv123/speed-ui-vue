@@ -303,8 +303,8 @@ export const SPField = genericComponent<
             >
               <SPDefaultsProvider
                 defaults={{
-                  VIcon: {
-                    icon: props.clearIcon,
+                  SpIcon: {
+                    name: props.clearIcon,
                   },
                 }}
               >

@@ -3,9 +3,9 @@
     <!-- 基础用法 -->
     <DemoSection title="基础用法">
       <div class="demo-row">
-        <sp-text-field v-model="basicValue" label="基础输入框" placeholder="请输入内容" />
-        <sp-text-field v-model="basicValue2" label="带前缀的字段" prefix="$" placeholder="金额" />
-        <sp-text-field v-model="basicValue3" label="带后缀的字段" suffix=".com" placeholder="网站域名" />
+        <sp-text-field v-model="basicValue" label="基础输入框" placeholder="请输入内容" clearable/>
+        <sp-text-field v-model="basicValue2" label="带前缀的字段" prefix="$" placeholder="金额" clearable/>
+        <sp-text-field v-model="basicValue3" label="带后缀的字段" suffix=".com" placeholder="网站域名" clearable/>
       </div>
       <p>当前值: {{ basicValue }}, {{ basicValue2 }}, {{ basicValue3 }}</p>
     </DemoSection>

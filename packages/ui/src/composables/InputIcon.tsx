@@ -1,16 +1,15 @@
 // Components
-import Icon from '../components/icon/Icon'
-// import { SPIcon } from '../components/SPIcon/SPIcon'
+import Icon from '@/components/icon/Icon'
 
 // Composables
-import { useLocale } from '../composables/locale'
+import { useLocale } from '@/composables/locale'
 
 // Utilities
-import { callEvent } from '../utils'
+import { callEvent } from '@/utils'
 
 // Types
 import type { IconValue } from './icons'
-import type { EventProp } from '../utils'
+import type { EventProp } from '@/utils'
 
 type names = 'clear' | 'prepend' | 'append' | 'appendInner' | 'prependInner'
 

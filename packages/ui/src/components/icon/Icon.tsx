@@ -1,5 +1,5 @@
 ﻿import { computed, defineComponent } from 'vue'
-import { useIcon } from '../../composables/icons'
+import { useIcon } from '@/composables/icons'
 import {
   // 基础图标
   Search,
