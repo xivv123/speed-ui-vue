@@ -61,7 +61,7 @@ export function useInputIcon<T extends {}, K extends names = Listeners<T>>(
 
     const iconName = props[`${name}Icon`] as string
 
-    // 如果没有图标名称，返回 null
+    // is null
     if (!iconName) {
       return null
     }

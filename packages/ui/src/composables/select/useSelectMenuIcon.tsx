@@ -10,12 +10,7 @@ import type { SPTextField } from '@/components/SPTextField'
 import type { IconValue } from '@/composables/icons'
 
 export interface UseSelectMenuIconOptions {
-  /**
-   * 组件名称，用于生成对应的 CSS class
-   * 例如: 'sp-select', 'sp-combo', 'sp-input-suggest', 'sp-cascader'
-   */
   componentName: string
-
   /**
    * 菜单图标名称
    */

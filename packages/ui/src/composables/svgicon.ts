@@ -1,4 +1,3 @@
-// SVG 图标路径定义
 // 基于 Material Design 图标的 SVG 路径数据
 
 import type { IconAliases } from './icons'
