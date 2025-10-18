@@ -31,7 +31,7 @@ export const makeSPTourProps = propsFactory(
     closable: Boolean,
     closeIcon: {
       type: IconValue,
-      default: 'Close',
+      default: 'close',
     },
     type: {
       type: String as PropType<'default' | 'primary'>,

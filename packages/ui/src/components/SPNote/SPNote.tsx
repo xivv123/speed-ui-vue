@@ -196,7 +196,7 @@ export const SPNote = genericComponent<SPNoteSlots>()(({
                 {slots.actions?.()}
                 {props.closable && (
                   <Icon
-                    name="Close"
+                    name="close"
                     size={16}
                     clickable
                     class="sp-note__close-btn"

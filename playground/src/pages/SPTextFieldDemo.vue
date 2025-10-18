@@ -32,11 +32,17 @@
         <sp-text-field density="compact" v-model="variantValue2" prepend-icon="search" prepend-inner-icon="search"
           append-icon="search" suffix=".com" prefix=".com" label="轮廓变体" variant="outlined" placeholder="轮廓样式" clearable>
           <template v-slot:prepend-inner>
-            <sp-icon name="search" />
+            <sp-icon :icon="Search" :size="20" color="red" />
+            <sp-icon :icon="LogoWechat" :size="20" color="#07c160" />
           </template>
         </sp-text-field>
 
-        <sp-text-field v-model="variantValue22" label="轮廓变体" variant="outlined" disabled placeholder="轮廓样式" />
+        <sp-text-field 
+        v-model="variantValue22" 
+        label="轮廓变体" 
+        variant="outlined" 
+        disabled placeholder="轮廓样式" 
+        />
         <sp-text-field v-model="variantValue3" label="下划线变体" variant="underlined" placeholder="下划线样式" />
         <sp-text-field v-model="variantValue4" label="简洁变体" variant="plain" placeholder="简洁样式" />
       </div>
@@ -455,6 +461,125 @@
 
     <sp-space :size="24" />
 
+    <!-- xicon 图标使用示例 -->
+    <DemoSection title="使用 xicon 自定义图标" subtitle="演示如何从 @vicons 导入并使用自定义图标">
+      <div class="demo-row">
+        <sp-text-field
+          v-model="xiconValue1"
+          label="使用 xicon 搜索图标"
+          placeholder="Search 图标来自 ionicons5"
+          clearable
+        >
+          <template #prepend-inner>
+            <sp-icon :icon="SearchIcon" :size="20" />
+          </template>
+        </sp-text-field>
+
+        <sp-text-field
+          v-model="xiconValue2"
+          label="使用 xicon 微信图标"
+          placeholder="LogoWechat 图标来自 ionicons5"
+          prepend-inner-icon="close"
+          :append-inner-icon="LogoWechat"
+          :append-icon="LogoWechat"
+          >
+          <template #append-inner>
+            <sp-icon :icon="LogoWechat" :size="20" color="#07c160" />
+          </template>
+        </sp-text-field>
+
+        <sp-text-field
+          v-model="xiconValue3"
+          label="使用 xicon 心形图标"
+          placeholder="Heart 图标来自 ionicons5"
+          variant="outlined"
+        >
+          <template #prepend-inner>
+            <sp-icon :icon="HeartIcon" :size="22" color="red" />
+          </template>
+        </sp-text-field>
+      </div>
+
+      <div class="demo-row">
+        <sp-text-field
+          v-model="xiconValue4"
+          label="多个 xicon 图标"
+          placeholder="前后都有图标"
+          clearable
+        >
+          <template #prepend-inner>
+            <sp-icon :icon="PersonIcon" :size="20" color="primary" />
+          </template>
+          <template #append-inner>
+            <sp-icon :icon="MailIcon" :size="20" color="success" />
+          </template>
+        </sp-text-field>
+
+        <sp-text-field
+          v-model="xiconValue5"
+          label="xicon 带点击事件"
+          placeholder="点击星星图标"
+          variant="filled"
+        >
+          <template #append-inner>
+            <sp-icon
+              :icon="StarIcon"
+              :size="22"
+              :color="isStarred ? '#FFD700' : '#ccc'"
+              clickable
+              @click="toggleStar"
+            />
+          </template>
+        </sp-text-field>
+
+        <sp-text-field
+          v-model="xiconValue6"
+          label="xicon 日历选择"
+          placeholder="点击选择日期"
+        >
+          <template #append-inner>
+            <sp-icon
+              :icon="CalendarIcon"
+              :size="20"
+              color="info"
+              clickable
+              @click="() => addXiconLog('点击了日历图标')"
+            />
+          </template>
+        </sp-text-field>
+      </div>
+
+      <div class="xicon-info">
+        <h4>使用 xicon 的步骤:</h4>
+        <ol>
+          <li>
+            <strong>安装图标包:</strong>
+            <code>pnpm add @vicons/ionicons5 @vicons/utils</code>
+          </li>
+          <li>
+            <strong>导入图标组件:</strong>
+            <code>import {{ '{' }} Search, Heart, Star {{ '}' }} from '@vicons/ionicons5'</code>
+          </li>
+          <li>
+            <strong>通过 icon 属性传递:</strong>
+            <code>&lt;sp-icon :icon="SearchIcon" :size="20" /&gt;</code>
+          </li>
+          <li>
+            <strong>优势:</strong>
+            按需加载，只打包使用到的图标，减小打包体积
+          </li>
+        </ol>
+      </div>
+
+      <div class="xicon-status">
+        <p><strong>星标状态:</strong> <span :class="{ 'starred': isStarred }">{{ isStarred ? '已收藏 ⭐' : '未收藏' }}</span></p>
+        <p><strong>图标事件:</strong> {{ xiconLogs.join(', ') || '暂无事件' }}</p>
+        <p><strong>当前值:</strong> {{ xiconValue1 }}, {{ xiconValue2 }}, {{ xiconValue3 }}</p>
+      </div>
+    </DemoSection>
+
+    <sp-space :size="24" />
+
     <!-- 轻量版 SPTextFieldLite 演示 -->
     <DemoSection title="SPTextFieldLite（轻量版）">
       <div class="demo-row">
@@ -502,9 +627,28 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import DemoContainer from '../components/DemoContainer.vue'
 import DemoSection from '../components/DemoSection.vue'
+
+// 导入 xicon 图标
+import {
+  Search,
+  Notifications,
+  Heart,
+  Person,
+  Mail,
+  Star,
+  Calendar,
+  LogoWechat,
+} from '@vicons/ionicons5'
+
+// 图标组件（用于演示）
+const SearchIcon = Search
+const HeartIcon = Heart
+const PersonIcon = Person
+const MailIcon = Mail
+const StarIcon = Star
+const CalendarIcon = Calendar
 
 // 基础用法
 const basicValue = ref('')
@@ -574,6 +718,28 @@ let searchTimer: NodeJS.Timeout | null = null
 const iconValue1 = ref('')
 const iconValue2 = ref('')
 const iconValue3 = ref('')
+
+// xicon 使用示例
+const xiconValue1 = ref('')
+const xiconValue2 = ref('')
+const xiconValue3 = ref('')
+const xiconValue4 = ref('')
+const xiconValue5 = ref('')
+const xiconValue6 = ref('')
+const isStarred = ref(false)
+const xiconLogs = ref<string[]>([])
+
+const toggleStar = () => {
+  isStarred.value = !isStarred.value
+  addXiconLog(isStarred.value ? '收藏成功' : '取消收藏')
+}
+
+const addXiconLog = (msg: string) => {
+  xiconLogs.value.push(msg)
+  if (xiconLogs.value.length > 3) {
+    xiconLogs.value.shift()
+  }
+}
 
 // 尺寸演示
 const sizeValue1 = ref('')
@@ -1249,6 +1415,68 @@ const handleSearchInput = (event: Event) => {
   border-radius: 4px;
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 13px;
+}
+
+/* xicon 示例样式 */
+.xicon-info {
+  background: #f0f9ff;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #3498db;
+  margin-top: 20px;
+}
+
+.xicon-info h4 {
+  margin: 0 0 15px 0;
+  color: #2c3e50;
+  font-size: 16px;
+}
+
+.xicon-info ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.xicon-info li {
+  margin-bottom: 8px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.xicon-info strong {
+  color: #3498db;
+  font-weight: 600;
+}
+
+.xicon-info code {
+  background: #e8f4fd;
+  color: #2980b9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+}
+
+.xicon-status {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.xicon-status p {
+  margin: 8px 0;
+  color: #555;
+}
+
+.xicon-status strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.xicon-status .starred {
+  color: #FFD700;
+  font-weight: 600;
 }
 
 /* 响应式设计 */

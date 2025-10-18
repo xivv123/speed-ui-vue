@@ -14,7 +14,7 @@ export const makeSPTourHeaderProps = propsFactory(
     closable: Boolean,
     closeIcon: {
       type: IconValue,
-      default: 'Close',
+      default: 'close',
     },
     onClose: Function as PropType<() => void>,
   },
