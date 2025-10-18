@@ -35,7 +35,6 @@
 </template>
 
 <script setup>
-// 导入 ionicons5 图标
 import {
   Search,
   Notifications,

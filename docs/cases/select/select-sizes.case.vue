@@ -3,42 +3,22 @@
 </text>
 
 <template>
-  <sp-space direction="vertical" :size="20">
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #374151; font-size: 14px">
-        小尺寸
-      </h4>
-      <sp-space wrap>
-        <sp-select v-model="smallValue1" label="小尺寸选择器" placeholder="小尺寸" :items="sizeItems" density="compact"
-          style="width: 250px" />
-        <sp-select v-model="smallValue2" label="小尺寸轮廓" variant="outlined" placeholder="小尺寸轮廓" :items="sizeItems"
-          density="compact" style="width: 250px" />
-      </sp-space>
-    </div>
+  <sp-row :cols="2" gap="24">
+    <sp-col>
+      <sp-select v-model:value="smallValue1" label="小尺寸选择器" placeholder="小尺寸" :items="sizeItems" density="compact" />
+      <sp-select v-model:value="defaultValue1" label="默认尺寸选择器" placeholder="默认尺寸" :items="sizeItems" />
+      <sp-select v-model:value="comfortableValue1" label="舒适尺寸选择器" placeholder="舒适尺寸" :items="sizeItems"
+        density="comfortable" />
+    </sp-col>
 
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #374151; font-size: 14px">
-        默认尺寸
-      </h4>
-      <sp-space wrap>
-        <sp-select v-model="defaultValue1" label="默认尺寸选择器" placeholder="默认尺寸" :items="sizeItems" style="width: 280px" />
-        <sp-select v-model="defaultValue2" label="默认尺寸轮廓" variant="outlined" placeholder="默认尺寸轮廓" :items="sizeItems"
-          style="width: 280px" />
-      </sp-space>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #374151; font-size: 14px">
-        舒适尺寸
-      </h4>
-      <sp-space wrap>
-        <sp-select v-model="comfortableValue1" label="舒适尺寸选择器" placeholder="舒适尺寸" :items="sizeItems"
-          density="comfortable" style="width: 320px" />
-        <sp-select v-model="comfortableValue2" label="舒适尺寸轮廓" variant="outlined" placeholder="舒适尺寸轮廓" :items="sizeItems"
-          density="comfortable" style="width: 320px" />
-      </sp-space>
-    </div>
-  </sp-space>
+    <sp-col>
+      <sp-select v-model:value="smallValue2" label="小尺寸轮廓" variant="outlined" placeholder="小尺寸轮廓" :items="sizeItems"
+        density="compact" />
+      <sp-select v-model:value="defaultValue2" label="默认尺寸轮廓" variant="outlined" placeholder="默认尺寸轮廓" :items="sizeItems" />
+      <sp-select v-model:value="comfortableValue2" label="舒适尺寸轮廓" variant="outlined" placeholder="舒适尺寸轮廓" :items="sizeItems"
+        density="comfortable" />
+    </sp-col>
+  </sp-row>
 </template>
 
 <script setup>

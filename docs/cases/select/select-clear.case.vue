@@ -3,12 +3,16 @@
 </text>
 
 <template>
-  <sp-space wrap :size="16">
-    <sp-select v-model="clearValue1" label="可清除选择器" placeholder="选择后可清除" :items="clearItems" clearable
-      style="width: 280px" />
-    <sp-select v-model="clearValue2" label="轮廓 + 清除" variant="outlined" placeholder="轮廓样式 + 清除功能" :items="clearItems"
-      clearable style="width: 280px" />
-  </sp-space>
+  <sp-row :cols="2" gap="24">
+    <sp-col>
+      <sp-select v-model="clearValue1" label="可清除选择器" placeholder="选择后可清除" :items="clearItems" clearable />
+    </sp-col>
+
+    <sp-col>
+      <sp-select v-model="clearValue2" label="轮廓 + 清除" variant="outlined" placeholder="轮廓样式 + 清除功能" :items="clearItems"
+        clearable />
+    </sp-col>
+  </sp-row>
 </template>
 
 <script setup>
