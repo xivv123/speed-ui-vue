@@ -6,18 +6,19 @@ import { resolve } from 'path'
 import { fileURLToPath, URL } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
+const base = process.env.BASE_PATH || '/speed-ui-vue/'
 
 export default defineConfig({
   title: 'Speed UI',
   description: 'Vue 3 组件库',
-  base: process.env.BASE_PATH || '/speed-ui-vue/', // GitHub Pages 部署路径
+  base, // GitHub Pages 部署路径
   head: [
-    ['link', { rel: 'icon', href: '/logos/logo.png' }],
+    ['link', { rel: 'icon', href: `${base}logos/logo.png` }],
     // 预加载关键资源
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }],
     // Service Worker 支持
-    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    ['link', { rel: 'manifest', href: `${base}manifest.json` }],
     ['meta', { name: 'theme-color', content: '#3eaf7c' }],
   ],
 
