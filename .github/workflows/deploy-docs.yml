@@ -43,6 +43,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build docs
+        env:
+          BASE_PATH: /speed-ui-vue/
         run: pnpm docs:build
 
       - name: Upload artifact
