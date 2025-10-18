@@ -20,7 +20,6 @@ import {
 
 // Types
 import type { InjectionKey, PropType, Ref } from 'vue'
-// import type { RippleDirectiveBinding } from '@/directives/ripple'
 import type { GenericProps } from '@/utils'
 
 export interface SPSelectionGroupContext {
@@ -45,10 +44,6 @@ export const makeSelctrlGroupProps = propsFactory(
     inline: Boolean,
     falseIcon: IconValue,
     trueIcon: IconValue,
-    // ripple: {
-    //   type: [Boolean, Object] as PropType<RippleDirectiveBinding['value']>,
-    //   default: true,
-    // },
     multiple: {
       type: Boolean as PropType<boolean | null>,
       default: null,
@@ -135,7 +130,6 @@ export const SPSelctrlGroup = genericComponent<
         falseIcon: toRef(() => props.falseIcon),
         trueIcon: toRef(() => props.trueIcon),
         readonly: toRef(() => props.readonly),
-        // ripple: toRef(() => props.ripple),
         type: toRef(() => props.type),
         valueComparator: toRef(() => props.valueComparator),
       },

@@ -198,10 +198,10 @@ export const SPFormItem = genericComponent<
       
       if (isValid.value === true) {
         // 校验成功：绿色对号
-        return <SpIcon name="CheckmarkCircle" size={12} class="sp-form-item__check-icon" />
+        return <SpIcon name="checkmarkCircle" size={12} class="sp-form-item__check-icon" />
       } else if (isValid.value === false) {
         // 校验失败：红色叉号
-        return <SpIcon name="CloseCircle" size={12} class="sp-form-item__error-icon" />
+        return <SpIcon name="closeCircle" size={12} class="sp-form-item__error-icon" />
       } else {
         // 默认状态：红色星号
         return <span class="sp-form-item__required">*</span>

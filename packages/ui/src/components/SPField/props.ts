@@ -44,7 +44,7 @@ export const makeSPFieldProps = propsFactory(
     clearable: Boolean,
     clearIcon: {
       type: IconValue,
-      default: 'CloseCircle',
+      default: 'closeCircle',
     },
     clearIconSize: {
       type: [String, Number],

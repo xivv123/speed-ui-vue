@@ -1,16 +1,15 @@
 // Components
-import Icon from '../components/icon/Icon'
-// import { SPIcon } from '../components/SPIcon/SPIcon'
+import Icon from '@/components/icon/Icon'
 
 // Composables
-import { useLocale } from '../composables/locale'
+import { useLocale } from '@/composables/locale'
 
 // Utilities
-import { callEvent } from '../utils'
+import { callEvent } from '@/utils'
 
 // Types
 import type { IconValue } from './icons'
-import type { EventProp } from '../utils'
+import type { EventProp } from '@/utils'
 
 type names = 'clear' | 'prepend' | 'append' | 'appendInner' | 'prependInner'
 
@@ -62,7 +61,7 @@ export function useInputIcon<T extends {}, K extends names = Listeners<T>>(
 
     const iconName = props[`${name}Icon`] as string
 
-    // 如果没有图标名称，返回 null
+    // is null
     if (!iconName) {
       return null
     }

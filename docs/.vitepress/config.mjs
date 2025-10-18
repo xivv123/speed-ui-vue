@@ -74,7 +74,7 @@ export default defineConfig({
     },
     optimizeDeps: {
       exclude: ['@button-cases'],
-      include: ['speed-ui-vue', '@vicons/ionicons5'],
+      include: ['speed-ui-vue', '@vicons/ionicons5', '@vicons/ionicons4'],
     },
     build: {
       // 代码分割优化
@@ -132,6 +132,7 @@ export default defineConfig({
           items: [
             { text: 'btn 按钮', link: '/components/btn' },
             { text: 'btngroup 按钮组', link: '/components/btngroup' },
+            { text: 'icon 图标', link: '/components/icon' },
             { text: 'card 卡片', link: '/components/card' },
             { text: 'divider 分割线', link: '/components/divider' },
             { text: 'tag 标签', link: '/components/tag' },

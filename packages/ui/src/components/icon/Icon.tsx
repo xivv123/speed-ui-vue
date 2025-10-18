@@ -1,143 +1,11 @@
 ﻿import { computed, defineComponent } from 'vue'
-import { useIcon } from '../../composables/icons'
-import {
-  // 基础图标
-  Search,
-  Close,
-  CloseOutline,
-  CloseCircle,
-  Checkmark,
-  CheckmarkOutline,
-  CheckmarkCircle,
-  Add,
-  AddOutline,
-  Remove,
-  RemoveOutline,
-
-  // 眼睛图标
-  Eye,
-  EyeOutline,
-  EyeOff,
-  EyeOffOutline,
-
-  // 箭头图标
-  ArrowForward,
-  ArrowBack,
-  ArrowUp,
-  ArrowDown,
-  ChevronForward,
-  ChevronBack,
-  ChevronUp,
-  ChevronDown,
-
-  // 位置图标
-  Location,
-  LocationOutline,
-
-  // 刷新图标
-  Refresh,
-  RefreshOutline,
-
-  // 设置图标
-  Settings,
-  SettingsOutline,
-
-  // 用户图标
-  Person,
-  PersonOutline,
-
-  // 通知图标
-  Notifications,
-  NotificationsOutline,
-
-  // 心形图标
-  Heart,
-  HeartOutline,
-
-  // 星形图标
-  Star,
-  StarOutline,
-
-  // 点赞图标
-  ThumbsUp,
-  ThumbsUpOutline,
-
-  // 文件图标
-  Document,
-  DocumentOutline,
-  Folder,
-  FolderOutline,
-
-  // 编辑图标
-  Create,
-  CreateOutline,
-  Trash,
-  TrashOutline,
-
-  // 媒体图标
-  Play,
-  PlayOutline,
-  Pause,
-  PauseOutline,
-  Stop,
-  StopOutline,
-
-  // 网络图标
-  Wifi,
-  WifiOutline,
-  Cloud,
-  CloudOutline,
-
-  // 其他常用图标
-  Home,
-  HomeOutline,
-  Menu,
-  MenuOutline,
-  Grid,
-  GridOutline,
-  List,
-  ListOutline,
-  Calendar,
-  CalendarOutline,
-  Time,
-  TimeOutline,
-  Mail,
-  MailOutline,
-  Call,
-  CallOutline,
-  Camera,
-  CameraOutline,
-  Image,
-  ImageOutline,
-  Download,
-  DownloadOutline,
-  Share,
-  ShareOutline,
-  Copy,
-  CopyOutline,
-  Cut,
-  CutOutline,
-  Save,
-  SaveOutline,
-  Print,
-  PrintOutline,
-  Filter,
-  FilterOutline,
-  Warning,
-  WarningOutline,
-  Information,
-  InformationOutline,
-  Help,
-  HelpOutline,
-  LockClosed,
-  LockOpen,
-  Key,
-  KeyOutline,
-} from '@vicons/ionicons5'
+import { useIcon } from '@/composables/icons'
+import type { IconValue } from '@/composables/icons'
 
 interface IconProps {
-  // 图标名称
-  name: string
+  // 图标名称或组件（支持 IconValue 类型）
+  name?: IconValue
+  icon?: any
   // 图标大小
   size?: string | number
   // 图标颜色
@@ -152,17 +20,19 @@ interface IconProps {
   style?: string | Record<string, any>
 }
 
-interface IconEmits {
-  click: [event: MouseEvent]
-}
-
 export default defineComponent({
   name: 'SpIcon',
   inheritAttrs: false,
   props: {
+    // 图标名称（支持别名，如 $close）或 IconValue 类型
     name: {
-      type: String,
-      required: true,
+      type: [String, Array] as any,
+      default: undefined,
+    },
+    // 直接传递图标组件（用户从 xicon 导入的组件）
+    icon: {
+      type: [Object, Function],
+      default: undefined,
     },
     size: {
       type: [String, Number],
@@ -182,180 +52,81 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props: IconProps, { attrs, emit }: any) {
-    // 图标映射表 - 包含所有常用的 Ionicons 图标
-    const iconMap: Record<string, any> = {
-      // 基础图标
-      Search,
-      Close,
-      CloseOutline,
-      CloseCircle,
-      Checkmark,
-      CheckmarkOutline,
-      CheckmarkCircle,
-      Add,
-      AddOutline,
-      Remove,
-      RemoveOutline,
-
-      // 眼睛图标
-      Eye,
-      EyeOutline,
-      EyeOff,
-      EyeOffOutline,
-
-      // 箭头图标
-      ArrowForward,
-      ArrowBack,
-      ArrowUp,
-      ArrowDown,
-      ChevronForward,
-      ChevronBack,
-      ChevronUp,
-      ChevronDown,
-
-      // 位置图标
-      Location,
-      LocationOutline,
-
-      // 刷新图标
-      Refresh,
-      RefreshOutline,
-
-      // 设置图标
-      Settings,
-      SettingsOutline,
-
-      // 用户图标
-      Person,
-      PersonOutline,
-
-      // 通知图标
-      Notifications,
-      NotificationsOutline,
-
-      // 心形图标
-      Heart,
-      HeartOutline,
-
-      // 星形图标
-      Star,
-      StarOutline,
-
-      // 点赞图标
-      ThumbsUp,
-      ThumbsUpOutline,
-
-      // 文件图标
-      Document,
-      DocumentOutline,
-      Folder,
-      FolderOutline,
-
-      // 编辑图标
-      Create,
-      CreateOutline,
-      Trash,
-      TrashOutline,
-
-      // 媒体图标
-      Play,
-      PlayOutline,
-      Pause,
-      PauseOutline,
-      Stop,
-      StopOutline,
-
-      // 网络图标
-      Wifi,
-      WifiOutline,
-      Cloud,
-      CloudOutline,
-
-      // 其他常用图标
-      Home,
-      HomeOutline,
-      Menu,
-      MenuOutline,
-      Grid,
-      GridOutline,
-      List,
-      ListOutline,
-      Calendar,
-      CalendarOutline,
-      Time,
-      TimeOutline,
-      Mail,
-      MailOutline,
-      Call,
-      CallOutline,
-      Camera,
-      CameraOutline,
-      Image,
-      ImageOutline,
-      Download,
-      DownloadOutline,
-      Share,
-      ShareOutline,
-      Copy,
-      CopyOutline,
-      Cut,
-      CutOutline,
-      Save,
-      SaveOutline,
-      Print,
-      PrintOutline,
-      Filter,
-      FilterOutline,
-      Warning,
-      WarningOutline,
-      Information,
-      InformationOutline,
-      Help,
-      HelpOutline,
-      LockClosed,
-      LockOpen,
-      Key,
-      KeyOutline,
-    }
-
     // 使用图标系统解析图标
-    const { iconData } = useIcon(() => props.name)
+    const { iconData } = useIcon(() => props.name || '')
 
     // 获取图标组件
     const iconComponent = computed(() => {
-      if (!props.name) {
-        console.warn('Icon: 没有提供 name 属性')
-        return null
+      // 1. 优先使用直接传入的 icon 组件
+      if (props.icon) {
+        return props.icon
       }
 
-      // 如果是以 $ 开头的别名，优先使用图标系统
-      if (props.name.startsWith('$')) {
+      // 2. 使用 name 从别名系统解析
+      if (props.name) {
+        // 如果 name 是字符串
+        if (typeof props.name === 'string') {
+          // 如果是以 $ 开头的别名，使用图标系统
+          if (props.name.startsWith('$')) {
+            if (iconData.value && iconData.value.component) {
+              return iconData.value.component
+            }
+            console.warn(`图标别名 "${props.name}" 未找到`)
+            return null
+          }
+
+          // 对于普通名称（如 "close", "checkmarkCircle"），转换为别名格式
+          const aliasName = `$${props.name}`
+          const { iconData: aliasIconData } = useIcon(() => aliasName)
+          if (aliasIconData.value && aliasIconData.value.component) {
+            return aliasIconData.value.component
+          }
+
+          console.warn(
+            `图标 "${props.name}" 未找到，请确保已在 svgIconAliases 中定义或直接传递图标组件`
+          )
+          return null
+        }
+
+        // 如果 name 是 IconValue 类型（数组或其他），直接使用 iconData
         if (iconData.value && iconData.value.component) {
           return iconData.value.component
         }
-        console.warn(`图标别名 "${props.name}" 未找到`)
+
+        console.warn(`图标值解析失败`)
         return null
       }
 
-      // 对于普通图标名称，直接使用 ionicons 映射
-      let IconComponent = iconMap[props.name]
+      console.warn('Icon: 必须提供 name 或 icon 属性')
+      return null
+    })
 
-      // 如果没找到，尝试首字母大写的版本
-      if (!IconComponent) {
-        const capitalizedName =
-          props.name.charAt(0).toUpperCase() + props.name.slice(1)
-        IconComponent = iconMap[capitalizedName]
+    // 获取图标数据（用于 SVG 图标）
+    const iconValue = computed(() => {
+      // 如果是直接传入的组件，返回 undefined（让组件自己处理）
+      if (props.icon) {
+        return undefined
       }
 
-      if (!IconComponent) {
-        console.warn(
-          `图标 "${props.name}" 未找到，可用图标:`,
-          Object.keys(iconMap).sort()
-        )
-        return null
+      // 如果是通过 name 解析的，返回 iconData
+      if (props.name) {
+        // 字符串类型
+        if (typeof props.name === 'string') {
+          const nameStr = props.name as string
+          if (nameStr.startsWith('$')) {
+            return iconData.value?.icon
+          }
+          // 对于普通名称，也要获取对应的 iconData
+          const aliasName = `$${nameStr}`
+          const { iconData: aliasIconData } = useIcon(() => aliasName)
+          return aliasIconData.value?.icon
+        }
+
+        // IconValue 类型
+        return iconData.value?.icon
       }
 
-      return IconComponent
+      return undefined
     })
 
     // 计算图标类名
@@ -434,7 +205,7 @@ export default defineComponent({
         <IconComponent
           class={iconClass.value}
           style={iconStyle.value}
-          icon={iconData.value?.icon}
+          icon={iconValue.value}
           tag="span"
           {...attrs}
           onClick={handleClick}

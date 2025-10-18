@@ -3,26 +3,26 @@
 </text>
 
 <template>
-  <sp-space direction="vertical" :size="16">
-    <sp-space wrap>
-      <sp-select v-model="multipleValue1" label="多选选择器" placeholder="可选择多个选项" :items="multipleItems" multiple clearable
-        style="width: 320px" />
-      <sp-select v-model="multipleValue2" label="轮廓多选" variant="outlined" placeholder="轮廓样式多选" :items="multipleItems"
-        multiple clearable style="width: 320px" />
-    </sp-space>
+  <sp-row :cols="2" gap="24">
+    <sp-col>
+      <sp-select v-model="multipleValue1" label="多选选择器" placeholder="可选择多个选项" :items="multipleItems" multiple clearable />
+      <sp-select v-model="multipleValue3" label="技能选择" placeholder="选择你的技能" :items="skillItems" multiple chips clearable />
+    </sp-col>
 
-    <sp-space wrap>
-      <sp-select v-model="multipleValue3" label="技能选择" placeholder="选择你的技能" :items="skillItems" multiple chips clearable
-        style="width: 380px" />
-    </sp-space>
-  </sp-space>
+    <sp-col>
+      <sp-select v-model="multipleValue2" label="轮廓多选" variant="outlined" placeholder="轮廓样式多选" :items="multipleItems"
+        multiple clearable />
+      <sp-select v-model="multipleValue2" label="轮廓多选" variant="outlined" placeholder="轮廓样式多选" :items="multipleItems"
+        multiple clearable tags/>
+    </sp-col>
+  </sp-row>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 
 const multipleValue1 = ref(['技能一', '技能三'])
-const multipleValue2 = ref(['技能二'])
+const multipleValue2 = ref(['技能二', '技能三'])
 const multipleValue3 = ref(['前端开发', 'UI设计'])
 
 const multipleItems = [

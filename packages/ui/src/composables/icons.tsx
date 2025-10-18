@@ -1,31 +1,23 @@
-// Icons
-// import { aliases, mdi } from '../iconsets/mdi'
-const aliases: any = {}
-const mdi: any = {}
-
 // Utilities
-import { computed, inject, isRef, ref, toRef, unref, toValue } from 'vue'
+import { computed, inject, toValue } from 'vue'
 import {
   consoleWarn,
   defineComponent,
   genericComponent,
   mergeDeep,
   propsFactory,
-} from '../utils'
+} from '@/utils'
 
 // SVG Icons
 import { svgIconAliases } from './svgicon'
 
 // Types
 import type {
-  App,
-  Component,
   InjectionKey,
-  Ref,
   PropType,
   MaybeRefOrGetter,
 } from 'vue'
-import type { JSXComponent } from '../utils'
+import type { JSXComponent } from '@/utils'
 
 export type IconValue =
   | string
@@ -157,8 +149,8 @@ export const VComponentIcon = genericComponent()({
 })
 export type VComponentIcon = InstanceType<typeof VComponentIcon>
 
-export const VSvgIcon = defineComponent({
-  name: 'VSvgIcon',
+export const svgIcon = defineComponent({
+  name: 'svgIcon',
 
   inheritAttrs: false,
 
@@ -199,10 +191,10 @@ export const VSvgIcon = defineComponent({
     }
   },
 })
-export type VSvgIcon = InstanceType<typeof VSvgIcon>
+export type svgIcon = InstanceType<typeof svgIcon>
 
-export const VLigatureIcon = defineComponent({
-  name: 'VLigatureIcon',
+export const SPLigatureIcon = defineComponent({
+  name: 'SPLigatureIcon',
 
   props: makeIconProps(),
 
@@ -212,10 +204,10 @@ export const VLigatureIcon = defineComponent({
     }
   },
 })
-export type VLigatureIcon = InstanceType<typeof VLigatureIcon>
+export type SPLigatureIcon = InstanceType<typeof SPLigatureIcon>
 
-export const VClassIcon = defineComponent({
-  name: 'VClassIcon',
+export const classIcon = defineComponent({
+  name: 'classIcon',
 
   props: makeIconProps(),
 
@@ -225,15 +217,15 @@ export const VClassIcon = defineComponent({
     }
   },
 })
-export type VClassIcon = InstanceType<typeof VClassIcon>
+export type classIcon = InstanceType<typeof classIcon>
 
 function genDefaults(): Record<string, IconSet> {
   return {
     svg: {
-      component: VSvgIcon,
+      component: svgIcon,
     },
     class: {
-      component: VClassIcon,
+      component: classIcon,
     },
   }
 }
@@ -277,7 +269,7 @@ export function useIcon(props: MaybeRefOrGetter<IconValue | undefined>) {
 
     if (Array.isArray(icon)) {
       return {
-        component: VSvgIcon,
+        component: svgIcon,
         icon,
       }
     } else if (typeof icon !== 'string') {

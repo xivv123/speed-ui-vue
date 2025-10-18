@@ -64,7 +64,7 @@ export const SPCheckbox = genericComponent<
       return (
         <SPInputinner
           ref={inputRef}
-          class={['v-checkbox', props.class]}
+          class={['sp-checkbox', props.class]}
           {...rootAttrs}
           {...inputProps}
           hideDetails={formItem ? true : inputProps.hideDetails}

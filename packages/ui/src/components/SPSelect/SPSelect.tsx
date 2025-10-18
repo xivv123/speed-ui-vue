@@ -28,7 +28,6 @@ import {
   deepEqual,
   genericComponent,
   IN_BROWSER,
-  matchesSelector,
   useVNodeRender,
   wrapInArray,
 } from '@/utils'
@@ -84,7 +83,18 @@ export const SPSelect = genericComponent<
       props,
       'modelValue',
       [],
-      v => transformIn(v === null ? [null] : wrapInArray(v)),
+      v => {
+        // 处理 null 和 undefined
+        if (v === null || v === undefined) return []
+
+        const wrapped = wrapInArray(v)
+        // 过滤掉空字符串、null 和 undefined
+        const filtered = wrapped.filter(item => {
+          return item !== '' && item !== null && item !== undefined
+        })
+
+        return filtered.length > 0 ? transformIn(filtered) : []
+      },
       v => {
         const transformed = transformOut(v)
         return props.multiple ? transformed : transformed[0] ?? null
@@ -304,7 +314,7 @@ export const SPSelect = genericComponent<
       model,
       enableAutofill: true,
       emptyValue: [] as any,
-      onAutofillMatch: (v) => {
+      onAutofillMatch: v => {
         const item = items.value.find(item => item.title === v)
         if (item) {
           select(item)
@@ -405,7 +415,9 @@ export const SPSelect = genericComponent<
                 <SPMenu
                   ref={SPMenuRef}
                   modelValue={menu.value}
-                  onUpdate:modelValue={(v: boolean | undefined) => (menu.value = v)}
+                  onUpdate:modelValue={(v: boolean | undefined) =>
+                    (menu.value = v)
+                  }
                   activator="parent"
                   contentClass="sp-select__content"
                   disabled={menuDisabled.value}

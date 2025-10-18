@@ -5,16 +5,16 @@ import {
 } from '../SPSelctrl/SPSelctrl'
 
 // Composables
-import { IconValue } from '../../composables/icons'
-import { useProxiedModel } from '../../composables/proxiedModel'
+import { IconValue } from '@/composables/icons'
+import { useProxiedModel } from '@/composables/proxiedModel'
 
 // Utilities
 import { toRef } from 'vue'
-import { genericComponent, omit, propsFactory, useRender } from '../../utils'
+import { genericComponent, omit, propsFactory, useRender } from '@/utils'
 
 // Types
 import type { SPSelctrlSlots } from '../SPSelctrl/SPSelctrl'
-import type { GenericProps } from '../../utils'
+import type { GenericProps } from '@/utils'
 
 export const makeSPCheckboxBtnProps = propsFactory(
   {

@@ -3,31 +3,28 @@
 </text>
 
 <template>
-    <sp-space direction="vertical" :size="16">
-        <sp-space wrap>
-            <sp-select v-model="prependIconValue" label="前置图标" placeholder="带前置图标的选择器" :items="iconItems"
-                prepend-icon="mdi-account" style="width: 280px" />
-            <sp-select v-model="appendIconValue" label="后置图标" placeholder="带后置图标的选择器" :items="iconItems"
-                append-icon="mdi-information" style="width: 280px" />
-        </sp-space>
+  <sp-row :cols="2" gap="24">
+    <sp-col>
+      <sp-select v-model:value="prependIconValue" label="前置图标" placeholder="带前置图标的选择器" :items="iconItems"
+        :prepend-icon="AttachOutline" />
+      <sp-select v-model:value="menuIconValue" label="自定义菜单图标" placeholder="自定义下拉图标" :items="iconItems"
+        :menu-icon="HelpBuoySharp" />
+      <sp-select v-model:value="outlinedIconValue" label="轮廓 + 图标" variant="outlined" placeholder="轮廓样式带图标"
+        :items="iconItems" :prepend-icon="BatteryChargingSharp" clearable />
+    </sp-col>
 
-        <sp-space wrap>
-            <sp-select v-model="menuIconValue" label="自定义菜单图标" placeholder="自定义下拉图标" :items="iconItems"
-                menu-icon="mdi-chevron-down" style="width: 280px" />
-            <sp-select v-model="bothIconValue" label="前后图标" placeholder="前后都有图标" :items="iconItems"
-                prepend-icon="mdi-map-marker" append-icon="mdi-star" style="width: 280px" />
-        </sp-space>
-
-        <sp-space wrap>
-            <sp-select v-model="outlinedIconValue" label="轮廓 + 图标" variant="outlined" placeholder="轮廓样式带图标"
-                :items="iconItems" prepend-icon="mdi-email" clearable style="width: 280px" />
-        </sp-space>
-    </sp-space>
+    <sp-col>
+      <sp-select v-model:value="appendIconValue" label="后置图标" placeholder="带后置图标的选择器" :items="iconItems"
+        :append-icon="Bookmarks" />
+      <sp-select v-model:value="bothIconValue" label="前后图标" placeholder="前后都有图标" :items="iconItems"
+        :prepend-icon="Expand" :append-icon="FingerPrint" />
+    </sp-col>
+  </sp-row>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
+import { AttachOutline, BatteryChargingSharp, Bookmarks, Expand, HelpBuoySharp } from '@vicons/ionicons5'
 const prependIconValue = ref('')
 const appendIconValue = ref('')
 const menuIconValue = ref('')
