@@ -47,7 +47,7 @@ packages/ui/types/
 cache
 CLAUDE.md
 @CLAUDE.md
-@settings.local
+settings.local.json
 
 # VitePress temp files
 .temp
