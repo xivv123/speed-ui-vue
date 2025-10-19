@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1
+
+### Patch Changes
+
+- 优化 sp-icon 组件使用方式，减小打包体积
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -8,12 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - Initial release of Speed UI component library
 - Complete set of Vue 3 components
 - TypeScript support
 - Comprehensive documentation
 
 ### Components
+
 - **Basic Components**: Button, ButtonGroup, Badge, Tag, TagGroup, Divider, Space
 - **Form Components**: Input, TextField, Textarea, InputNumber, Select, Cascader, Checkbox, Radio, RadioGroup, Switch, Slider, Form, FormItem
 - **Data Display**: Card, List, Grid, Collapse, Progress, ProgressLinear, ProgressCircular
@@ -22,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Others**: Overlay, Tour, Combo
 
 ### Features
+
 - 🎨 Modern design system
 - 🚀 Vue 3 Composition API support
 - 📦 Tree shaking support
@@ -33,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] - 2024-01-XX
 
 ### Added
+
 - Initial public release
 - Core component library
 - Documentation and examples
