@@ -49,6 +49,10 @@ CLAUDE.md
 @CLAUDE.md
 @settings.local
 
+# VitePress temp files
+.temp
+**/.temp/
+
 # Bundle analysis
 stats.html
 **/stats.html

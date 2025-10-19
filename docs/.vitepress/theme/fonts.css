@@ -14,6 +14,7 @@
 }
 
 /* 如果需要加载自定义字体，使用 font-display: swap */
+/*
 @font-face {
   font-family: 'Custom Font';
   src: local('Custom Font'),
@@ -21,8 +22,9 @@
        url('/fonts/custom-font.woff') format('woff');
   font-weight: 400;
   font-style: normal;
-  font-display: swap; /* 关键：避免字体加载阻塞渲染 */
+  font-display: swap;
 }
+*/
 
 /* 字体预加载提示 */
 /* 在 HTML head 中添加：

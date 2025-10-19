@@ -3,7 +3,7 @@
 </text>
 
 <template>
-    <sp-form v-model="form" @submit="onSubmit">
+    <sp-form :model-value="form" @submit="onSubmit">
         <template #default="{ isValid, isValidating, validate, reset, errors }">
             <sp-space direction="vertical" :size="24">
                 <!-- 基本信息 -->

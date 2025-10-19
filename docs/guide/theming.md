@@ -354,4 +354,3 @@ if (!isValid.passed) {
 
 - [了解国际化配置](/guide/i18n)
 - [查看组件示例](/components/)
-- [查看更新日志](/guide/changelog)
