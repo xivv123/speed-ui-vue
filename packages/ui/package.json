@@ -48,6 +48,7 @@
   },
   "scripts": {
     "build": "vite build",
+    "build:analyze": "vite build --mode analyze",
     "clean": "rimraf lib es types",
     "dev": "vite build --watch",
     "test": "vitest",
@@ -61,7 +62,9 @@
       "optional": true
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "@floating-ui/vue": "^1.1.6"
+  },
   "optionalDependencies": {},
   "devDependencies": {
     "@vitejs/plugin-vue-jsx": "^5.0.0"

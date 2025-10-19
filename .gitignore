@@ -43,5 +43,12 @@ lib
 es
 # types
 packages/ui/types/
-*.tsbuildinfo 
+*.tsbuildinfo
 cache
+CLAUDE.md
+@CLAUDE.md
+@settings.local
+
+# Bundle analysis
+stats.html
+**/stats.html

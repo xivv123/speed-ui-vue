@@ -8,6 +8,15 @@
         <sp-text-field label="填充变体" variant="filled" placeholder="填充样式" :prepend-icon="Location"
           :prepend-inner-icon="Person" :append-inner-icon="Notifications" :append-icon="Settings" />
 
+        <sp-text-field label="心形图标" placeholder="Heart" variant="outlined" >
+          <template #prepend-inner>
+            <sp-icon :icon="Heart" :size="22" color="red" />
+          </template>
+          <template #append-inner>
+            <sp-icon :icon="LogoWechat" :size="20" color="#07c160" />
+          </template>
+        </sp-text-field>
+
         <sp-text-field label="轮廓变体" variant="outlined" placeholder="轮廓样式" :prepend-icon="Heart"
           :prepend-inner-icon="IosAdd" :append-inner-icon="IosBicycle" :append-icon="Play" />
 
@@ -36,6 +45,7 @@
 
 <script setup>
 import {
+  LogoWechat,
   Search,
   Notifications,
   Heart,

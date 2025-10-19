@@ -2,15 +2,17 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import dts from 'vite-plugin-dts'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { resolve } from 'path'
 import { fileURLToPath, URL } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
   const withTypes =
     process.env.NO_DTS !== '1' && process.env.BUILD_TYPES !== 'false'
   const plugins: any[] = [vue() as any, vueJsx()]
+
   if (withTypes) {
     plugins.push(
       dts({
@@ -37,6 +39,18 @@ export default defineConfig(() => {
           'src/**/capable/**',
           'src/**/copy*/**',
         ],
+      })
+    )
+  }
+
+  // Add bundle analyzer in analyze mode
+  if (mode === 'analyze') {
+    plugins.push(
+      visualizer({
+        open: true,
+        filename: 'stats.html',
+        gzipSize: true,
+        brotliSize: true,
       })
     )
   }
@@ -80,6 +94,20 @@ export default defineConfig(() => {
         ],
       },
       cssCodeSplit: false,
+      // Enable CSS minification using esbuild (built-in, no extra deps)
+      cssMinify: 'esbuild',
+      // Additional minification options
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: false, // Keep console for library debugging
+          drop_debugger: true,
+          pure_funcs: ['console.debug'], // Only remove debug logs
+        },
+        format: {
+          comments: false, // Remove comments to reduce size
+        },
+      },
     },
   }
 })
