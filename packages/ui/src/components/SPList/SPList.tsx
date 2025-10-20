@@ -185,7 +185,7 @@ export const SPList = genericComponent<new <
             dimensionStyles.value,
             props.style,
           ]}
-          tabindex={ props.disabled ? -1 : 0 }
+          tabindex={ props.tabindex ?? (props.disabled ? -1 : 0) }
           role="listbox"
           aria-activedescendant={ undefined }
           onFocusin={ onFocusin }

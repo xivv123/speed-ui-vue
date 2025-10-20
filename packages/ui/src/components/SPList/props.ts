@@ -31,6 +31,7 @@ export const makeSPListProps = propsFactory(
     },
     slim: Boolean,
     nav: Boolean,
+    tabindex: [String, Number],
 
     'onClick:open': EventProp<[{ id: unknown; value: boolean; path: unknown[] }]>(),
     'onClick:select': EventProp<[{ id: unknown; value: boolean; path: unknown[] }]>(),
