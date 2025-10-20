@@ -137,6 +137,7 @@ export default defineConfig({
             { text: 'card 卡片', link: '/components/card' },
             { text: 'divider 分割线', link: '/components/divider' },
             { text: 'tag 标签', link: '/components/tag' },
+            { text: 'expandbtn 展开按钮', link: '/components/expandbtn' },
           ],
         },
         {
@@ -179,6 +180,7 @@ export default defineConfig({
               text: 'progresslinear条形进度条',
               link: '/components/progresslinear',
             },
+            { text: 'scrolltext滚动文字', link: '/components/scrolltext' },
           ],
         },
         {
@@ -194,10 +196,7 @@ export default defineConfig({
             { text: 'loading加载状态', link: '/components/loading' },
             { text: 'overlay遮罩层', link: '/components/overlay' },
             { text: 'note便签', link: '/components/note' },
-            {
-              text: 'globalbanner全局横幅',
-              link: '/components/spglobalbanner',
-            },
+            { text: 'globalbanner全局横幅', link: '/components/globalbanner' },
           ],
         },
         {
