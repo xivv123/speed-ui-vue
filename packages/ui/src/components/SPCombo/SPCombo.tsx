@@ -157,7 +157,7 @@ export const SPCombo = genericComponent<
         ? props.counterValue
         : props.multiple
         ? model.value.length
-        : search.value.length
+        : undefined
     })
 
     const { filteredItems, getMatches } = useFilter(props, items, () =>
