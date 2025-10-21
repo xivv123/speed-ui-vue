@@ -238,7 +238,9 @@ export const SPCascader = genericComponent<
           onUpdate:modelValue={onModelUpdate}
           v-model:focused={isFocused.value}
           validationValue={model.externalValue}
-          counterValue={counterValue.value}
+          counterValue={
+            props.counter || props.counterValue ? counterValue.value : undefined
+          }
           dirty={isDirty.value}
           class={[
             'sp-cascader',

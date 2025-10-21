@@ -1,5 +1,5 @@
 <text>
-> 不同样式变体的输入建议框
+支持多种输入框样式变体，包括 filled、outlined、solo、underlined 等
 </text>
 
 <template>

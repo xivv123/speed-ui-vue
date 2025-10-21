@@ -187,6 +187,7 @@ export default defineConfig({
         {
           text: 'Feedback 反馈组件',
           items: [
+            { text: 'alert警告提示', link: '/components/alert' },
             { text: 'dialog弹窗', link: '/components/dialog' },
             { text: 'drawer抽屉', link: '/components/drawer' },
             { text: 'msgbar消息条', link: '/components/msgbar' },

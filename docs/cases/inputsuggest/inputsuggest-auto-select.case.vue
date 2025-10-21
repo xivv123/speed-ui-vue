@@ -1,5 +1,5 @@
 <text>
-> 自动选择第一项，支持快捷输入
+使用 auto-select-first 属性可以自动高亮第一个匹配项，配合 clear-on-select 在选择后清空输入
 </text>
 
 <template>

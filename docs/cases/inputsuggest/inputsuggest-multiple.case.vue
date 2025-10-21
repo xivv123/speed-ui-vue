@@ -1,5 +1,5 @@
 <text>
-> 多选模式，可以选择多个选项
+启用 multiple 属性支持多选，配合 tags 和 closable-tags 可以显示可关闭的标签
 </text>
 
 <template>
