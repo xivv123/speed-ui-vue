@@ -154,6 +154,7 @@ export default defineConfig({
             { text: 'textarea多行文本框', link: '/components/textarea' },
             { text: 'select选择框', link: '/components/select' },
             { text: 'combo选择器', link: '/components/combo' },
+            { text: 'inputsuggest输入建议', link: '/components/inputsuggest' },
             { text: 'form表单', link: '/components/form' },
             { text: 'formitem表单项', link: '/components/formitem' },
             { text: 'cascader级联选择器', link: '/components/cascader' },

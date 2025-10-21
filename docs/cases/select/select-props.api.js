@@ -99,7 +99,7 @@ export default [
     '参数': 'noDataText',
     '说明': '无数据文本',
     '类型': '`string`',
-    '默认值': "`'$speed.noDataText'`"
+    '默认值': "`'暂无数据'`"
   },
   {
     '参数': 'returnObject',

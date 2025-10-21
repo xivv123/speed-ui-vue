@@ -2,7 +2,7 @@
 import './style/SPCollapse.scss'
 
 // Components
-import SpIcon from '../icon/Icon'
+import SpIcon from '@/components/icon'
 import { VExpandTransition } from '@/components/transitions'
 import { SPDivider } from '@/components/SPDivider'
 
@@ -74,7 +74,7 @@ export const SPCollapseItem = genericComponent<SPCollapseItemSlots>()({
       }
     }
 
-    const expandIconName = computed<string>(() => 'ChevronForward')
+    const expandIconName = computed<string>(() => 'chevronRight')
 
     useRender(() => (
       <div

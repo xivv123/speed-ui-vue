@@ -44,7 +44,7 @@ export const makeSelectProps = propsFactory(
     multiple: Boolean,
     noDataText: {
       type: String,
-      default: '$speed.noDataText',
+      default: '暂无数据',
     },
     openOnClear: Boolean,
     itemColor: String,
