@@ -58,7 +58,9 @@
 
 <script setup>
   import { ref, computed } from 'vue'
+  import { useData } from 'vitepress'
 
+  const { site } = useData()
   const searchQuery = ref('')
 
   const components = [
@@ -380,7 +382,9 @@
 
   const navigateToComponent = link => {
     if (typeof window !== 'undefined') {
-      window.location.href = link
+      // 使用 VitePress 的 base 路径
+      const fullPath = site.value.base + link.replace(/^\//, '')
+      window.location.href = fullPath
     }
   }
 </script>
