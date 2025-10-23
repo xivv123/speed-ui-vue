@@ -1,0 +1,10 @@
+@use '@theme/src/material/settings' as settings;
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components')
+  .sp-layout-item
+    position: absolute
+    transition: 0.2s settings.$standard-easing
+
+  .sp-layout-item--absolute
+    position: absolute

@@ -1,0 +1,11 @@
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components')
+  .sp-layout
+    --sp-scrollbar-offset: 0px
+    display: flex
+    flex: 1 1 auto
+
+    &--full-height
+      --sp-scrollbar-offset: inherit
+      height: 100%

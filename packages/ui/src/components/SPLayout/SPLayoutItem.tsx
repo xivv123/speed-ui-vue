@@ -1,0 +1,63 @@
+// Styles
+import './SPLayoutItem.sass'
+
+// Composables
+import { makeComponentProps } from '@/composables/component'
+import { makeLayoutItemProps, useLayoutItem } from '@/composables/layout'
+
+// Utilities
+import { computed, toRef } from 'vue'
+import { genericComponent, propsFactory } from '@/utils'
+
+// Types
+import type { PropType } from 'vue'
+
+export const makeSPLayoutItemProps = propsFactory({
+  position: {
+    type: String as PropType<'top' | 'right' | 'bottom' | 'left'>,
+    required: true,
+  },
+  size: {
+    type: [Number, String],
+    default: 300,
+  },
+  modelValue: Boolean,
+
+  ...makeComponentProps(),
+  ...makeLayoutItemProps(),
+}, 'SPLayoutItem')
+
+export const SPLayoutItem = genericComponent()({
+  name: 'SPLayoutItem',
+
+  props: makeSPLayoutItemProps(),
+
+  setup (props, { slots }) {
+    const { layoutItemStyles } = useLayoutItem({
+      id: props.name,
+      order: computed(() => parseInt(props.order, 10)),
+      position: toRef(() => props.position),
+      elementSize: toRef(() => props.size),
+      layoutSize: toRef(() => props.size),
+      active: toRef(() => props.modelValue),
+      absolute: toRef(() => props.absolute),
+    })
+
+    return () => (
+      <div
+        class={[
+          'sp-layout-item',
+          props.class,
+        ]}
+        style={[
+          layoutItemStyles.value,
+          props.style,
+        ]}
+      >
+        { slots.default?.() }
+      </div>
+    )
+  },
+})
+
+export type SPLayoutItem = InstanceType<typeof SPLayoutItem>
