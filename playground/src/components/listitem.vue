@@ -82,6 +82,7 @@ const tagRouteMap: Record<string, string> = {
   // 导航组件
   'SPMenu': '/zh-CN/sp-menu-demo',
   'SPDrawer': '/zh-CN/sp-drawer-demo',
+  'SPNavigationDrawer': '/zh-CN/sp-navigation-drawer-demo',
   'SPSidebar': '/zh-CN/sp-sidebar-demo',
   'SPTour': '/zh-CN/sp-tour-demo',
   'SPGlobalBanner': '/zh-CN/sp-global-banner-demo',

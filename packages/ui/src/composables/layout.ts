@@ -261,10 +261,10 @@ export function createLayout(props: {
 
   const mainStyles = toRef(() => {
     return {
-      '--v-layout-left': convertToUnit(mainRect.value.left),
-      '--v-layout-right': convertToUnit(mainRect.value.right),
-      '--v-layout-top': convertToUnit(mainRect.value.top),
-      '--v-layout-bottom': convertToUnit(mainRect.value.bottom),
+      '--sp-layout-left': convertToUnit(mainRect.value.left),
+      '--sp-layout-right': convertToUnit(mainRect.value.right),
+      '--sp-layout-top': convertToUnit(mainRect.value.top),
+      '--sp-layout-bottom': convertToUnit(mainRect.value.bottom),
       ...(transitionsEnabled.value ? undefined : { transition: 'none' }),
     } satisfies CSSProperties
   })

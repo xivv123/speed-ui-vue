@@ -86,7 +86,7 @@ const categories = [
     iconColor: 'teal',
     title: '导航组件',
     subtitle: '菜单、抽屉、侧边栏等导航元素',
-    tags: ['SPMenu', 'SPDrawer', 'SPSidebar', 'SPTour', 'SPGlobalBanner']
+    tags: ['SPMenu', 'SPDrawer', 'SPNavigationDrawer', 'SPSidebar', 'SPTour', 'SPGlobalBanner']
   },
   {
     iconName: 'list-outline',

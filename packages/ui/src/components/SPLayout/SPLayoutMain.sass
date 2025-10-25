@@ -1,0 +1,11 @@
+@use '@theme/src/material/tools' as tools;
+
+@include tools.layer('components')
+  .sp-layout-main
+    flex: 1 1 auto
+    max-width: 100%
+    transition: padding .2s cubic-bezier(0.4, 0, 0.2, 1)
+    padding-left: var(--sp-layout-left)
+    padding-right: var(--sp-layout-right)
+    padding-top: var(--sp-layout-top)
+    padding-bottom: var(--sp-layout-bottom)

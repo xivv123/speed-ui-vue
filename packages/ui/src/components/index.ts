@@ -60,7 +60,7 @@ export * from './SPSidebar'
 // 导航组件
 export * from './SPTour'
 export * from './SPMenu'
-// export * from './SPNavDrawer'
+export * from './SPNavigationDrawer'
 
 // 数据展示组件
 export * from './SPCard'

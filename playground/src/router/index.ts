@@ -47,6 +47,7 @@ const SPMsgBarDemo = () => import('../pages/SPMsgBarDemo.vue')
 // 导航组件
 const SPMenuDemo = () => import('../pages/SPMenuDemo.vue')
 const SPDrawerDemo = () => import('../pages/SPDrawerDemo.vue')
+const SPNavigationDrawerDemo = () => import('../pages/SPNavigationDrawerDemo.vue')
 const SPSidebarDemo = () => import('../pages/SPSidebarDemo.vue')
 const SPTourDemo = () => import('../pages/SPTourDemo.vue')
 const SPGlobalBannerDemo = () => import('../pages/SPGlobalBannerDemo.vue')
@@ -215,6 +216,10 @@ const routes = [
   {
     path: '/:locale/sp-drawer-demo',
     component: SPDrawerDemo,
+  },
+  {
+    path: '/:locale/sp-navigation-drawer-demo',
+    component: SPNavigationDrawerDemo,
   },
   {
     path: '/:locale/sp-sidebar-demo',
