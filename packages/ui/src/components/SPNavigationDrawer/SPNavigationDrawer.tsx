@@ -2,8 +2,8 @@
 import './SPNavigationDrawer.sass'
 
 // Components
+import { SPBtn } from '../SPBtn'
 // import { SPDefaultsProvider } from '@/components/SPDefaultsProvider'
-// import { VImg } from '@/components/VImg'
 
 // Composables
 import { useSticky } from './sticky'
@@ -27,7 +27,15 @@ import { makeThemeProps, provideTheme } from '@/composables/theme'
 import { useToggleScope } from '@/composables/toggleScope'
 
 // Utilities
-import { computed, nextTick, ref, shallowRef, toRef, Transition, watch } from 'vue'
+import {
+  computed,
+  nextTick,
+  ref,
+  shallowRef,
+  toRef,
+  Transition,
+  watch,
+} from 'vue'
 import { genericComponent, propsFactory, toPhysical, useRender } from '@/utils'
 
 // Types
@@ -46,54 +54,58 @@ export type SPNavigationDrawerSlots = {
 
 const locations = ['start', 'end', 'left', 'right', 'top', 'bottom'] as const
 
-export const makeSPNavigationDrawerProps = propsFactory({
-  color: String,
-  disableResizeWatcher: Boolean,
-  disableRouteWatcher: Boolean,
-  expandOnHover: Boolean,
-  floating: Boolean,
-  modelValue: {
-    type: Boolean as PropType<boolean | null>,
-    default: null,
-  },
-  permanent: Boolean,
-  rail: {
-    type: Boolean as PropType<boolean | null>,
-    default: null,
-  },
-  railWidth: {
-    type: [Number, String],
-    default: 56,
-  },
-  scrim: {
-    type: [Boolean, String],
-    default: true,
-  },
-  image: String,
-  temporary: Boolean,
-  persistent: Boolean,
-  touchless: Boolean,
-  width: {
-    type: [Number, String],
-    default: 256,
-  },
-  location: {
-    type: String as PropType<typeof locations[number]>,
-    default: 'start',
-    validator: (value: any) => locations.includes(value),
-  },
-  sticky: Boolean,
+export const makeSPNavigationDrawerProps = propsFactory(
+  {
+    color: String,
+    disableResizeWatcher: Boolean,
+    disableRouteWatcher: Boolean,
+    expandOnHover: Boolean,
+    floating: Boolean,
+    modelValue: {
+      type: Boolean as PropType<boolean | null>,
+      default: null,
+    },
+    permanent: Boolean,
+    rail: {
+      type: Boolean as PropType<boolean | null>,
+      default: null,
+    },
+    railWidth: {
+      type: [Number, String],
+      default: 56,
+    },
+    scrim: {
+      type: [Boolean, String],
+      default: true,
+    },
+    image: String,
+    temporary: Boolean,
+    persistent: Boolean,
+    touchless: Boolean,
+    width: {
+      type: [Number, String],
+      default: 256,
+    },
+    location: {
+      type: String as PropType<(typeof locations)[number]>,
+      default: 'start',
+      validator: (value: any) => locations.includes(value),
+    },
+    sticky: Boolean,
+    onOff: Boolean,
 
-  ...makeBorderProps(),
-  ...makeComponentProps(),
-  ...makeDelayProps(),
-  ...makeDisplayProps({ mobile: null }),
-  ...makeElevationProps(),
-  ...makeLayoutItemProps(),
-  ...makeRoundedProps(),
-  ...makeTagProps({ tag: 'nav' }),
-  ...makeThemeProps(),
-}, 'SPNavigationDrawer')
+    ...makeBorderProps(),
+    ...makeComponentProps(),
+    ...makeDelayProps(),
+    ...makeDisplayProps({ mobile: null }),
+    ...makeElevationProps(),
+    ...makeLayoutItemProps(),
+    ...makeRoundedProps(),
+    ...makeTagProps({ tag: 'nav' }),
+    ...makeThemeProps(),
+  },
+  'SPNavigationDrawer'
+)
 
 export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
   name: 'SPNavigationDrawer',
@@ -105,11 +117,12 @@ export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
     'update:rail': (val: boolean) => true,
   },
 
-  setup (props, { attrs, emit, slots }) {
+  setup(props, { attrs, emit, slots }) {
     const { isRtl } = useRtl()
     const { themeClasses } = provideTheme(props)
     const { borderClasses } = useBorder(props)
-    const { backgroundColorClasses, backgroundColorStyles } = useBackgroundColor(() => props.color)
+    const { backgroundColorClasses, backgroundColorStyles } =
+      useBackgroundColor(() => props.color)
     const { elevationClasses } = useElevation(props)
     const { displayClasses, mobile } = useDisplay(props)
     const { roundedClasses } = useRounded(props)
@@ -126,36 +139,58 @@ export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
     })
 
     const width = computed(() => {
-      return (props.rail && props.expandOnHover && isHovering.value)
+      return props.rail && props.expandOnHover && isHovering.value
         ? Number(props.width)
         : Number(props.rail ? props.railWidth : props.width)
     })
     const location = computed(() => {
-      return toPhysical(props.location, isRtl.value) as 'left' | 'right' | 'bottom'
+      return toPhysical(props.location, isRtl.value) as
+        | 'left'
+        | 'right'
+        | 'top'
+        | 'bottom'
     })
     const isPersistent = toRef(() => props.persistent)
-    const isTemporary = computed(() => !props.permanent && (mobile.value || props.temporary))
-    const isSticky = computed(() =>
-      props.sticky &&
-      !isTemporary.value &&
-      location.value !== 'bottom'
+    const isTemporary = computed(
+      () => !props.permanent && (mobile.value || props.temporary)
+    )
+    const isSticky = computed(
+      () => props.sticky && !isTemporary.value && location.value !== 'bottom'
     )
 
-    useToggleScope(() => props.expandOnHover && props.rail != null, () => {
-      watch(isHovering, val => emit('update:rail', !val))
-    })
+    useToggleScope(
+      () => props.expandOnHover && props.rail != null,
+      () => {
+        watch(isHovering, val => emit('update:rail', !val))
+      }
+    )
 
-    useToggleScope(() => !props.disableResizeWatcher, () => {
-      watch(isTemporary, val => !props.permanent && (nextTick(() => isActive.value = !val)))
-    })
+    useToggleScope(
+      () => !props.disableResizeWatcher,
+      () => {
+        watch(
+          isTemporary,
+          val => !props.permanent && nextTick(() => (isActive.value = !val))
+        )
+      }
+    )
 
-    useToggleScope(() => !props.disableRouteWatcher && !!router, () => {
-      watch(router!.currentRoute, () => isTemporary.value && (isActive.value = false))
-    })
+    useToggleScope(
+      () => !props.disableRouteWatcher && !!router,
+      () => {
+        watch(
+          router!.currentRoute,
+          () => isTemporary.value && (isActive.value = false)
+        )
+      }
+    )
 
-    watch(() => props.permanent, val => {
-      if (val) isActive.value = true
-    })
+    watch(
+      () => props.permanent,
+      val => {
+        if (val) isActive.value = true
+      }
+    )
 
     if (props.modelValue == null && !isTemporary.value) {
       isActive.value = props.permanent || !mobile.value
@@ -196,7 +231,9 @@ export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
       // rail 模式或 permanent 模式下不使用绝对定位，让导航抽屉占据布局空间
       if (!isTemporary.value && (props.rail || props.permanent)) return false
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      return props.absolute || (isSticky.value && typeof isStuck.value !== 'string')
+      return (
+        props.absolute || (isSticky.value && typeof isStuck.value !== 'string')
+      )
     })
 
     const { layoutItemStyles, layoutItemScrimStyles } = useLayoutItem({
@@ -215,16 +252,22 @@ export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
       absolute: absoluteValue,
     })
 
-    const { isStuck, stickyStyles } = useSticky({ rootEl, isSticky, layoutItemStyles })
+    const { isStuck, stickyStyles } = useSticky({
+      rootEl,
+      isSticky,
+      layoutItemStyles,
+    })
 
     const scrimColor = useBackgroundColor(() => {
       return typeof props.scrim === 'string' ? props.scrim : null
     })
     const scrimStyles = computed(() => ({
-      ...isDragging.value ? {
-        opacity: dragProgress.value * 0.2,
-        transition: 'none',
-      } : undefined,
+      ...(isDragging.value
+        ? {
+            opacity: dragProgress.value * 0.2,
+            transition: 'none',
+          }
+        : undefined),
       ...layoutItemScrimStyles.value,
     }))
 
@@ -234,15 +277,60 @@ export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
       },
     })
 
+    const toggleDrawer = () => {
+      isActive.value = !isActive.value
+    }
+
+    const isHorizontal = computed(
+      () => location.value === 'left' || location.value === 'right'
+    )
+    const drawerSize = computed(() =>
+      isActive.value ? width.value : props.rail ? Number(props.railWidth) : 0
+    )
+
+    const toggleBtnIcon = computed(() => {
+      const iconMap = {
+        left: isActive.value ? 'chevronLeft' : 'chevronRight',
+        right: isActive.value ? 'chevronRight' : 'chevronLeft',
+        bottom: isActive.value ? 'chevronDown' : 'chevronUp',
+        top: isActive.value ? 'chevronUp' : 'chevronDown',
+      }
+      return iconMap[location.value as keyof typeof iconMap]
+    })
+
+    const toggleBtnStyles = computed(() => {
+      const baseStyles: any = {
+        position: 'fixed' as const,
+        zIndex: layoutItemStyles.value.zIndex
+          ? Number(layoutItemStyles.value.zIndex) + 1
+          : 1001,
+        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+      }
+
+      if (isHorizontal.value) {
+        // 左右位置：按钮在垂直中间，使用 transform 让按钮横向居中在抽屉边缘
+        baseStyles[location.value] = `${drawerSize.value}px`
+        baseStyles.top = '50%'
+        baseStyles.transform = 'translate(-50%, -50%)'
+      } else {
+        // 上下位置：按钮在水平中间
+        baseStyles[location.value] = `${drawerSize.value}px`
+        baseStyles.left = '50%'
+        baseStyles.transform = 'translate(-50%, -50%)'
+      }
+
+      return baseStyles
+    })
+
     useRender(() => {
-      const hasImage = (slots.image || props.image)
+      const Tag = props.tag as any
 
       return (
         <>
-          <props.tag
-            ref={ rootEl }
-            onMouseenter={ runOpenDelay }
-            onMouseleave={ runCloseDelay }
+          <Tag
+            ref={rootEl}
+            onMouseenter={runOpenDelay}
+            onMouseleave={runCloseDelay}
             class={[
               'sp-navigation-drawer',
               `sp-navigation-drawer--${location.value}`,
@@ -271,40 +359,53 @@ export const SPNavigationDrawer = genericComponent<SPNavigationDrawerSlots>()({
               stickyStyles.value,
               props.style,
             ]}
-            { ...scopeId }
-            { ...attrs }
+            {...scopeId}
+            {...attrs}
           >
-            
-
-            { slots.prepend && (
+            {slots.prepend && (
               <div class="sp-navigation-drawer__prepend">
-                { slots.prepend?.() }
+                {slots.prepend?.()}
               </div>
             )}
 
-            <div class="sp-navigation-drawer__content">
-              { slots.default?.() }
-            </div>
+            <div class="sp-navigation-drawer__content">{slots.default?.()}</div>
 
-            { slots.append && (
-              <div class="sp-navigation-drawer__append">
-                { slots.append?.() }
-              </div>
+            {slots.append && (
+              <div class="sp-navigation-drawer__append">{slots.append?.()}</div>
             )}
-          </props.tag>
+          </Tag>
+
+          {props.onOff && !isTemporary.value && (
+            <SPBtn
+              class="sp-navigation-drawer__toggle"
+              icon={toggleBtnIcon.value}
+              size="small"
+              variant="elevated"
+              onClick={toggleDrawer}
+              style={toggleBtnStyles.value}
+            />
+          )}
 
           <Transition name="fade-transition">
-            { isTemporary.value && (isDragging.value || isActive.value) && !!props.scrim && (
-              <div
-                class={['sp-navigation-drawer__scrim', scrimColor.backgroundColorClasses.value]}
-                style={[scrimStyles.value, scrimColor.backgroundColorStyles.value]}
-                onClick={ () => {
-                  if (isPersistent.value) return
-                  isActive.value = false
-                }}
-                { ...scopeId }
-              />
-            )}
+            {isTemporary.value &&
+              (isDragging.value || isActive.value) &&
+              !!props.scrim && (
+                <div
+                  class={[
+                    'sp-navigation-drawer__scrim',
+                    scrimColor.backgroundColorClasses.value,
+                  ]}
+                  style={[
+                    scrimStyles.value,
+                    scrimColor.backgroundColorStyles.value,
+                  ]}
+                  onClick={() => {
+                    if (isPersistent.value) return
+                    isActive.value = false
+                  }}
+                  {...scopeId}
+                />
+              )}
           </Transition>
         </>
       )

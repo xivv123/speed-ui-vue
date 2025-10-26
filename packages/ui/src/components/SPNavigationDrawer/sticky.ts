@@ -43,7 +43,7 @@ export function useSticky ({ rootEl, isSticky, layoutItemStyles }: StickyProps) 
   function onScroll () {
     const direction = lastScrollTop > window.scrollY ? 'up' : 'down'
     const rect = rootEl.value!.getBoundingClientRect()
-    const layoutTop = parseFloat(layoutItemStyles.value.top ?? 0)
+    const layoutTop = parseFloat(String(layoutItemStyles.value.top ?? 0))
     const top = window.scrollY - Math.max(0, stuckPosition.value - layoutTop)
     const bottom =
       rect.height +

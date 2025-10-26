@@ -129,6 +129,7 @@
             :rail="railDrawer"
             :rail-width="45"
             :width="256"
+            location="top"
             permanent
 
           >
@@ -284,7 +285,43 @@
 
     <sp-space :size="24" />
 
+    <!-- 切换按钮 -->
+    <DemoSection title="切换按钮" subtitle="使用 on-off 属性显示切换按钮">
+      <div class="demo-layout">
+        <sp-layout height="400px">
+          <sp-navigation-drawer
+            v-model="toggleDrawer"
+            on-off
+            permanent
+            :width="256"
+          >
+            <sp-list activatable>
+              <sp-list-subheader>左侧导航</sp-list-subheader>
+              <sp-list-item>
+                <sp-list-item-media>🏠</sp-list-item-media>
+                <sp-list-item-title>菜单项 1</sp-list-item-title>
+              </sp-list-item>
+              <sp-list-item>
+                <sp-list-item-media>📊</sp-list-item-media>
+                <sp-list-item-title>菜单项 2</sp-list-item-title>
+              </sp-list-item>
+              <sp-list-item>
+                <sp-list-item-media>⚙️</sp-list-item-media>
+                <sp-list-item-title>菜单项 3</sp-list-item-title>
+              </sp-list-item>
+            </sp-list>
+          </sp-navigation-drawer>
 
+          <sp-layout-main>
+            <div class="main-content">
+              <h3>主要内容区域</h3>
+              <p>点击边缘的按钮可以切换导航抽屉的显示/隐藏</p>
+              <p>导航抽屉状态: {{ toggleDrawer ? '打开' : '关闭' }}</p>
+            </div>
+          </sp-layout-main>
+        </sp-layout>
+      </div>
+    </DemoSection>
 
   </DemoContainer>
 </template>
@@ -318,6 +355,9 @@ const tempDrawer = ref(false)
 // 不同宽度
 const narrowDrawer = ref(false)
 const wideDrawer = ref(false)
+
+// 切换按钮
+const toggleDrawer = ref(true)
 
 // 自定义样式
 const styledDrawer = ref(true)
