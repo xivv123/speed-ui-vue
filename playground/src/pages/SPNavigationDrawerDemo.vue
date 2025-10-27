@@ -340,7 +340,7 @@ const leftDrawer = ref(false)
 const rightDrawer = ref(false)
 
 // 永久显示
-const permanentDrawer = ref(false)
+const permanentDrawer = ref(true)
 
 // Rail 模式
 const railDrawer = ref(true)

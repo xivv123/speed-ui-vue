@@ -776,3 +776,50 @@
 .sp-overlay__scrim.fade-transition-leave-to {
   opacity: 0 !important;
 }
+
+/* 修复 SPNavigationDrawer 边框显示问题 */
+.sp-navigation-drawer--left {
+  border-right: thin solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.sp-navigation-drawer--right {
+  border-left: thin solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.sp-navigation-drawer--top {
+  border-bottom: thin solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.sp-navigation-drawer--bottom {
+  border-top: thin solid rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* 强制显示 SPNavigationDrawer 边框 - 最高优先级 */
+nav.sp-navigation-drawer.sp-navigation-drawer--left,
+.sp-navigation-drawer.sp-navigation-drawer--left {
+  border-right-width: thin !important;
+  border-right-style: solid !important;
+  border-right-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+nav.sp-navigation-drawer.sp-navigation-drawer--right,
+.sp-navigation-drawer.sp-navigation-drawer--right {
+  border-left-width: thin !important;
+  border-left-style: solid !important;
+  border-left-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+nav.sp-navigation-drawer.sp-navigation-drawer--top,
+.sp-navigation-drawer.sp-navigation-drawer--top {
+  border-bottom-width: thin !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+nav.sp-navigation-drawer.sp-navigation-drawer--bottom,
+.sp-navigation-drawer.sp-navigation-drawer--bottom {
+  border-top-width: thin !important;
+  border-top-style: solid !important;
+  border-top-color: rgba(0, 0, 0, 0.12) !important;
+}

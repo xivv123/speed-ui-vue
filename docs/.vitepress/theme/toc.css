@@ -254,7 +254,8 @@
 }
 
 /* 移除所有可能的content边框 */
-[class*='content'] {
+.VPDoc [class*='content'],
+.VPContent [class*='content']:not([class*='sp-']) {
   border-left: none !important;
   border: none !important;
 }

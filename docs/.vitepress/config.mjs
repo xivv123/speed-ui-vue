@@ -28,6 +28,13 @@ export default defineConfig({
     },
   },
   vite: {
+    vue: {
+      template: {
+        compilerOptions: {
+          isCustomElement: () => false
+        }
+      }
+    },
     plugins: [
       caseFilePlugin(),
       // imageOptimizerPlugin(), // 暂时禁用，可能导致问题
@@ -170,7 +177,10 @@ export default defineConfig({
         },
         {
           text: 'Navigation 导航组件',
-          items: [{ text: 'menu菜单', link: '/components/menu' }],
+          items: [
+            { text: 'menu菜单', link: '/components/menu' },
+            { text: 'navigationdrawer导航抽屉', link: '/components/navigationdrawer' },
+          ],
         },
         {
           text: 'Data Display 数据展示',

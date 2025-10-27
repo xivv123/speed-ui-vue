@@ -4,24 +4,24 @@
 
 :root {
   /* 品牌色彩 */
-  --vp-c-brand-1: #197AAB;
-  --vp-c-brand-2: #2B8BC7;
-  --vp-c-brand-3: #4A9FD1;
+  --vp-c-brand-1: #197aab;
+  --vp-c-brand-2: #2b8bc7;
+  --vp-c-brand-3: #4a9fd1;
   --vp-c-brand-soft: rgba(25, 122, 171, 0.14);
 
   /* 渐变色 */
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: linear-gradient(
     135deg,
-    #197AAB 0%,
-    #2B8BC7 50%,
-    #4A9FD1 100%
+    #197aab 0%,
+    #2b8bc7 50%,
+    #4a9fd1 100%
   );
 
   /* 自定义颜色 */
-  --speed-gradient-1: linear-gradient(135deg, #197AAB 0%, #2B8BC7 100%);
-  --speed-gradient-2: linear-gradient(135deg, #4A9FD1 0%, #197AAB 100%);
-  --speed-gradient-3: linear-gradient(135deg, #2B8BC7 0%, #4A9FD1 100%);
+  --speed-gradient-1: linear-gradient(135deg, #197aab 0%, #2b8bc7 100%);
+  --speed-gradient-2: linear-gradient(135deg, #4a9fd1 0%, #197aab 100%);
+  --speed-gradient-3: linear-gradient(135deg, #2b8bc7 0%, #4a9fd1 100%);
   --speed-shadow: 0 10px 25px rgba(25, 122, 171, 0.1);
 
   /* VitePress 布局变量 */
@@ -71,7 +71,7 @@
   right: 10%;
   width: 100px;
   height: 100px;
-  background: linear-gradient(45deg, #197AAB, #2B8BC7);
+  background: linear-gradient(45deg, #197aab, #2b8bc7);
   border-radius: 50%;
   opacity: 0.1;
   animation: float 6s ease-in-out infinite;
@@ -86,7 +86,7 @@
   left: 5%;
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #4A9FD1, #197AAB);
+  background: linear-gradient(135deg, #4a9fd1, #197aab);
   border-radius: 12px;
   opacity: 0.08;
   animation: float 8s ease-in-out infinite reverse;
@@ -175,7 +175,9 @@
   margin-bottom: 20px !important;
 }
 
-.VPHero .name::before { content: none !important; }
+.VPHero .name::before {
+  content: none !important;
+}
 
 @keyframes titleGlow {
   0% {
@@ -238,7 +240,7 @@
 }
 
 .VPButton.brand {
-  background: linear-gradient(135deg, #197AAB 0%, #2B8BC7 100%) !important;
+  background: linear-gradient(135deg, #197aab 0%, #2b8bc7 100%) !important;
   border: none !important;
   box-shadow: var(--speed-shadow) !important;
   transition: all 0.3s ease !important;
@@ -270,7 +272,7 @@
 .VPButton.brand:hover {
   transform: translateY(-2px) scale(1.05) !important;
   box-shadow: 0 15px 35px rgba(25, 122, 171, 0.3) !important;
-  background: linear-gradient(135deg, #2B8BC7 0%, #4A9FD1 100%) !important;
+  background: linear-gradient(135deg, #2b8bc7 0%, #4a9fd1 100%) !important;
 }
 
 .VPButton.alt {
@@ -290,7 +292,7 @@
   left: 0;
   width: 0;
   height: 100%;
-  background: linear-gradient(135deg, #197AAB 0%, #2B8BC7 100%);
+  background: linear-gradient(135deg, #197aab 0%, #2b8bc7 100%);
   transition: width 0.3s ease;
   z-index: -1;
 }
@@ -775,7 +777,7 @@
 
 .sp-overlay__scrim.fade-transition-leave-to {
   opacity: 0 !important;
-}/**
+} /**
  * VPSidebar 自定义样式
  * 为 VitePress 文档站点的侧边栏提供简洁现代的视觉效果
  */
@@ -966,13 +968,13 @@
   display: none !important;
 }
 
-/* 强制移除导航栏的所有边框，但保留主导航栏的阴影 */
-.VPNavBar.screen-open,
-.VPNavBar:not(.home):not(.has-sidebar),
-nav:not(.VPNavBar),
-header:not(.VPNavBar),
-.navbar:not(.VPNavBar),
-.header:not(.VPNavBar) {
+/* 强制移除导航栏的所有边框，但保留主导航栏的阴影，排除 sp- 组件 */
+.VPNavBar.screen-open:not([class*='sp-']),
+.VPNavBar:not(.home):not(.has-sidebar):not([class*='sp-']),
+nav:not(.VPNavBar):not([class*='sp-']),
+header:not(.VPNavBar):not([class*='sp-']),
+.navbar:not(.VPNavBar):not([class*='sp-']),
+.header:not(.VPNavBar):not([class*='sp-']) {
   border-bottom: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -1240,7 +1242,8 @@ header:not(.VPNavBar),
 .VPDocAsideOutline .outline-link.active::before {
   background: var(--vp-c-brand-1) !important;
   transform: scale(1.3) !important;
-  box-shadow: 0 0 0 2px color-mix(in oklab, var(--vp-c-brand-1) 40%, transparent) !important;
+  box-shadow: 0 0 0 2px
+    color-mix(in oklab, var(--vp-c-brand-1) 40%, transparent) !important;
 }
 
 /* 不同层级的缩进 */
@@ -1325,7 +1328,8 @@ header:not(.VPNavBar),
 
 .dark .VPDocAsideOutline .outline-link.active::before {
   background: var(--vp-c-brand-1) !important;
-  box-shadow: 0 0 0 2px color-mix(in oklab, var(--vp-c-brand-1) 40%, transparent) !important;
+  box-shadow: 0 0 0 2px
+    color-mix(in oklab, var(--vp-c-brand-1) 40%, transparent) !important;
 }
 
 .dark .VPDocAside::-webkit-scrollbar-thumb {
@@ -1378,7 +1382,8 @@ header:not(.VPNavBar),
 }
 
 /* 移除所有可能的content边框 */
-[class*='content'] {
+.VPDoc [class*='content'],
+.VPContent [class*='content']:not([class*='sp-']) {
   border-left: none !important;
   border: none !important;
 }
@@ -1392,7 +1397,7 @@ header:not(.VPNavBar),
   --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     'Microsoft YaHei', '微软雅黑', STXihei, '华文细黑', sans-serif;
-  
+
   --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono',
     Consolas, 'Courier New', monospace;
 }
@@ -1400,9 +1405,8 @@ header:not(.VPNavBar),
 /* 如果需要加载自定义字体，使用 font-display: swap */
 @font-face {
   font-family: 'Custom Font';
-  src: local('Custom Font'),
-       url('/fonts/custom-font.woff2') format('woff2'),
-       url('/fonts/custom-font.woff') format('woff');
+  src: local('Custom Font'), url('/fonts/custom-font.woff2') format('woff2'),
+    url('/fonts/custom-font.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap; /* 关键：避免字体加载阻塞渲染 */
@@ -1464,7 +1468,7 @@ header:not(.VPNavBar),
 .VPLocalNav .menu-text,
 .VPLocalNav button,
 .VPLocalNav .VPMenuLink,
-.VPLocalNav [class*="menu"],
+.VPLocalNav [class*='menu'],
 .VPLocalNav .icon {
   display: inline-flex !important;
   align-items: center !important;
